@@ -1,109 +1,113 @@
 ﻿CREATE DATABASE CHNONGSAN
 GO
+
 USE CHNONGSAN
 GO
 
-CREATE TABLE nhomhang (
-    ma_nhomhang    INT IDENTITY PRIMARY KEY,
-    ten_nhomhang   NVARCHAR(50)
+CREATE TABLE NhomHang (
+    MaNhomHang INT IDENTITY PRIMARY KEY,
+    TenNhomHang NVARCHAR(50) NOT NULL UNIQUE,
+	TrangThai BIT DEFAULT 1
 )
 
-INSERT INTO nhomhang (ten_nhomhang) VALUES (N'Trái cây');
+INSERT INTO NhomHang(TenNhomHang) VALUES (N'Trái cây');
 
-CREATE TABLE hanghoa 
+CREATE TABLE NhaCungCap
 (
-    ma_hang       INT  IDENTITY PRIMARY KEY,
-    ma_nhomhang   INT,
-    tenhang       NVARCHAR(50),
-    dvt           NVARCHAR(20), 
-    giaban INT,
-    gianhap INT,
-    hinhanh VARCHAR(50),
-    soluongton INT,
-    CONSTRAINT fk_hanhghoa_nhomhang FOREIGN KEY ( ma_nhomhang )
-        REFERENCES nhomhang ( ma_nhomhang )
+	MaNCC INT IDENTITY PRIMARY KEY,
+    TenNCC NVARCHAR(50) NOT NULL UNIQUE,
+    SDT VARCHAR(11) DEFAULT N'Chưa xác định',
+    DiaChi NVARCHAR(50) DEFAULT N'Chưa xác định',
+	TrangThai BIT DEFAULT 1
 )
 
-INSERT INTO hanghoa (MA_NHOMHANG, TENHANG, DVT, GIABAN, GIANHAP, HINHANH, SOLUONGTON)
+INSERT INTO NhaCungCap(TenNCC, SDT, DiaChi) VALUES ('Fruit Anna', '092345678', 'TP.HCM')
+
+CREATE TABLE HangHoa 
+(
+    MaHang INT IDENTITY PRIMARY KEY,
+    MaNhomHang INT NOT NULL,
+	MaNCC INT NOT NULL,
+    TenHang NVARCHAR(50) NOT NULL UNIQUE,
+    DVT NVARCHAR(20) DEFAULT N'Chưa xác định', 
+    GiaBan FLOAT NOT NULL,
+	HeSo FLOAT DEFAULT 1.2,
+    GiaNhap FLOAT NOT NULL,
+    HinhAnh VARCHAR(50) DEFAULT N'Chưa xác định',
+    SoLuongTon INT DEFAULT 0,
+	TrangThai BIT DEFAULT 1,
+    CONSTRAINT FK_HangHoa_NhomHang FOREIGN KEY (MaNhomHang) REFERENCES NhomHang(MaNhomHang),
+	CONSTRAINT FK_HangHoa_NhaCungCap FOREIGN KEY (MaNCC) REFERENCES NhaCungCap(MaNCC)
+)
+
+INSERT INTO HangHoa (MaNhomHang, MaNCC, TenHang, DVT, GiaBan, GiaNhap, HinhAnh, SoLuongTon)
 VALUES
-(1, N'Chuối', 'Kg', 10000, 80000, 'chuoi.jpg', 10);
+(1, 1, N'Chuối', 'Kg', 10000, 80000, 'chuoi.jpg', 10);
 
-CREATE TABLE nhacungcap
+CREATE TABLE NhanVien
 (
-        ma_ncc INT  IDENTITY PRIMARY KEY,
-        ten_ncc NVARCHAR(50),
-        sdt_ncc varchar(11),
-        diachi NVARCHAR(50)
+    MaNV INT IDENTITY PRIMARY KEY,
+    TenNV NVARCHAR(50) NOT NULL,
+    SDT VARCHAR(11) DEFAULT N'Chưa xác định',
+    UserName VARCHAR(30) NOT NULL UNIQUE,
+    Password VARCHAR(30) NOT NULL,
+    ChucVu NVARCHAR(50) DEFAULT N'Nhân viên',
+	DiaChi NVARCHAR(50) DEFAULT N'Chưa xác định',
+	TrangThai BIT DEFAULT 1
 )
 
-CREATE TABLE nhanvien
+CREATE TABLE KhachHang
 (
-    ma_nv INT  IDENTITY PRIMARY KEY,
-    ten_nv NVARCHAR(50),
-    sdt varchar(11),
-    username varchar(30),
-    password varchar(30),
-    chuc_vu nvarchar(50),
+    MaKH INT IDENTITY PRIMARY KEY,
+    TenKH NVARCHAR(50) NOT NULL,
+    SDT varchar(11) DEFAULT N'Chưa xác định',
+	DiaChi nvarchar(50) DEFAULT N'Chưa xác định',
+	TrangThai BIT DEFAULT 1
 )
 
-CREATE TABLE khachhang
+CREATE TABLE HoaDon
 (
-    ma_kh INT  IDENTITY PRIMARY KEY,
-    ten_kh NVARCHAR(50),
-    sdt varchar(11),
-	diachi nvarchar(50)
+    MaHD INT IDENTITY PRIMARY KEY,
+    MaNV INT NOT NULL,
+    MaKH INT,
+    NgayTao DATETIME DEFAULT GETDATE(),
+    TongTien FLOAT NOT NULL,
+	TrangThai NVARCHAR(50) DEFAULT N'Đang xử lý',
+    CONSTRAINT FK_HoaDon_NhanVien FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV),
+    CONSTRAINT FK_HoaDon_KhachHang FOREIGN KEY (MaKH) REFERENCES KhachHang (MaKH)
 )
 
-CREATE TABLE hoadon
+CREATE TABLE ChiTietHoaDon
 (
-    ma_hd INT  IDENTITY PRIMARY KEY,
-    ma_nv INT,
-    ma_kh INT,
-    ngay_tao Date,
-    tongtien INT,
-    CONSTRAINT fk_hoadon_nhanvien FOREIGN KEY ( ma_nv )
-        REFERENCES nhanvien ( ma_nv ),
-    CONSTRAINT fk_hoadon_khachhang FOREIGN KEY ( ma_kh )
-        REFERENCES khachhang ( ma_kh )
+    MaHang INT NOT NULL,
+    MaHD INT NOT NULL,
+    SoLuong INT DEFAULT 1,
+    ThanhTien FLOAT NOT NULL,
+    CONSTRAINT PK_ChiTietHoaDon primary key (MaHang, MaHD),
+    CONSTRAINT FK_ChiTietHoaDon_mahang FOREIGN KEY (MaHang) REFERENCES HangHoa(MaHang),
+    CONSTRAINT FK_ChiTietHoaDon_HoaDon FOREIGN KEY (MaHD) REFERENCES HoaDon(MaHD)
 )
 
-CREATE TABLE chitiethoadon
+CREATE TABLE PhieuNhap
 (
-    ma_hang INT,
-    ma_hd INT,
-    giaban INT,
-    soluong int,
-    thanhtien INT,
-    constraint pk_chitiethoadon primary key (ma_hang, ma_hd),
-    CONSTRAINT fk_chitiethoadon_mahang FOREIGN KEY ( ma_hang )
-        REFERENCES hanghoa ( ma_hang ),
-    CONSTRAINT fk_chitiethoadon_hoadon FOREIGN KEY ( ma_hd )
-        REFERENCES hoadon ( ma_hd )
+    MaPN INT IDENTITY PRIMARY KEY,
+    MaNV INT NOT NULL,
+    MaNCC INT NOT NULL,
+    NgayNhap DATETIME DEFAULT GETDATE(),
+    TongTien FLOAT NOT NULL,
+	TrangThai NVARCHAR(50) DEFAULT N'Đang xử lý',
+    CONSTRAINT FK_PhieuNhap_NhanVien FOREIGN KEY (MaNV) REFERENCES NhanVien (MaNV),
+    CONSTRAINT FK_PhieuNhap_NhaCungCap FOREIGN KEY (MaNCC) REFERENCES NhaCungCap (MaNCC) 
 )
 
-CREATE TABLE phieunhap
+CREATE TABLE ChiTietPhieuNhap
 (
-    ma_pn INT  IDENTITY PRIMARY KEY,
-    ma_nv INT,
-    ma_ncc INT,
-    ngay_nhap Date,
-    tongtien INT,
-    CONSTRAINT fk_phieunhap_nhanvien FOREIGN KEY ( ma_nv )
-        REFERENCES nhanvien ( ma_nv ),
-    CONSTRAINT fk_phieunhap_nhacungcap FOREIGN KEY ( ma_ncc )
-        REFERENCES nhacungcap ( ma_ncc ) 
-)
-
-CREATE TABLE chitietphieunhap
-(
-    ma_pn int,
-    ma_hang int,
-    gianhap INT,
-    soluong int,
-    thanhtien INT,
-    constraint pk_chitietphieunhap primary key (ma_pn, ma_hang),
-    CONSTRAINT fk_chitietphieunhap_mahang FOREIGN KEY ( ma_hang )
-        REFERENCES hanghoa ( ma_hang ),
-    CONSTRAINT fk_chitietphieunhap_phieunhap FOREIGN KEY ( ma_pn )
-        REFERENCES phieunhap ( ma_pn ) 
+    MaPN INT NOT NULL,
+    MaHang INT NOT NULL,
+    GiaNhap INT NOT NULL,
+    SoLuong INT DEFAULT 5,
+    ThanhTien INT NOT NULL,
+    CONSTRAINT PK_ChiTietPhieuNhap primary key (MaPN, MaHang),
+    CONSTRAINT FK_ChiTietPhieuNhap_MaHang FOREIGN KEY (MaHang) REFERENCES HangHoa (MaHang),
+    CONSTRAINT FK_ChiTietPhieuNhap_phieunhap FOREIGN KEY (MaPN) REFERENCES PhieuNhap (MaPN) 
 )
