@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package DAO;
+
 import DTO.HangHoa;
 import java.awt.List;
 import java.sql.ResultSet;
@@ -28,7 +29,7 @@ public class HangHoaDAO {
 
     }
 
-    public ArrayList<HangHoa> loadListHangHoa() {
+    public ArrayList<HangHoa> getListHangHoa() {
         ArrayList<HangHoa> listHH = new ArrayList<HangHoa>();
         try {
             ResultSet rs = DataProvider.getInstance().executeQuery("Select * from hanghoa");
@@ -43,12 +44,16 @@ public class HangHoaDAO {
         return listHH;
     }
 
-    public String inHangHoa() {
-        ArrayList<HangHoa> listHH = loadListHangHoa();
-        String tenHang = "";
-        for (HangHoa i : listHH) {
-            tenHang = i.getTenHang();
-        }
-        return String.valueOf(tenHang);
+    public HangHoa getHangHoa(int maHH) {
+        ResultSet rs = DataProvider.getInstance().executeQuery("Select * from hanghoa where MaHangHoa=" + maHH);
+        HangHoa hanghoa = new HangHoa(rs);
+        return hanghoa;
+    }
+
+    public int updateHangHoa(HangHoa hanghoa) {
+        int rs = DataProvider.getInstance().executeNonQuery("Update hanghoa set MaNhomHang=" + hanghoa.getMaNhomHang() + ", MaNCC=" + hanghoa.getMaNCC() + 
+        ", TenHang=N'" + hanghoa.getTenHang() + "', DVT=N'" + hanghoa.getdVT() + "', GiaNhap=" + hanghoa.getGiaNhap()+ ", HeSo=" + hanghoa.getHeSo() + ", HinhAnh='" + hanghoa.getHinhAnh() +
+        "', TrangThai='" + hanghoa.getTrangThai() + "'");
+        return rs;
     }
 }

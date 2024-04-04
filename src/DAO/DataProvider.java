@@ -20,7 +20,7 @@ public class DataProvider {
     // Phương thức khởi tạo private để ngăn chặn việc tạo instance từ bên ngoài.
     private DataProvider() {
         try {
-            
+
             // Kết nối đến cơ sở dữ liệu
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         } catch (SQLException e) {
@@ -46,6 +46,17 @@ public class DataProvider {
             e.printStackTrace();
         }
         return resultSet;
+    }
+
+    public int executeNonQuery(String query) {
+        int affectedRows = 0;
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            affectedRows = statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return affectedRows;
     }
 
     // Gọi stored procedure không trả về kết quả

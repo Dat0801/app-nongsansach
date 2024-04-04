@@ -38,14 +38,14 @@ public class BanHangJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(156, 156, 156)
                 .addComponent(jLabel1)
-                .addContainerGap(191, Short.MAX_VALUE))
+                .addContainerGap(810, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(78, 78, 78)
                 .addComponent(jLabel1)
-                .addContainerGap(206, Short.MAX_VALUE))
+                .addContainerGap(522, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
