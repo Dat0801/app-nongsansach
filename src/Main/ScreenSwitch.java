@@ -17,7 +17,6 @@ import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
-import java.util.Timer;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 

@@ -14,8 +14,17 @@ import java.sql.SQLException;
 public class HangHoa {
 
     int maHang, maNhomHang, maNCC, soLuongTon;
+    boolean trangThai;
     String tenHang, dVT, hinhAnh;
     double giaBan, giaNhap, heSo;
+
+    public void setTrangThai(boolean trangThai) {
+        this.trangThai = trangThai;
+    }
+
+    public boolean getTrangThai() {
+        return trangThai;
+    }
 
     public int getMaHang() {
         return maHang;
@@ -110,12 +119,12 @@ public class HangHoa {
             this.soLuongTon = rs.getInt("SoLuongTon");
             this.dVT = rs.getString("DVT");
             this.hinhAnh = rs.getString("HinhAnh");
-            this.giaBan = rs.getDouble("GiaBan");           
-            this.giaBan = rs.getDouble("HeSo");
+            this.giaBan = rs.getDouble("GiaBan");
+            this.heSo = rs.getDouble("HeSo");
             this.giaNhap = rs.getDouble("GiaNhap");
+            this.trangThai = rs.getBoolean("TrangThai");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 }
