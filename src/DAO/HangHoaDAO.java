@@ -45,15 +45,30 @@ public class HangHoaDAO {
     }
 
     public HangHoa getHangHoa(int maHH) {
-        ResultSet rs = DataProvider.getInstance().executeQuery("Select * from hanghoa where MaHangHoa=" + maHH);
-        HangHoa hanghoa = new HangHoa(rs);
+        ResultSet rs = DataProvider.getInstance().executeQuery("Select * from hanghoa where MaHang=" + maHH);
+        HangHoa hanghoa = null;
+        try {
+            while (rs.next()) {
+                hanghoa = new HangHoa(rs);
+            }
+        } catch (SQLException ex) {
+            // Handle the SQLException appropriately
+            ex.printStackTrace(); // For example, printing the stack trace
+        }
         return hanghoa;
     }
 
     public int updateHangHoa(HangHoa hanghoa) {
         int rs = DataProvider.getInstance().executeNonQuery("Update hanghoa set MaNhomHang=" + hanghoa.getMaNhomHang() + ", MaNCC=" + hanghoa.getMaNCC() + 
         ", TenHang=N'" + hanghoa.getTenHang() + "', DVT=N'" + hanghoa.getdVT() + "', GiaNhap=" + hanghoa.getGiaNhap()+ ", HeSo=" + hanghoa.getHeSo() + ", HinhAnh='" + hanghoa.getHinhAnh() +
-        "', TrangThai='" + hanghoa.getTrangThai() + "'");
+        "', TrangThai='" + hanghoa.getTrangThai() + "' where MaHang=" + hanghoa.getMaHang());
+        return rs;
+    }
+    
+    public int insertHangHoa(HangHoa hanghoa) {
+        int rs = DataProvider.getInstance().executeNonQuery("Insert into hanghoa values(" + hanghoa.getMaNhomHang() + ", " + hanghoa.getMaNCC() + 
+        ", N'" + hanghoa.getTenHang() + "', N'" + hanghoa.getdVT() + "', " + 0 + ", " + hanghoa.getHeSo()+ ", " + hanghoa.getGiaNhap()+ ", '" + hanghoa.getHinhAnh() +
+        "', '" + hanghoa.getTrangThai() + "')");
         return rs;
     }
 }

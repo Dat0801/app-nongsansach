@@ -27,51 +27,58 @@ public class HangHoaJFrame extends javax.swing.JFrame {
      */
     int flag = 0;
 
-    public HangHoaJFrame(int flag) {
+    public HangHoaJFrame(HangHoa hangHoa, int flag) {
         initComponents();
-        setComboBoxNHH();
-        setComboBoxNCC();
+        setView(hangHoa);
         this.flag = flag;
     }
 
-    public HangHoaJFrame(HangHoa hangHoa) {
-        initComponents();
-        setView(hangHoa);
-        setComboBoxNHH();
-        setComboBoxNCC();
-    }
-
     public void setView(HangHoa hangHoa) {
-        jtfMaHH.setText(hangHoa.getMaHang() + "");
-        jtfTenHH.setText(hangHoa.getTenHang());
-        jtfHinhAnh.setText(hangHoa.getHinhAnh());
-        jtfDVT.setText(hangHoa.getdVT());
-        jtfGiaBan.setText(hangHoa.getGiaBan() + "");
-        jtfHeSo.setText(hangHoa.getHeSo() + "");
-        jtfGiaNhap.setText(hangHoa.getGiaNhap() + "");
-        jtfHinhAnh.setText(hangHoa.getHinhAnh());
-        jtfSoLuongTon.setText(hangHoa.getSoLuongTon() + "");
-        jchkTrangThai.setSelected(hangHoa.getTrangThai());
+        if (hangHoa != null) {
+            jtfMaHH.setText(hangHoa.getMaHang() + "");
+            setComboBoxNHH(hangHoa);
+            setComboBoxNCC(hangHoa);
+            jtfTenHH.setText(hangHoa.getTenHang());
+            jtfHinhAnh.setText(hangHoa.getHinhAnh());
+            jtfDVT.setText(hangHoa.getdVT());
+            jtfGiaBan.setText(hangHoa.getGiaBan() + "");
+            jtfHeSo.setText(hangHoa.getHeSo() + "");
+            jtfGiaNhap.setText(hangHoa.getGiaNhap() + "");
+            jtfHinhAnh.setText(hangHoa.getHinhAnh());
+            jtfSoLuongTon.setText(hangHoa.getSoLuongTon() + "");
+            jchkTrangThai.setSelected(hangHoa.getTrangThai());
+        } else {
+            setComboBoxNHH(null);
+            setComboBoxNCC(null);
+        }
     }
 
-    public void setComboBoxNCC() {
+    public void setComboBoxNCC(HangHoa hangHoa) {
         DefaultComboBoxModel<NhaCungCap> model = new DefaultComboBoxModel<>();
         List<NhaCungCap> listNCC = NhaCungCapDAO.getInstance().getListNhaCungCap();
 
         for (NhaCungCap ncc : listNCC) {
-            NhaCungCap item = new NhaCungCap(ncc.getMaNCC(), ncc.getTenNCC());
-            model.addElement(item);
+            model.addElement(ncc);
+        }
+
+        if (hangHoa != null) {
+            NhaCungCap nhacungcap = NhaCungCapDAO.getInstance().getNhaCungCap(hangHoa.getMaNCC());
+            model.setSelectedItem(nhacungcap);
         }
         jcbNhaCC.setModel(model);
     }
 
-    public void setComboBoxNHH() {
+    public void setComboBoxNHH(HangHoa hangHoa) {
         DefaultComboBoxModel<NhomHang> model = new DefaultComboBoxModel<>();
         List<NhomHang> listNH = NhomHangDAO.getInstance().getListNhomHang();
 
         for (NhomHang nhomhang : listNH) {
-            NhomHang item = new NhomHang(nhomhang.getMaNhomHang(), nhomhang.getTenNhomHang());
-            model.addElement(item);
+            model.addElement(nhomhang);
+        }
+
+        if (hangHoa != null) {
+            NhomHang nhomhang = NhomHangDAO.getInstance().getNhomHang(hangHoa.getMaNhomHang());
+            model.setSelectedItem(nhomhang);
         }
         jcbNhomHH.setModel(model);
     }
@@ -174,7 +181,7 @@ public class HangHoaJFrame extends javax.swing.JFrame {
         jtfSoLuongTon.setEnabled(false);
 
         btnChonAnh.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btnChonAnh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon-plus.png"))); // NOI18N
+        btnChonAnh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon-openfolder.png"))); // NOI18N
         btnChonAnh.setText("Chọn ảnh");
         btnChonAnh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -298,7 +305,7 @@ public class HangHoaJFrame extends javax.swing.JFrame {
         );
 
         btnLuu.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btnLuu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon-plus.png"))); // NOI18N
+        btnLuu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon-save.png"))); // NOI18N
         btnLuu.setText("Lưu dữ liệu");
         btnLuu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -346,7 +353,9 @@ public class HangHoaJFrame extends javax.swing.JFrame {
         hanghoa.setGiaNhap(Double.parseDouble(jtfGiaNhap.getText()));
         hanghoa.setTrangThai((jchkTrangThai.isSelected()) ? true : false);
         if (flag == 1) {
+            HangHoaDAO.getInstance().insertHangHoa(hanghoa);
         } else {
+            hanghoa.setMaHang(Integer.parseInt(jtfMaHH.getText()));
             HangHoaDAO.getInstance().updateHangHoa(hanghoa);
         }
     }//GEN-LAST:event_btnLuuActionPerformed
