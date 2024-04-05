@@ -8,6 +8,7 @@ package GUI;
 import DAO.HangHoaDAO;
 import DTO.HangHoa;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.util.ArrayList;
@@ -56,8 +57,8 @@ public class HangHoaJPanel extends javax.swing.JPanel {
         jtHangHoa.setRowSorter(rowSorter);
 
         jtHangHoa.getTableHeader().setFont(new Font("Arial", Font.BOLD, 14));
+        jtHangHoa.setFont(new Font("Arial", Font.PLAIN, 14));
         jtHangHoa.getTableHeader().setPreferredSize(new Dimension(100, 50));
-        jtHangHoa.getColumnClass(9);
         jtHangHoa.setRowHeight(50);
         jtHangHoa.validate();
         jtHangHoa.repaint();
@@ -70,7 +71,7 @@ public class HangHoaJPanel extends javax.swing.JPanel {
         jpnView.validate();
         jpnView.repaint();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -160,7 +161,6 @@ public class HangHoaJPanel extends javax.swing.JPanel {
             if (frame != null) {
                 if (frame.isDisplayable()) {
                     flag = 1;
-                    LoadKHVaoTable();
                 } else {
                     flag = 0;
                 }
@@ -184,7 +184,7 @@ public class HangHoaJPanel extends javax.swing.JPanel {
                 hangHoa.setSoLuongTon((int) model.getValueAt(selectedRowIndex, 9));
                 hangHoa.setTrangThai((boolean) model.getValueAt(selectedRowIndex, 10));
 
-                frame = new HangHoaJFrame(hangHoa);
+                frame = new HangHoaJFrame(hangHoa, 0);
 
                 frame.setLocationRelativeTo(null);
                 frame.setResizable(false);
@@ -197,11 +197,21 @@ public class HangHoaJPanel extends javax.swing.JPanel {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-        frame = new HangHoaJFrame(1);
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
-        frame.setTitle("Thông tin hàng hóa");
-        frame.setVisible(true);
+        if (frame != null) {
+            if (frame.isDisplayable()) {
+                flag = 1;
+                LoadKHVaoTable();
+            } else {
+                flag = 0;
+            }
+        }
+        if (flag == 0) {
+            frame = new HangHoaJFrame(null, 1);
+            frame.setLocationRelativeTo(null);
+            frame.setResizable(false);
+            frame.setTitle("Thông tin hàng hóa");
+            frame.setVisible(true);
+        }
     }//GEN-LAST:event_btnThemActionPerformed
 
 

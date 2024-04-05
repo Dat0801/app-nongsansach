@@ -386,7 +386,7 @@
               <Font name="Arial" size="14" style="1"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Images/icon-plus.png"/>
+              <Image iconType="3" name="/Images/icon-openfolder.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Ch&#x1ecd;n &#x1ea3;nh"/>
           </Properties>
@@ -418,7 +418,7 @@
           <Font name="Arial" size="14" style="1"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Images/icon-plus.png"/>
+          <Image iconType="3" name="/Images/icon-save.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="L&#x1b0;u d&#x1eef; li&#x1ec7;u"/>
       </Properties>

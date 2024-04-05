@@ -42,4 +42,18 @@ public class NhaCungCapDAO {
         }
         return listNCC;
     }
+    
+    public NhaCungCap getNhaCungCap(int maNCC) {
+        ResultSet rs = DataProvider.getInstance().executeQuery("Select * from NhaCungCap where MaNCC=" + maNCC);
+        NhaCungCap nhacungcap = null;
+        try {
+            while (rs.next()) {
+                nhacungcap = new NhaCungCap(rs);
+            }
+        } catch (SQLException ex) {
+            // Handle the SQLException appropriately
+            ex.printStackTrace(); // For example, printing the stack trace
+        }
+        return nhacungcap;
+    }
 }

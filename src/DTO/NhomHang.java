@@ -7,6 +7,7 @@ package DTO;
  */
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 
 /**
  *
@@ -61,4 +62,6 @@ public class NhomHang {
     public String toString() {
         return tenNhomHang;
     }
+
+    
 }

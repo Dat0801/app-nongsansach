@@ -15,7 +15,8 @@ import java.util.ArrayList;
  * @author Admin
  */
 public class NhomHangDAO {
-     private static NhomHangDAO instance;
+
+    private static NhomHangDAO instance;
 
     public static NhomHangDAO getInstance() {
         if (instance == null) {
@@ -41,5 +42,19 @@ public class NhomHangDAO {
             ex.printStackTrace(); // For example, printing the stack trace
         }
         return listNhomHang;
+    }
+
+    public NhomHang getNhomHang(int maNhom) {
+        ResultSet rs = DataProvider.getInstance().executeQuery("Select * from NhomHang where MaNhomHang=" + maNhom);
+        NhomHang nhomhang = null;
+        try {
+            while (rs.next()) {
+                nhomhang = new NhomHang(rs);
+            }
+        } catch (SQLException ex) {
+            // Handle the SQLException appropriately
+            ex.printStackTrace(); // For example, printing the stack trace
+        }
+        return nhomhang;
     }
 }
