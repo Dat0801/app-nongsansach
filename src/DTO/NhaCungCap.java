@@ -42,6 +42,7 @@ public class NhaCungCap {
     }
     boolean trangThai;
 
+    
     public int getMaNCC() {
         return maNCC;
     }
@@ -58,7 +59,7 @@ public class NhaCungCap {
         return diaChi;
     }
 
-    public boolean isTrangThai() {
+    public boolean getTrangThai() {
         return trangThai;
     }
     
