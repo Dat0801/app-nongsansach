@@ -5,6 +5,16 @@
  */
 package GUI;
 
+import DAO.PhieuNhapDAO;
+import DTO.PhieuNhap;
+import java.awt.CardLayout;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author Admin
@@ -16,8 +26,50 @@ public class NhapHangJPanel extends javax.swing.JPanel {
      */
     public NhapHangJPanel() {
         initComponents();
+        LoadPNVaoTable();
     }
 
+    void LoadPNVaoTable() {
+        String[] header = {"Mã phiếu nhập", "Mã nhân viên", "Mã nhà cung cấp", "Ngày nhập", "Tổng tiền", "Trạng thái"};
+        DefaultTableModel modelTableDb = new DefaultTableModel(header, 0) {
+            @Override
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false;
+            }
+
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                return columnIndex == 10 ? Boolean.class : String.class;
+            }
+        };
+
+        ArrayList<PhieuNhap> listPN = PhieuNhapDAO.getInstance().getListPhieuNhap();
+
+        for (PhieuNhap pn : listPN) {
+            Object[] row = {pn.getMaPN(), pn.getMaNV(), pn.getMaNCC(), pn.getNgayNhap(), pn.getTongTien(), pn.getTrangThai()};
+            modelTableDb.addRow(row);
+        }
+
+        TableRowSorter<TableModel> rowSorter = null;
+
+        jtPhieuNhap.setModel(modelTableDb);
+        jtPhieuNhap.setRowSorter(rowSorter);
+
+        jtPhieuNhap.getTableHeader().setFont(new Font("Arial", Font.BOLD, 14));
+        jtPhieuNhap.setFont(new Font("Arial", Font.PLAIN, 14));
+        jtPhieuNhap.getTableHeader().setPreferredSize(new Dimension(100, 50));
+        jtPhieuNhap.setRowHeight(50);
+        jtPhieuNhap.validate();
+        jtPhieuNhap.repaint();
+
+        jspPhieuNhap.setPreferredSize(new Dimension(1350, 400));
+
+        jpnView.removeAll();
+        jpnView.setLayout(new CardLayout());
+        jpnView.add(jspPhieuNhap);
+        jpnView.validate();
+        jpnView.repaint();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,30 +79,62 @@ public class NhapHangJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        jpnView = new javax.swing.JPanel();
+        jspPhieuNhap = new javax.swing.JScrollPane();
+        jtPhieuNhap = new javax.swing.JTable();
 
-        jLabel1.setText("Nhập hàng");
+        jtPhieuNhap.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jspPhieuNhap.setViewportView(jtPhieuNhap);
+
+        javax.swing.GroupLayout jpnViewLayout = new javax.swing.GroupLayout(jpnView);
+        jpnView.setLayout(jpnViewLayout);
+        jpnViewLayout.setHorizontalGroup(
+            jpnViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnViewLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jspPhieuNhap, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jpnViewLayout.setVerticalGroup(
+            jpnViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnViewLayout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jspPhieuNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(167, 167, 167)
-                .addComponent(jLabel1)
-                .addContainerGap(172, Short.MAX_VALUE))
+                .addGap(22, 22, 22)
+                .addComponent(jpnView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(105, 105, 105)
-                .addComponent(jLabel1)
-                .addContainerGap(179, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(41, Short.MAX_VALUE)
+                .addComponent(jpnView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jpnView;
+    private javax.swing.JScrollPane jspPhieuNhap;
+    private javax.swing.JTable jtPhieuNhap;
     // End of variables declaration//GEN-END:variables
 }
