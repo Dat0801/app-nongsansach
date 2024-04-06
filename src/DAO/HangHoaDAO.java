@@ -70,4 +70,9 @@ public class HangHoaDAO {
         "', '" + hanghoa.getTrangThai() + "')");
         return rs;
     }
+    
+    public int deleteHangHoa(int maHangHoa) {
+        int rs = DataProvider.getInstance().executeNonQuery("Update hanghoa set TrangThai=0 where MaHang=" + maHangHoa);
+        return rs;
+    }
 }
