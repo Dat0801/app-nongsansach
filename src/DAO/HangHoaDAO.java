@@ -5,7 +5,6 @@
 package DAO;
 
 import DTO.HangHoa;
-import java.awt.List;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -32,7 +31,7 @@ public class HangHoaDAO {
     public ArrayList<HangHoa> getListHangHoa() {
         ArrayList<HangHoa> listHH = new ArrayList<HangHoa>();
         try {
-            ResultSet rs = DataProvider.getInstance().executeQuery("Select * from hanghoa");
+            ResultSet rs = DataProvider.getInstance().executeQuery("Select * from hanghoa where TrangThai=1");
             while (rs.next()) {
                 HangHoa hanghoa = new HangHoa(rs);
                 listHH.add(hanghoa);
