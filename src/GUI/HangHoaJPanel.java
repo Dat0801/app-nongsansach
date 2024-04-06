@@ -8,10 +8,10 @@ package GUI;
 import DAO.HangHoaDAO;
 import DTO.HangHoa;
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -25,6 +25,8 @@ public class HangHoaJPanel extends javax.swing.JPanel {
     /**
      * Creates new form HangHoaJPanel
      */
+    ArrayList<HangHoa> listHH = HangHoaDAO.getInstance().getListHangHoa();
+
     public HangHoaJPanel() {
         initComponents();
         LoadKHVaoTable();
@@ -32,6 +34,7 @@ public class HangHoaJPanel extends javax.swing.JPanel {
 
     void LoadKHVaoTable() {
         String[] header = {"Mã hàng hóa", "Mã nhóm hàng", "Mã nhà cung cấp", "Tên hàng hóa", "DVT", "Giá bán", "Hệ số", "Giá nhập", "Hình Ảnh", "Số lượng tồn", "Trạng thái"};
+
         DefaultTableModel modelTableDb = new DefaultTableModel(header, 0) {
             @Override
             public boolean isCellEditable(int rowIndex, int colIndex) {
@@ -43,8 +46,6 @@ public class HangHoaJPanel extends javax.swing.JPanel {
                 return columnIndex == 10 ? Boolean.class : String.class;
             }
         };
-
-        ArrayList<HangHoa> listHH = HangHoaDAO.getInstance().getListHangHoa();
 
         for (HangHoa hh : listHH) {
             Object[] row = {hh.getMaHang(), hh.getMaNhomHang(), hh.getMaNCC(), hh.getTenHang(), hh.getdVT(), hh.getGiaBan(), hh.getHeSo(), hh.getGiaNhap(), hh.getHinhAnh(), hh.getSoLuongTon(), hh.getTrangThai()};
@@ -86,6 +87,7 @@ public class HangHoaJPanel extends javax.swing.JPanel {
         jpnView = new javax.swing.JPanel();
         jspHangHoa = new javax.swing.JScrollPane();
         jtHangHoa = new javax.swing.JTable();
+        btnXoa = new javax.swing.JButton();
 
         btnThem.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon-plus.png"))); // NOI18N
@@ -127,6 +129,15 @@ public class HangHoaJPanel extends javax.swing.JPanel {
             .addComponent(jspHangHoa, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
         );
 
+        btnXoa.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon-plus.png"))); // NOI18N
+        btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -137,7 +148,9 @@ public class HangHoaJPanel extends javax.swing.JPanel {
                     .addComponent(jpnView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jtfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 388, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 291, Short.MAX_VALUE)
+                        .addComponent(btnXoa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(30, 30, 30))
         );
@@ -147,7 +160,9 @@ public class HangHoaJPanel extends javax.swing.JPanel {
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jtfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jpnView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -166,32 +181,20 @@ public class HangHoaJPanel extends javax.swing.JPanel {
                 }
             }
             if (flag == 0) {
-                DefaultTableModel model = (DefaultTableModel) jtHangHoa.getModel();
-                int selectedRowIndex = jtHangHoa.getSelectedRow();
+                int index = jtHangHoa.getSelectedRow();
 
-                selectedRowIndex = jtHangHoa.convertRowIndexToModel(selectedRowIndex);
-
-                HangHoa hangHoa = new HangHoa();
-                hangHoa.setMaHang((int) model.getValueAt(selectedRowIndex, 0));
-                hangHoa.setMaNhomHang((int) model.getValueAt(selectedRowIndex, 1));
-                hangHoa.setMaNCC((int) model.getValueAt(selectedRowIndex, 2));
-                hangHoa.setTenHang(model.getValueAt(selectedRowIndex, 3).toString());
-                hangHoa.setdVT(model.getValueAt(selectedRowIndex, 4).toString());
-                hangHoa.setGiaBan((double) model.getValueAt(selectedRowIndex, 5));
-                hangHoa.setHeSo((double) model.getValueAt(selectedRowIndex, 6));
-                hangHoa.setGiaNhap((double) model.getValueAt(selectedRowIndex, 7));
-                hangHoa.setHinhAnh(model.getValueAt(selectedRowIndex, 8).toString());
-                hangHoa.setSoLuongTon((int) model.getValueAt(selectedRowIndex, 9));
-                hangHoa.setTrangThai((boolean) model.getValueAt(selectedRowIndex, 10));
+                HangHoa hangHoa = listHH.get(index);
 
                 frame = new HangHoaJFrame(hangHoa, 0);
-
                 frame.setLocationRelativeTo(null);
                 frame.setResizable(false);
                 frame.setTitle("Thông tin hàng hóa");
                 frame.setVisible(true);
+                if(frame.isDisplayable()) {
+                    listHH = HangHoaDAO.getInstance().getListHangHoa();
+                    LoadKHVaoTable();
+                }
             }
-
         }
     }//GEN-LAST:event_jtHangHoaMouseClicked
 
@@ -214,9 +217,27 @@ public class HangHoaJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnThemActionPerformed
 
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        // TODO add your handling code here:
+        int index = jtHangHoa.getSelectedRow();
+
+        HangHoa hangHoa = listHH.get(index);
+
+        int maHang = hangHoa.getMaHang();
+        String tenHang = hangHoa.getTenHang();
+
+        int kq = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa hàng hóa có tên là: " + tenHang + "?", "Question", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (kq == JOptionPane.YES_OPTION) {
+            HangHoaDAO.getInstance().deleteHangHoa(maHang);
+        }
+        listHH.remove(index);
+        LoadKHVaoTable();
+    }//GEN-LAST:event_btnXoaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnXoa;
     private javax.swing.JPanel jpnView;
     private javax.swing.JScrollPane jspHangHoa;
     private javax.swing.JTable jtHangHoa;
