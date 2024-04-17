@@ -56,4 +56,20 @@ public class NhaCungCapDAO {
         }
         return nhacungcap;
     }
+    public int updateNhaCungCap(NhaCungCap ncc) {
+        int rs = DataProvider.getInstance().executeNonQuery("Update nhacungcap set MaNCC=" + ncc.getMaNCC()+ ", TenNCC=N'" + ncc.getTenNCC() + 
+        "', SDT='" + ncc.getSDT()+ "', DiaChi=N'" + ncc.getDiaChi()+ "', TrangThai='" + ncc.getTrangThai() + "' where MaNCC=" + ncc.getMaNCC());
+        return rs;
+    }
+    
+    public int insertNhaCungCap(NhaCungCap ncc) {
+        int rs = DataProvider.getInstance().executeNonQuery("Insert into nhacungcap values(" + ncc.getMaNCC()+ ", N'" + ncc.getTenNCC()+ 
+        "','" + ncc.getSDT()+ "', N'" + ncc.getDiaChi()+ "', " + ncc.getTrangThai() + ")");
+        return rs;
+    }
+    
+    public int deleteNhaCungCap(int maNhaCungCap) {
+        int rs = DataProvider.getInstance().executeNonQuery("Update nhacungcap set TrangThai=0 where MaNCC=" + maNhaCungCap);
+        return rs;
+    }
 }

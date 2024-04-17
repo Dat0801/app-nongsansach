@@ -29,7 +29,7 @@ public class NhaCungCapJPanel extends javax.swing.JPanel {
         initComponents();
         LoadNCCVaoTable();
     }
-    
+    ArrayList<NhaCungCap> listNCC = NhaCungCapDAO.getInstance().getListNhaCungCap();
     void LoadNCCVaoTable() {
         String[] header = {"Mã nhà cung cấp", "Tên nhà cung cấp", "SDT", "Địa chỉ", "Trạng thái"};
         DefaultTableModel modelTableDb = new DefaultTableModel(header, 0) {
@@ -43,8 +43,6 @@ public class NhaCungCapJPanel extends javax.swing.JPanel {
                 return columnIndex == 10 ? Boolean.class : String.class;
             }
         };
-
-        ArrayList<NhaCungCap> listNCC = NhaCungCapDAO.getInstance().getListNhaCungCap();
 
         for (NhaCungCap ncc : listNCC) {
             Object[] row = {ncc.getMaNCC(), ncc.getTenNCC(), ncc.getSDT(), ncc.getDiaChi(), ncc.getTrangThai()};
@@ -155,13 +153,54 @@ public class NhaCungCapJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    int flag = 0;
+    NhaCungCapJFrame frame = null;
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
+        if (frame != null) {
+            if (frame.isDisplayable()) {
+                flag = 1;
+                LoadNCCVaoTable();
+            } else {
+                flag = 0;
+            }
+        }
+        if (flag == 0) {
+            frame = new NhaCungCapJFrame(null, 1);
+            frame.setLocationRelativeTo(null);
+            frame.setResizable(false);
+            frame.setTitle("Thông tin nhà cung cấp");
+            frame.setVisible(true);
+        }
 
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void jtNhaCungCapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtNhaCungCapMouseClicked
         // TODO add your handling code here:
+        if (evt.getClickCount() == 2 && jtNhaCungCap.getSelectedRow() != -1) {
+            if (frame != null) {
+                if (frame.isDisplayable()) {
+                    flag = 1;
+                } else {
+                    flag = 0;
+                }
+            }
+            if (flag == 0) {
+                int index = jtNhaCungCap.getSelectedRow();
+
+                NhaCungCap ncc = listNCC.get(index);
+
+                frame = new NhaCungCapJFrame(ncc, 0);
+                frame.setLocationRelativeTo(null);
+                frame.setResizable(false);
+                frame.setTitle("Thông tin nhà cung cấp");
+                frame.setVisible(true);
+                if(frame.isDisplayable()) {
+                    listNCC = NhaCungCapDAO.getInstance().getListNhaCungCap();
+                    LoadNCCVaoTable();
+                }
+            }
+        }
     }//GEN-LAST:event_jtNhaCungCapMouseClicked
 
     
