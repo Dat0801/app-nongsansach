@@ -21,6 +21,9 @@ public class NhaCungCap {
         this.tenNCC = tenNCC;
     }
 
+    public NhaCungCap() {
+    }
+
     public void setMaNCC(int maNCC) {
         this.maNCC = maNCC;
     }
