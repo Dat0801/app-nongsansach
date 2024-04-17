@@ -15,22 +15,28 @@ import java.io.File;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
-
+import javax.swing.JOptionPane;
+import Main.FontOptionPane;
 /**
  *
  * @author Admin
  */
 public class HangHoaJFrame extends javax.swing.JFrame {
 
+    private HangHoaJPanel hangHoaPanel;
     /**
      * Creates new form HangHoaJFrame
      */
+
     int flag = 0;
 
-    public HangHoaJFrame(HangHoa hangHoa, int flag) {
+    public HangHoaJFrame(HangHoa hangHoa, HangHoaJPanel hangHoaPanel, int flag) {
         initComponents();
         setView(hangHoa);
         this.flag = flag;
+        this.hangHoaPanel = hangHoaPanel;
+        FontOptionPane.setUIFont();
+        
     }
 
     public void setView(HangHoa hangHoa) {
@@ -178,7 +184,6 @@ public class HangHoaJFrame extends javax.swing.JFrame {
 
         jtfSoLuongTon.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jtfSoLuongTon.setDisabledTextColor(new java.awt.Color(153, 153, 153));
-        jtfSoLuongTon.setEnabled(false);
 
         btnChonAnh.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnChonAnh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon-openfolder.png"))); // NOI18N
@@ -351,13 +356,17 @@ public class HangHoaJFrame extends javax.swing.JFrame {
         hanghoa.setdVT(jtfDVT.getText());
         hanghoa.setHeSo((Double.parseDouble(jtfHeSo.getText())));
         hanghoa.setGiaNhap(Double.parseDouble(jtfGiaNhap.getText()));
+        hanghoa.setSoLuongTon(Double.parseDouble(jtfSoLuongTon.getText()));
         hanghoa.setTrangThai((jchkTrangThai.isSelected()) ? true : false);
         if (flag == 1) {
             HangHoaDAO.getInstance().insertHangHoa(hanghoa);
+            JOptionPane.showMessageDialog(this, "Thêm thành công!", "Thêm hàng hóa", JOptionPane.INFORMATION_MESSAGE);
         } else {
             hanghoa.setMaHang(Integer.parseInt(jtfMaHH.getText()));
             HangHoaDAO.getInstance().updateHangHoa(hanghoa);
+            JOptionPane.showMessageDialog(this, "Sửa thành công!", "Sửa hàng hóa", JOptionPane.INFORMATION_MESSAGE);
         }
+        hangHoaPanel.LoadHHVaoTable(null, null, null, 1);
     }//GEN-LAST:event_btnLuuActionPerformed
 
     private void btnChonAnhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChonAnhActionPerformed
