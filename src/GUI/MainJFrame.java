@@ -70,10 +70,11 @@ public class MainJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jpnMenu.setBackground(new java.awt.Color(82, 83, 81));
+        jpnMenu.setBackground(new java.awt.Color(102, 102, 102));
 
-        jpnShopName.setBackground(new java.awt.Color(255, 102, 0));
+        jpnShopName.setBackground(new java.awt.Color(211, 211, 211));
 
+        jlbShopName.setBackground(new java.awt.Color(255, 228, 196));
         jlbShopName.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jlbShopName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbShopName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon-shop.png"))); // NOI18N
@@ -96,8 +97,9 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addGap(10, 10, 10))
         );
 
-        jpnTrangChu.setBackground(new java.awt.Color(0, 204, 0));
+        jpnTrangChu.setBackground(new java.awt.Color(211, 211, 211));
 
+        jlbTrangChu.setBackground(new java.awt.Color(255, 255, 255));
         jlbTrangChu.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jlbTrangChu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon-home.png"))); // NOI18N
         jlbTrangChu.setText("Trang Chủ");
@@ -115,7 +117,7 @@ public class MainJFrame extends javax.swing.JFrame {
             .addComponent(jlbTrangChu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
         );
 
-        jpnBanHang.setBackground(new java.awt.Color(0, 204, 0));
+        jpnBanHang.setBackground(new java.awt.Color(211, 211, 211));
 
         jlbBanHang.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jlbBanHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon-sell.png"))); // NOI18N
@@ -135,7 +137,7 @@ public class MainJFrame extends javax.swing.JFrame {
             .addComponent(jlbBanHang, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
         );
 
-        jpnHangHoa.setBackground(new java.awt.Color(0, 204, 0));
+        jpnHangHoa.setBackground(new java.awt.Color(211, 211, 211));
 
         jlbHangHoa.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jlbHangHoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon-product.png"))); // NOI18N
@@ -155,7 +157,7 @@ public class MainJFrame extends javax.swing.JFrame {
             .addComponent(jlbHangHoa, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
         );
 
-        jpnNhomHangHoa.setBackground(new java.awt.Color(0, 204, 0));
+        jpnNhomHangHoa.setBackground(new java.awt.Color(211, 211, 211));
 
         jlbNhomHangHoa.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jlbNhomHangHoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon-category.png"))); // NOI18N
@@ -177,7 +179,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(jlbNhomHangHoa, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jpnHoaDon.setBackground(new java.awt.Color(0, 204, 0));
+        jpnHoaDon.setBackground(new java.awt.Color(211, 211, 211));
 
         jlbHoaDon.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jlbHoaDon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon-order.png"))); // NOI18N
@@ -197,7 +199,7 @@ public class MainJFrame extends javax.swing.JFrame {
             .addComponent(jlbHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
         );
 
-        jpnNhapHang.setBackground(new java.awt.Color(0, 204, 0));
+        jpnNhapHang.setBackground(new java.awt.Color(211, 211, 211));
 
         jLabel7.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon-import.png"))); // NOI18N
@@ -217,7 +219,7 @@ public class MainJFrame extends javax.swing.JFrame {
             .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
         );
 
-        jpnNhaCungCap.setBackground(new java.awt.Color(0, 204, 0));
+        jpnNhaCungCap.setBackground(new java.awt.Color(211, 211, 211));
 
         jlbNhaCungCap.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jlbNhaCungCap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon-supplier.png"))); // NOI18N

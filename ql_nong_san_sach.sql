@@ -1,28 +1,7 @@
-CREATE DATABASE CHNONGSAN
+﻿CREATE DATABASE CHNONGSAN
 GO
 
 USE CHNONGSAN
-
-CREATE TABLE chitiethoadon (
-  MaHang int NOT NULL,
-  MaHD int NOT NULL,
-  SoLuong int DEFAULT 1,
-  ThanhTien float DEFAULT 0
-);
-
-INSERT INTO chitiethoadon (MaHang, MaHD, SoLuong, ThanhTien) VALUES
-(1, 1, 2, 0);
-
-CREATE TABLE chitietphieunhap (
-  MaPN int NOT NULL,
-  MaHang int NOT NULL,
-  GiaNhap int NOT NULL,
-  SoLuong int DEFAULT 5,
-  ThanhTien int DEFAULT 0
-) 
-
-INSERT INTO chitietphieunhap (MaPN, MaHang, GiaNhap, SoLuong, ThanhTien) VALUES
-(1, 1, 50000, 5, 0);
 
 CREATE TABLE hanghoa (
   MaHang int IDENTITY(1,1) NOT NULL,
@@ -34,51 +13,87 @@ CREATE TABLE hanghoa (
   HeSo float DEFAULT 1.2,
   GiaNhap float NOT NULL,
   HinhAnh nvarchar(50) DEFAULT N'Chưa xác định',
-  SoLuongTon int DEFAULT 0,
+  SoLuongTon float DEFAULT 0,
   TrangThai bit DEFAULT 1
 ) 
+GO
 
-INSERT INTO hanghoa (MaNhomHang, MaNCC, TenHang, DVT, GiaBan, HeSo, GiaNhap, HinhAnh, SoLuongTon) VALUES
-(4, 1, N'Chuối già Nam Mỹ', N'Kg', 20000, 1, 8000, 'chuoiGia.jpg', 16),
-(4, 2, N'Dưa hấu đỏ', N'Kg', 12000, 1, 7000, 'duaHauDo.jpg', 8),
-(4, 1, N'Dưa lưới', N'Kg', 70000, 1, 55000, 'duaLuoi.jpg', 12),
-(4, 2, N'Cam vàng nội địa Trung', N'Kg', 41000, 1, 20000, 'camVang.jpg', 20),
-(4, 3, N'Nho xanh Nam Phi', N'Kg', 140000, 1, 90000, 'nhoXanh.jpg', 8),
-(4, 4, N'Dừa xiêm', N'Trái', 9000, 1, 4000, 'duaXiem.jpg', 10),
-(4, 4, N'Quýt giống Úc', N'Kg', 45000, 1, 28000, 'quytUc.jpg', 12),
-(4, 3, N'Cam sành', N'Kg', 18000, 1, 10000, 'camSanh.jpg', 23),
-(4, 5, N'Táo Autumn Mỹ', N'Kg', 50500, 1, 27500, 'taoMy.jpg', 8),
-(4, 5, N'Ổi Đài Loan', N'Kg', 21000, 1, 14000, 'oiDaiLoan.jpg', 6),
-(1, 1, N'Cải bẹ xanh', N'Kg', 20000, 1, 7000, 'caiBeXanh.jpg', 9),
-(1, 1, N'Cải ngọt', N'Kg', 19000, 1, 7500, 'caiNgot.jpg', 6),
-(1, 2, N'Cải thìa', N'Kg', 18000, 1, 6000, 'caiThia.jpg', 11),
-(1, 3, N'Cải bẹ dún', N'Kg', 31000, 1, 16500, 'caiBeDun.jpg', 9),
-(1, 3, N'Rau dền', N'Kg', 20000, 1, 9000, 'rauDen.jpg', 12),
-(1, 2, N'Rau lang', N'Kg', 28000, 1, 12000, 'rauLang.jpg', 14),
-(1, 4, N'Rau mồng tơi', N'Kg', 20000, 1, 8500, 'rauMongToi.jpg', 6),
-(1, 5, N'Rau muống nước', N'Kg', 20000, 1, 9000, 'rauMuongNuoc.jpg', 13),
-(1, 5, N'Rau ngót', N'Kg', 48000, 1, 29500, 'rauNgot.jpg', 5),
-(1, 4, N'Rau tần ô', N'Kg', 36000, 1, 21000, 'rauTanO.jpg', 6),
-(2, 1, N'Khoai lang Nhật', N'Kg', 31500, 1, 23000, 'khoaiLangNhat.jpg', 7),
-(2, 2, N'Bí đỏ hồ lô', N'Kg', 19000, 1, 9500, 'biDoHoLo.jpg', 12),
-(2, 1, N'Bí xanh', N'Kg', 19500, 1, 11000, 'biXanh.jpg', 7),
-(2, 2, N'Cà chua', N'Kg', 16000, 1, 9000, 'caChua.jpg', 12),
-(2, 3, N'Cà rốt', N'Kg', 25000, 1, 12000, 'caRot.jpg', 9),
-(2, 3, N'Khoai tây', N'Kg', 25000, 1, 13000, 'khoaiTay.jpg', 15),
-(2, 4, N'Củ cải trắng', N'Kg', 22000, 1, 14000, 'cuCaiTrang.jpg', 6),
-(2, 5, N'Củ dền', N'Kg', 36000, 1, 19500, 'cuDen.jpg', 9),
-(2, 5, N'Khoai mỡ', N'Kg', 35000, 1, 26000, 'khoaiMo.jpg', 10),
-(2, 4, N'Ớt chuông', N'Kg', 23000, 0.25, 73000, 'otChuong.jpg', 8),
-(3, 5, N'Nấm hương', N'Kg', 28000, 0.15, 100000, 'namHuong.jpg', 6),
-(3, 4, N'Nấm bào ngư trắng', N'Kg', 20000, 0.3, 51000, 'namBaoNguTrang.jpg', 5),
-(3, 5, N'Nấm kim châm', N'Kg', 11000, 0.15, 55000, 'namKimCham.jpg', 7),
-(3, 4, N'Nấm mối đen', N'Kg', 57500, 0.15, 300000, 'namMoiDen.jpg', 4),
-(3, 5, N'Nấm linh chi', N'Kg', 33000, 0.15, 145000, 'namLinhChi.jpg', 6),
-(3, 4, N'Nấm đùi gà', N'Kg', 25500, 0.2, 97000, 'namDuiGa.jpg', 3),
-(3, 5, N'Nấm rơm', N'Kg', 30000, 0.18, 120000, 'namRom.jpg', 10),
-(3, 4, N'Nấm Notaly', N'Kg', 18000, 0.2, 70000, 'namNotaly.jpg', 4),
-(3, 5, N'Nấm tuyết', N'Kg', 30000, 0.05, 510000, 'namTuyet.jpg', 3),
-(3, 5, N'Nấm mỡ nâu', N'Kg', 54000, 0.15, 280000, 'namMoNau.jpg', 7);
+-- Tạo trigger trước khi chèn vào bảng "hanghoa"
+CREATE TRIGGER insert_giaban
+ON hanghoa
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Tính toán giá bán và cập nhật cột GiaBan
+    UPDATE hanghoa
+    SET GiaBan = i.GiaNhap * i.HeSo
+    FROM hanghoa
+    INNER JOIN inserted i ON hanghoa.MaHang = i.MaHang;
+END;
+GO
+
+-- Tạo trigger trước khi cập nhật bảng "hanghoa"
+CREATE TRIGGER update_giaban
+ON hanghoa
+AFTER UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Kiểm tra xem giá nhập hoặc hệ số có thay đổi không
+    IF UPDATE(GiaNhap) OR UPDATE(HeSo)
+    BEGIN
+        -- Tính toán giá bán và cập nhật cột GiaBan
+        UPDATE hanghoa
+        SET GiaBan = i.GiaNhap * i.HeSo
+        FROM hanghoa
+        INNER JOIN inserted i ON hanghoa.MaHang = i.MaHang;
+    END;
+END;
+GO
+
+INSERT INTO hanghoa (MaNhomHang, MaNCC, TenHang, DVT, HeSo, GiaNhap, HinhAnh, SoLuongTon) VALUES
+(4, 1, N'Chuối già Nam Mỹ', N'Kg', 1.2, 25000, 'chuoiGia.jpg', 16.5),
+(4, 2, N'Dưa hấu đỏ', N'Kg', 1.2, 12500, 'duaHauDo.jpg', 15),
+(4, 1, N'Dưa lưới', N'Kg',  1.2, 45000, 'duaLuoi.jpg', 20),
+(4, 2, N'Cam vàng nội địa Trung', N'Kg',  1.2, 40000, 'camVang.jpg', 20.5),
+(4, 3, N'Nho xanh Nam Phi', N'Kg',  1.2, 125000, 'nhoXanh.jpg', 10.5),
+(4, 4, N'Quýt giống Úc', N'Kg',  1.2, 40000, 'quytUc.jpg', 12.5),
+(4, 3, N'Cam sành', N'Kg', 1.2, 12500, 'camSanh.jpg', 23),
+(4, 5, N'Táo Autumn Mỹ', N'Kg', 1.2, 57500, 'taoMy.jpg', 8),
+(4, 5, N'Ổi Đài Loan', N'Kg',  1.2, 17500, 'oiDaiLoan.jpg', 6),
+(1, 1, N'Cải bẹ xanh', N'Kg', 1.2, 15000, 'caiBeXanh.jpg', 9),
+(1, 1, N'Cải ngọt', N'Kg',  1.2, 15000, 'caiNgot.jpg', 6),
+(1, 2, N'Cải thìa', N'Kg',  1.2, 15000, 'caiThia.jpg', 11),
+(1, 3, N'Cải bẹ dún', N'Kg', 1.2, 15000, 'caiBeDun.jpg', 9),
+(1, 3, N'Rau dền', N'Kg', 1.2, 12500, 'rauDen.jpg', 12),
+(1, 2, N'Rau lang', N'Kg',  1.2, 15000, 'rauLang.jpg', 14),
+(1, 4, N'Rau mồng tơi', N'Kg', 1.2, 12500, 'rauMongToi.jpg', 10.5),
+(1, 5, N'Rau muống nước', N'Kg', 1.2, 7500, 'rauMuongNuoc.jpg', 13),
+(1, 5, N'Rau ngót', N'Kg', 1.2, 15000, 'rauNgot.jpg', 5.2),
+(1, 4, N'Rau tần ô', N'Kg', 1.2, 22500, 'rauTanO.jpg', 6.6),
+(2, 1, N'Khoai lang Nhật', N'Kg', 1.2, 15000, 'khoaiLangNhat.jpg', 7),
+(2, 2, N'Bí đỏ hồ lô', N'Kg',  1.2, 12500, 'biDoHoLo.jpg', 12),
+(2, 1, N'Bí xanh', N'Kg', 1.2, 22500, 'biXanh.jpg', 7),
+(2, 2, N'Cà chua', N'Kg',  1.2, 20000, 'caChua.jpg', 12),
+(2, 3, N'Cà rốt', N'Kg', 1.2, 17500, 'caRot.jpg', 9),
+(2, 3, N'Khoai tây', N'Kg', 1.2, 25000, 'khoaiTay.jpg', 15),
+(2, 4, N'Củ cải trắng', N'Kg',  1.2, 15000, 'cuCaiTrang.jpg', 6),
+(2, 5, N'Củ dền', N'Kg', 1.2, 25000, 'cuDen.jpg', 9),
+(2, 5, N'Khoai mỡ', N'Kg',  1.2, 25000, 'khoaiMo.jpg', 10),
+(2, 4, N'Ớt chuông', N'Kg', 1.2, 17500, 'otChuong.jpg', 8),
+(3, 5, N'Nấm hương', N'Kg', 1.2, 190000, 'namHuong.jpg', 6),
+(3, 4, N'Nấm bào ngư trắng', N'Kg',  1.2, 190000, 'namBaoNguTrang.jpg', 5),
+(3, 5, N'Nấm kim châm', N'Kg', 1.2, 190000, 'namKimCham.jpg', 7),
+(3, 4, N'Nấm mối đen', N'Kg', 1.2, 190000, 'namMoiDen.jpg', 4),
+(3, 5, N'Nấm linh chi nâu', N'Kg', 1.2, 185000, 'namLinhChi.jpg', 6),
+(3, 4, N'Nấm đùi gà', N'Kg', 1.2, 185000, 'namDuiGa.jpg', 3),
+(3, 5, N'Nấm rơm', N'Kg',  1.2, 100000, 'namRom.jpg', 10),
+(3, 4, N'Nấm Notaly', N'Kg',  1.2, 190000, 'namNotaly.jpg', 4),
+(3, 5, N'Nấm tuyết', N'Kg',  1.2, 500000, 'namTuyet.jpg', 3),
+(3, 5, N'Nấm mỡ nâu', N'Kg',  1.2, 290000, 'namMoNau.jpg', 7);
 
 CREATE TABLE hoadon (
   MaHD int IDENTITY(1,1) NOT NULL,
@@ -86,11 +101,150 @@ CREATE TABLE hoadon (
   MaKH int DEFAULT NULL,
   NgayTao datetime DEFAULT GETDATE(),
   TongTien float DEFAULT 0,
-  TrangThai nvarchar(50) DEFAULT N'Đang xử lý'
+  TrangThai nvarchar(50) DEFAULT N'Đã hoàn thành'
 ) 
 
-INSERT INTO hoadon (MaNV, MaKH, NgayTao, TongTien) VALUES
-(1, 1, '2024-04-04 15:19:11', 0);
+INSERT INTO hoadon (MaNV, MaKH, TongTien) VALUES
+(1, 1, 0),
+(2, 2, 0),
+(3, 3, 0),
+(3, null, 0);
+
+CREATE TABLE chitiethoadon (
+  MaHang int NOT NULL,
+  MaHD int NOT NULL,
+  SoLuong int DEFAULT 1,
+  ThanhTien float DEFAULT 0
+);
+GO
+
+CREATE TRIGGER update_thanhtien
+ON chitiethoadon
+AFTER INSERT
+AS
+BEGIN
+    -- Tính toán giá trị mới của ThanhTien và cập nhật
+    UPDATE c
+    SET ThanhTien = i.SoLuong * h.GiaBan
+    FROM chitiethoadon c
+    INNER JOIN inserted i ON c.MaHang = i.MaHang
+    INNER JOIN hanghoa h ON c.MaHang = h.MaHang;
+END;
+GO
+
+CREATE TRIGGER update_tongtien
+ON chitiethoadon
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE h
+    SET TongTien = (SELECT SUM(ThanhTien) FROM chitiethoadon WHERE MaHD = i.MaHD)
+    FROM hoadon h
+    INNER JOIN inserted i ON h.MaHD = i.MaHD;
+END;
+GO
+
+CREATE TRIGGER InsertChiTietHoaDonTrigger
+ON chitiethoadon
+AFTER INSERT
+AS
+BEGIN
+    -- Cập nhật số lượng tồn của các mặt hàng trong bảng "hanghoa"
+    UPDATE h
+    SET h.SoLuongTon = h.SoLuongTon - c.SoLuong
+    FROM hanghoa h
+    INNER JOIN inserted c ON h.MaHang = c.MaHang;
+END;
+GO
+
+
+INSERT INTO chitiethoadon (MaHang, MaHD, SoLuong, ThanhTien) VALUES
+(1, 1, 2, 0),
+(11, 2, 3, 0),
+(12, 2, 3, 0),
+(13, 3, 2, 0),
+(14, 3, 5, 0),
+(15, 4, 2, 0),
+(16, 4, 4, 0),
+(23, 1, 2, 0),
+(36, 2, 3, 0);
+
+CREATE TABLE phieunhap (
+  MaPN int IDENTITY(1,1) NOT NULL,
+  MaNV int NOT NULL,
+  MaNCC int NOT NULL,
+  NgayNhap datetime DEFAULT GETDATE(),
+  TongTien float NOT NULL,
+  TrangThai nvarchar(50) DEFAULT N'Đã nhập hàng'
+) 
+
+INSERT INTO phieunhap (MaNV, MaNCC, TongTien) VALUES
+(1, 1, 2000000);
+
+CREATE TABLE chitietphieunhap (
+  MaPN int NOT NULL,
+  MaHang int NOT NULL,
+  GiaNhap int NOT NULL,
+  SoLuong int DEFAULT 5,
+  ThanhTien int DEFAULT 0
+) 
+GO
+
+CREATE TRIGGER tinh_thanh_tien_insert ON chitietphieunhap
+AFTER INSERT
+AS
+BEGIN
+	UPDATE chitietphieunhap
+    SET ThanhTien = i.GiaNhap * i.SoLuong
+    FROM chitietphieunhap c
+    INNER JOIN inserted i ON c.MaPN = i.MaPN and c.MaHang = i.MaHang;
+
+	
+END;
+GO
+
+CREATE TRIGGER tinh_tong_tien_insert ON chitietphieunhap
+AFTER INSERT
+AS
+BEGIN
+    UPDATE phieunhap
+    SET TongTien = (SELECT SUM(ThanhTien) FROM chitietphieunhap WHERE MaPN = i.MaPN)
+    FROM phieunhap
+    INNER JOIN inserted i ON phieunhap.MaPN = i.MaPN;
+END;
+GO
+
+CREATE TRIGGER update_gia_nhap_insert ON chitietphieunhap
+AFTER INSERT
+AS
+BEGIN
+    UPDATE hanghoa
+    SET GiaNhap = i.GiaNhap
+    FROM hanghoa
+    INNER JOIN inserted i ON hanghoa.MaHang = i.MaHang
+    WHERE hanghoa.GiaNhap < i.GiaNhap;
+END;
+GO
+
+CREATE TRIGGER update_so_luong_insert ON chitietphieunhap
+AFTER INSERT
+AS
+BEGIN
+    UPDATE hanghoa
+    SET SoLuongTon = hanghoa.SoLuongTon + i.SoLuong
+    FROM hanghoa
+    INNER JOIN inserted i ON hanghoa.MaHang = i.MaHang;
+END;
+GO
+
+
+INSERT INTO chitietphieunhap (MaPN, MaHang, GiaNhap, SoLuong, ThanhTien) VALUES
+(1, 1, 12500, 4, 0),
+(1, 3, 50000, 5, 0),
+(1, 6, 12000, 5, 0),
+(1, 12, 8000, 5, 0),
+(1, 15, 8000, 5, 0);
 
 CREATE TABLE khachhang (
   MaKH int IDENTITY(1,1) NOT NULL,
@@ -152,18 +306,6 @@ INSERT INTO nhomhang (TenNhomHang) VALUES
 (N'Nấm'),
 (N'Trái cây');
 
-CREATE TABLE phieunhap (
-  MaPN int IDENTITY(1,1) NOT NULL,
-  MaNV int NOT NULL,
-  MaNCC int NOT NULL,
-  NgayNhap datetime DEFAULT GETDATE(),
-  TongTien float NOT NULL,
-  TrangThai nvarchar(50) DEFAULT N'Đang xử lý'
-) 
-
-INSERT INTO phieunhap (MaNV, MaNCC, NgayNhap, TongTien, TrangThai) VALUES
-(1, 1, '2024-04-04 15:33:29', 2000000, N'Đang xử lý');
-
 ALTER TABLE khachhang
   ADD CONSTRAINT PK_KhachHang PRIMARY KEY (MaKH);
 ALTER TABLE phieunhap
@@ -208,3 +350,50 @@ ALTER TABLE chitietphieunhap
   ADD CONSTRAINT PK_ChiTietPhieuNhap PRIMARY KEY (MaPN, MaHang);
 ALTER TABLE chitietphieunhap
   ADD CONSTRAINT FK_ChiTietPhieuNhap_MaHang FOREIGN KEY (MaHang) REFERENCES hanghoa (MaHang);
+
+ -- Store procedure on table HangHoa
+ -- Update HangHoa
+ GO
+ CREATE PROCEDURE UpdateHangHoa
+    @MaHang INT,
+    @MaNhomHang INT,
+    @MaNCC INT,
+    @TenHang NVARCHAR(255),
+    @DVT NVARCHAR(50),
+    @GiaNhap DECIMAL(18, 2),
+    @HeSo FLOAT,
+    @HinhAnh NVARCHAR(255),
+	@SoLuongTon FLOAT,
+    @TrangThai NVARCHAR(50)
+AS
+BEGIN
+    UPDATE hanghoa
+    SET MaNhomHang = @MaNhomHang,
+        MaNCC = @MaNCC,
+        TenHang = @TenHang,
+        DVT = @DVT,
+        GiaNhap = @GiaNhap,
+        HeSo = @HeSo,
+        SoLuongTon = @SoLuongTon,
+        HinhAnh = @HinhAnh,
+        TrangThai = @TrangThai
+    WHERE MaHang = @MaHang;
+END
+GO
+
+-- Insert HangHoa
+CREATE PROCEDURE InsertHangHoa
+    @MaNhomHang INT,
+    @MaNCC INT,
+    @TenHang NVARCHAR(255),
+    @DVT NVARCHAR(50),
+    @GiaNhap DECIMAL(18, 2),
+    @HeSo FLOAT,
+    @HinhAnh NVARCHAR(255),
+	@SoLuongTon FLOAT,
+    @TrangThai NVARCHAR(50)
+AS
+BEGIN
+    INSERT INTO hanghoa (MaNhomHang, MaNCC, TenHang, DVT, GiaNhap, HeSo, HinhAnh, SoLuongTon, TrangThai)
+    VALUES (@MaNhomHang, @MaNCC, @TenHang, @DVT, @GiaNhap, @HeSo, @HinhAnh, @SoLuongTon, @TrangThai);
+END
