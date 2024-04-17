@@ -13,10 +13,10 @@ import java.sql.SQLException;
  */
 public class HangHoa {
 
-    int maHang, maNhomHang, maNCC, soLuongTon;
+    int maHang, maNhomHang, maNCC;
     boolean trangThai;
     String tenHang, dVT, hinhAnh;
-    double giaBan, giaNhap, heSo;
+    double giaBan, giaNhap, heSo, soLuongTon;
 
     public void setTrangThai(boolean trangThai) {
         this.trangThai = trangThai;
@@ -42,11 +42,11 @@ public class HangHoa {
         this.maNhomHang = maNhomHang;
     }
 
-    public int getSoLuongTon() {
+    public double getSoLuongTon() {
         return soLuongTon;
     }
 
-    public void setSoLuongTon(int soLuongTon) {
+    public void setSoLuongTon(double soLuongTon) {
         this.soLuongTon = soLuongTon;
     }
 
@@ -116,7 +116,7 @@ public class HangHoa {
             this.maNhomHang = rs.getInt("MaNhomHang");
             this.maNCC = rs.getInt("MaNCC");
             this.tenHang = rs.getString("TenHang");
-            this.soLuongTon = rs.getInt("SoLuongTon");
+            this.soLuongTon = rs.getDouble("SoLuongTon");
             this.dVT = rs.getString("DVT");
             this.hinhAnh = rs.getString("HinhAnh");
             this.giaBan = rs.getDouble("GiaBan");

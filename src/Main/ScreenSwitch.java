@@ -38,8 +38,8 @@ public class ScreenSwitch {
     public void setView(JPanel jpnItem, JLabel jlbItem) {
         kindSelected = "TrangChu";
 
-        jpnItem.setBackground(new Color(96, 100, 191));
-        jlbItem.setBackground(new Color(96, 100, 191));
+        jpnItem.setBackground(new Color(173, 216, 230));
+        jlbItem.setBackground(new Color(173, 216, 230));
 
         root.removeAll();
         root.setLayout(new BorderLayout());
@@ -108,8 +108,8 @@ public class ScreenSwitch {
         @Override
         public void mousePressed(MouseEvent me) {
             kindSelected = kind;
-            jpnItem.setBackground(new Color(96, 100, 191));
-            jlbItem.setBackground(new Color(96, 100, 191));
+            jpnItem.setBackground(new Color(173, 216, 230));
+            jlbItem.setBackground(new Color(173, 216, 230));
         }
 
         @Override
@@ -118,15 +118,15 @@ public class ScreenSwitch {
 
         @Override
         public void mouseEntered(MouseEvent me) {
-            jpnItem.setBackground(new Color(96, 100, 191));
-            jlbItem.setBackground(new Color(96, 100, 191));
+            jpnItem.setBackground(new Color(173, 216, 230));
+            jlbItem.setBackground(new Color(173, 216, 230));
         }
 
         @Override
         public void mouseExited(MouseEvent me) {
             if (!kindSelected.equalsIgnoreCase(kind)) {
-                jpnItem.setBackground(new Color(0, 204, 0));
-                jlbItem.setBackground(new Color(0, 204, 0));
+                jpnItem.setBackground(new Color(211, 211, 211));
+                jlbItem.setBackground(new Color(211, 211, 211));
             }
         }
 
@@ -135,11 +135,11 @@ public class ScreenSwitch {
     private void setChangeBackground(String kind) {
         for (DanhMucBean item : listItem) {
             if (item.getKind().equalsIgnoreCase(kind)) {
-                item.getJpn().setBackground(new Color(96, 100, 191));
-                item.getJlb().setBackground(new Color(96, 100, 191));
+                item.getJpn().setBackground(new Color(173, 216, 230));
+                item.getJlb().setBackground(new Color(173, 216, 230));
             } else {
-                item.getJpn().setBackground(new Color(0, 204, 0));
-                item.getJlb().setBackground(new Color(0, 204, 0));
+                item.getJpn().setBackground(new Color(211, 211, 211));
+                item.getJlb().setBackground(new Color(211, 211, 211));
             }
         }
     }

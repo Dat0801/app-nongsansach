@@ -70,7 +70,8 @@ public class DataProvider {
     }
 
     // Gọi stored procedure với nhiều tham số đầu vào
-    public void callStoredProcedureWithParameters(String procedureName, Object... parameters) {
+    public boolean callStoredProcedureWithParameters(String procedureName, Object... parameters) {
+        boolean isSuccess = false;
         try {
             StringBuilder sqlBuilder = new StringBuilder();
             sqlBuilder.append("{call ").append(procedureName).append("(");
@@ -87,10 +88,11 @@ public class DataProvider {
                 callableStatement.setObject(i + 1, parameters[i]);
             }
 
-            callableStatement.execute();
+            isSuccess = callableStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return isSuccess;
     }
 
     public void closeConnection() {
