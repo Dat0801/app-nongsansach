@@ -8,10 +8,12 @@ package GUI;
 
 import DAO.NhaCungCapDAO;
 import DTO.NhaCungCap;
+import Main.FontOptionPane;
 import java.io.File;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,12 +21,16 @@ import javax.swing.JFileChooser;
  */
 public class NhaCungCapJFrame extends javax.swing.JFrame {
 
+    private NhaCungCapJPanel nhaCungCapPanel;
     /** Creates new form NhaCungCapJFrame */
     int flag = 0;
-    public NhaCungCapJFrame(NhaCungCap ncc, int flag) {
+    public NhaCungCapJFrame(NhaCungCap ncc, NhaCungCapJPanel nhaCungCapPanel, int flag) {
         initComponents();
         setView(ncc);
         this.flag = flag;
+        this.nhaCungCapPanel = nhaCungCapPanel;
+        FontOptionPane.setUIFont();
+        
     }
     
     public void setView(NhaCungCap ncc) {
@@ -59,7 +65,7 @@ public class NhaCungCapJFrame extends javax.swing.JFrame {
         jchkTrangThai = new javax.swing.JCheckBox();
         jtfSDT = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         btnLuu.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnLuu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon-save.png"))); // NOI18N
@@ -188,10 +194,13 @@ public class NhaCungCapJFrame extends javax.swing.JFrame {
         ncc.setTrangThai((jchkTrangThai.isSelected()) ? true : false);
         if (flag == 1) {
             NhaCungCapDAO.getInstance().insertNhaCungCap(ncc);
+            JOptionPane.showMessageDialog(this, "Thêm thành công!", "Thêm nhà cung cấp", JOptionPane.INFORMATION_MESSAGE);
         } else {
             ncc.setMaNCC(Integer.parseInt(jtfMaNCC.getText()));
             NhaCungCapDAO.getInstance().updateNhaCungCap(ncc);
+            JOptionPane.showMessageDialog(this, "Sửa thành công!", "Sửa nhà cung cấp", JOptionPane.INFORMATION_MESSAGE);
         }
+        nhaCungCapPanel.LoadNCCVaoTable(null, null, null, 1);
     }//GEN-LAST:event_btnLuuActionPerformed
 
     /**

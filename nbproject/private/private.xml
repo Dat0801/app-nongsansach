@@ -3,10 +3,23 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Learn/OneDrive%20-%20Ho%20Chi%20Minh%20city%20University%20of%20Industry%20and%20Trade/HK6%20(2023-2024)/CongNgheJava/Do%20An/AppBanNongSanSach/src/DAO/HangHoaDAO.java</file>
-            <file>file:/C:/Learn/OneDrive%20-%20Ho%20Chi%20Minh%20city%20University%20of%20Industry%20and%20Trade/HK6%20(2023-2024)/CongNgheJava/Do%20An/AppBanNongSanSach/src/DAO/DataProvider.java</file>
-            <file>file:/C:/Learn/OneDrive%20-%20Ho%20Chi%20Minh%20city%20University%20of%20Industry%20and%20Trade/HK6%20(2023-2024)/CongNgheJava/Do%20An/AppBanNongSanSach/src/GUI/HangHoaJFrame.java</file>
-            <file>file:/C:/Learn/OneDrive%20-%20Ho%20Chi%20Minh%20city%20University%20of%20Industry%20and%20Trade/HK6%20(2023-2024)/CongNgheJava/Do%20An/AppBanNongSanSach/src/GUI/HangHoaJPanel.java</file>
+            <file>file:/G:/HK6/DoAnNongSanSach_App/src/DAO/NhaCungCapDAO.java</file>
+            <file>file:/G:/HK6/DoAnNongSanSach_App/src/DAO/HangHoaDAO.java</file>
+            <file>file:/G:/HK6/DoAnNongSanSach_App/src/Main/DanhMucBean.java</file>
+            <file>file:/G:/HK6/DoAnNongSanSach_App/src/DTO/HangHoa.java</file>
+            <file>file:/G:/HK6/DoAnNongSanSach_App/src/DTO/NhaCungCap.java</file>
+            <file>file:/G:/HK6/DoAnNongSanSach_App/src/Main/ScreenSwitch.java</file>
+            <file>file:/G:/HK6/DoAnNongSanSach_App/src/DAO/DataProvider.java</file>
+            <file>file:/G:/HK6/DoAnNongSanSach_App/src/DAO/PhieuNhapDAO.java</file>
+            <file>file:/G:/HK6/DoAnNongSanSach_App/src/GUI/HangHoaJPanel.java</file>
+            <file>file:/G:/HK6/DoAnNongSanSach_App/src/Main/Main.java</file>
+            <file>file:/G:/HK6/DoAnNongSanSach_App/src/GUI/NhaCungCapJFrame.java</file>
+            <file>file:/G:/HK6/DoAnNongSanSach_App/src/DTO/PhieuNhap.java</file>
+            <file>file:/G:/HK6/DoAnNongSanSach_App/src/GUI/NhaCungCapJPanel.java</file>
+            <file>file:/G:/HK6/DoAnNongSanSach_App/src/GUI/HangHoaJFrame.java</file>
+            <file>file:/G:/HK6/DoAnNongSanSach_App/src/GUI/NhapHangJPanel.java</file>
+            <file>file:/G:/HK6/DoAnNongSanSach_App/src/GUI/MainJFrame.java</file>
+            <file>file:/G:/HK6/DoAnNongSanSach_App/src/DTO/NhomHang.java</file>
         </group>
     </open-files>
 </project-private>

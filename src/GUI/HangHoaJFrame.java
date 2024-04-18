@@ -61,7 +61,7 @@ public class HangHoaJFrame extends javax.swing.JFrame {
 
     public void setComboBoxNCC(HangHoa hangHoa) {
         DefaultComboBoxModel<NhaCungCap> model = new DefaultComboBoxModel<>();
-        List<NhaCungCap> listNCC = NhaCungCapDAO.getInstance().getListNhaCungCap();
+        List<NhaCungCap> listNCC = NhaCungCapDAO.getInstance().getListNhaCungCap(1);
 
         for (NhaCungCap ncc : listNCC) {
             model.addElement(ncc);
