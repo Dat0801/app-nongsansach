@@ -59,7 +59,7 @@ public class NhaCungCapJFrame extends javax.swing.JFrame {
         jchkTrangThai = new javax.swing.JCheckBox();
         jtfSDT = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         btnLuu.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnLuu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon-save.png"))); // NOI18N
