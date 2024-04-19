@@ -17,6 +17,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import Main.FontOptionPane;
+
 /**
  *
  * @author Admin
@@ -36,7 +37,7 @@ public class HangHoaJFrame extends javax.swing.JFrame {
         this.flag = flag;
         this.hangHoaPanel = hangHoaPanel;
         FontOptionPane.setUIFont();
-        
+
     }
 
     public void setView(HangHoa hangHoa) {
@@ -359,12 +360,20 @@ public class HangHoaJFrame extends javax.swing.JFrame {
         hanghoa.setSoLuongTon(Double.parseDouble(jtfSoLuongTon.getText()));
         hanghoa.setTrangThai((jchkTrangThai.isSelected()) ? true : false);
         if (flag == 1) {
-            HangHoaDAO.getInstance().insertHangHoa(hanghoa);
-            JOptionPane.showMessageDialog(this, "Thêm thành công!", "Thêm hàng hóa", JOptionPane.INFORMATION_MESSAGE);
+            int kq = HangHoaDAO.getInstance().insertHangHoa(hanghoa);
+            if (kq > 0) {
+                JOptionPane.showMessageDialog(this, "Thêm thành công!", "Thêm hàng hóa", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Thêm thất bại!", "Thêm hàng hóa", JOptionPane.WARNING_MESSAGE);
+            }
         } else {
             hanghoa.setMaHang(Integer.parseInt(jtfMaHH.getText()));
-            HangHoaDAO.getInstance().updateHangHoa(hanghoa);
-            JOptionPane.showMessageDialog(this, "Sửa thành công!", "Sửa hàng hóa", JOptionPane.INFORMATION_MESSAGE);
+            int kq = HangHoaDAO.getInstance().updateHangHoa(hanghoa);
+            if (kq > 0) {
+                JOptionPane.showMessageDialog(this, "Sửa thành công!", "Sửa hàng hóa", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Sửa thất bại!", "Sửa hàng hóa", JOptionPane.WARNING_MESSAGE);
+            }
         }
         hangHoaPanel.LoadHHVaoTable(null, null, null, 1);
     }//GEN-LAST:event_btnLuuActionPerformed

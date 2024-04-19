@@ -31,7 +31,7 @@ public class HangHoaDAO {
     public ArrayList<HangHoa> getListHangHoa(int trangthai) {
         ArrayList<HangHoa> listHH = new ArrayList<HangHoa>();
         try {
-            ResultSet rs = DataProvider.getInstance().executeQuery("Select * from hanghoa where TrangThai=" + trangthai);
+            ResultSet rs = DataProvider.getInstance().executeQuery("Select * from hanghoa where TrangThai=?", trangthai);
             while (rs.next()) {
                 HangHoa hanghoa = new HangHoa(rs);
                 listHH.add(hanghoa);
@@ -44,7 +44,7 @@ public class HangHoaDAO {
     }
 
     public HangHoa getHangHoa(int maHH) {
-        ResultSet rs = DataProvider.getInstance().executeQuery("Select * from hanghoa where MaHang=" + maHH);
+        ResultSet rs = DataProvider.getInstance().executeQuery("Select * from hanghoa where MaHang=?", maHH);
         HangHoa hanghoa = null;
         try {
             while (rs.next()) {
@@ -57,30 +57,30 @@ public class HangHoaDAO {
         return hanghoa;
     }
 
-    public boolean updateHangHoa(HangHoa hanghoa) {
-        boolean rs = DataProvider.getInstance().callStoredProcedureWithParameters("UpdateHangHoa", hanghoa.getMaHang(), hanghoa.getMaNhomHang(), hanghoa.getMaNCC(), hanghoa.getTenHang(),
+    public int updateHangHoa(HangHoa hanghoa) {
+        int rs = DataProvider.getInstance().executeNonQuery("call sp_UpdateHangHoa", hanghoa.getMaHang(), hanghoa.getMaNhomHang(), hanghoa.getMaNCC(), hanghoa.getTenHang(),
                 hanghoa.getdVT(), hanghoa.getGiaNhap(), hanghoa.getHeSo(), hanghoa.getHinhAnh(), hanghoa.getSoLuongTon(), hanghoa.getTrangThai());
         return rs;
     }
 
-    public boolean insertHangHoa(HangHoa hanghoa) {
-        boolean rs = DataProvider.getInstance().callStoredProcedureWithParameters("InsertHangHoa", hanghoa.getMaNhomHang(), hanghoa.getMaNCC(), hanghoa.getTenHang(),
+    public int insertHangHoa(HangHoa hanghoa) {
+        int rs = DataProvider.getInstance().executeNonQuery("call sp_InsertHangHoa", hanghoa.getMaNhomHang(), hanghoa.getMaNCC(), hanghoa.getTenHang(),
                 hanghoa.getdVT(), hanghoa.getGiaNhap(), hanghoa.getHeSo(), hanghoa.getHinhAnh(), hanghoa.getSoLuongTon(), hanghoa.getTrangThai());
         return rs;
     }
 
     public int deleteHangHoa(int maHangHoa) {
-        int rs = DataProvider.getInstance().executeNonQuery("Update hanghoa set TrangThai=0 where MaHang=" + maHangHoa);
+        int rs = DataProvider.getInstance().executeNonQuery("Update hanghoa set TrangThai=0 where MaHang=?", maHangHoa);
         return rs;
     }
     
     public int deletePermanentHangHoa(int maHangHoa) {
-        int rs = DataProvider.getInstance().executeNonQuery("Delete from hanghoa where MaHang=" + maHangHoa);
+        int rs = DataProvider.getInstance().executeNonQuery("Delete from hanghoa where MaHang=?", maHangHoa);
         return rs;
     }
     
     public int recoveryHangHoa(int maHangHoa) {
-        int rs = DataProvider.getInstance().executeNonQuery("Update hanghoa set TrangThai=1 where MaHang=" + maHangHoa);
+        int rs = DataProvider.getInstance().executeNonQuery("Update hanghoa set TrangThai=1 where MaHang=?", maHangHoa);
         return rs;
     }
 }

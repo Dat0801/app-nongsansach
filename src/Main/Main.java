@@ -5,17 +5,19 @@
  */
 package Main;
 
-import GUI.MainJFrame;
-import javax.swing.JFrame;
+import GUI.DangNhapJDialog;
 
 /**
  *
  * @author Admin
  */
 public class Main {
+
     public static void main(String[] args) {
-        MainJFrame mainJFrame = new MainJFrame();
-        mainJFrame.setVisible(true);
-        mainJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        DangNhapJDialog dialog = new DangNhapJDialog(null, true);
+        dialog.setTitle("Đăng Nhập Hệ Thống");
+        dialog.setResizable(false);
+        dialog.setLocationRelativeTo(null);
+        dialog.setVisible(true);
     }
 }

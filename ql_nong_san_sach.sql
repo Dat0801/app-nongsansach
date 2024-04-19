@@ -354,7 +354,7 @@ ALTER TABLE chitietphieunhap
  -- Store procedure on table HangHoa
  -- Update HangHoa
  GO
- CREATE PROCEDURE UpdateHangHoa
+ CREATE PROCEDURE sp_UpdateHangHoa
     @MaHang INT,
     @MaNhomHang INT,
     @MaNCC INT,
@@ -382,7 +382,7 @@ END
 GO
 
 -- Insert HangHoa
-CREATE PROCEDURE InsertHangHoa
+CREATE PROCEDURE sp_InsertHangHoa
     @MaNhomHang INT,
     @MaNCC INT,
     @TenHang NVARCHAR(255),
@@ -396,4 +396,14 @@ AS
 BEGIN
     INSERT INTO hanghoa (MaNhomHang, MaNCC, TenHang, DVT, GiaNhap, HeSo, HinhAnh, SoLuongTon, TrangThai)
     VALUES (@MaNhomHang, @MaNCC, @TenHang, @DVT, @GiaNhap, @HeSo, @HinhAnh, @SoLuongTon, @TrangThai);
+END
+GO
+
+-- Login
+CREATE PROCEDURE sp_Login
+    @username NVARCHAR(50),
+    @password NVARCHAR(50)
+AS
+BEGIN
+    SELECT * FROM nhanvien WHERE UserName = @username AND Password = @password
 END
