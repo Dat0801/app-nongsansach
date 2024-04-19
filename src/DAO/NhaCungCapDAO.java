@@ -28,10 +28,10 @@ public class NhaCungCapDAO {
 
     }
 
-    public ArrayList<NhaCungCap> getListNhaCungCap() {
+    public ArrayList<NhaCungCap> getListNhaCungCap(int trangthai) {
         ArrayList<NhaCungCap> listNCC = new ArrayList<NhaCungCap>();
         try {
-            ResultSet rs = DataProvider.getInstance().executeQuery("Select * from NhaCungCap");
+            ResultSet rs = DataProvider.getInstance().executeQuery("Select * from NhaCungCap where TrangThai=" + trangthai);
             while (rs.next()) {
                 NhaCungCap nhacungcap = new NhaCungCap(rs);
                 listNCC.add(nhacungcap);
@@ -57,7 +57,7 @@ public class NhaCungCapDAO {
         return nhacungcap;
     }
     public int updateNhaCungCap(NhaCungCap ncc) {
-        int rs = DataProvider.getInstance().executeNonQuery("Update nhacungcap set MaNCC=" + ncc.getMaNCC()+ ", TenNCC=N'" + ncc.getTenNCC() + 
+        int rs = DataProvider.getInstance().executeNonQuery("Update nhacungcap set TenNCC=N'" + ncc.getTenNCC() + 
         "', SDT='" + ncc.getSDT()+ "', DiaChi=N'" + ncc.getDiaChi()+ "', TrangThai='" + ncc.getTrangThai() + "' where MaNCC=" + ncc.getMaNCC());
         return rs;
     }
@@ -70,6 +70,15 @@ public class NhaCungCapDAO {
     
     public int deleteNhaCungCap(int maNhaCungCap) {
         int rs = DataProvider.getInstance().executeNonQuery("Update nhacungcap set TrangThai=0 where MaNCC=" + maNhaCungCap);
+        return rs;
+    }
+    public int deletePermanentNhaCungCap(int maNCC) {
+        int rs = DataProvider.getInstance().executeNonQuery("Delete from nhacungcap where MaNCC=" + maNCC);
+        return rs;
+    }
+    
+    public int recoveryNhaCungCap(int maNCC) {
+        int rs = DataProvider.getInstance().executeNonQuery("Update nhacungcap set TrangThai=1 where MaNCC=" + maNCC);
         return rs;
     }
 }
