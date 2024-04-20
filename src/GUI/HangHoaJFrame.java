@@ -53,7 +53,6 @@ public class HangHoaJFrame extends javax.swing.JFrame {
             jtfGiaNhap.setText(hangHoa.getGiaNhap() + "");
             jtfHinhAnh.setText(hangHoa.getHinhAnh());
             jtfSoLuongTon.setText(hangHoa.getSoLuongTon() + "");
-            jchkTrangThai.setSelected(hangHoa.getTrangThai());
         } else {
             setComboBoxNHH(null);
             setComboBoxNCC(null);
@@ -73,6 +72,10 @@ public class HangHoaJFrame extends javax.swing.JFrame {
             model.setSelectedItem(nhacungcap);
         }
         jcbNhaCC.setModel(model);
+    }
+    
+    public void clearForm() {
+        jtfTenHH.setText("");
     }
 
     public void setComboBoxNHH(HangHoa hangHoa) {
@@ -121,8 +124,6 @@ public class HangHoaJFrame extends javax.swing.JFrame {
         jlbSoLuongTon = new javax.swing.JLabel();
         jtfSoLuongTon = new javax.swing.JTextField();
         btnChonAnh = new javax.swing.JButton();
-        jchkTrangThai = new javax.swing.JCheckBox();
-        jlbTrangThai = new javax.swing.JLabel();
         btnLuu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -148,6 +149,11 @@ public class HangHoaJFrame extends javax.swing.JFrame {
         jlbTenHH.setText("Tên hàng hóa");
 
         jtfTenHH.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jtfTenHH.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtfTenHHFocusLost(evt);
+            }
+        });
 
         jcbNhomHH.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
@@ -195,12 +201,6 @@ public class HangHoaJFrame extends javax.swing.JFrame {
             }
         });
 
-        jchkTrangThai.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jchkTrangThai.setText("Kích hoạt");
-
-        jlbTrangThai.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jlbTrangThai.setText("Trạng thái");
-
         javax.swing.GroupLayout jpnThongTinHangHoaLayout = new javax.swing.GroupLayout(jpnThongTinHangHoa);
         jpnThongTinHangHoa.setLayout(jpnThongTinHangHoaLayout);
         jpnThongTinHangHoaLayout.setHorizontalGroup(
@@ -228,32 +228,29 @@ public class HangHoaJFrame extends javax.swing.JFrame {
                             .addComponent(jtfMaHH)
                             .addComponent(jcbNhomHH, 0, 270, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
-                .addGroup(jpnThongTinHangHoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpnThongTinHangHoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jpnThongTinHangHoaLayout.createSequentialGroup()
-                            .addGroup(jpnThongTinHangHoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jlbSoLuongTon)
-                                .addComponent(jlbGiaNhap))
-                            .addGap(18, 18, 18)
-                            .addGroup(jpnThongTinHangHoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jtfSoLuongTon, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jtfGiaNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jchkTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jpnThongTinHangHoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jpnThongTinHangHoaLayout.createSequentialGroup()
                         .addGroup(jpnThongTinHangHoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlbHeSo)
-                            .addGroup(jpnThongTinHangHoaLayout.createSequentialGroup()
-                                .addGap(108, 108, 108)
-                                .addComponent(jtfHeSo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jpnThongTinHangHoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpnThongTinHangHoaLayout.createSequentialGroup()
-                                    .addComponent(jlbDVT)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jtfDVT, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpnThongTinHangHoaLayout.createSequentialGroup()
-                                    .addComponent(jlbGiaBan)
-                                    .addGap(53, 53, 53)
-                                    .addComponent(jtfGiaBan, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addComponent(jlbTrangThai))
+                            .addComponent(jlbSoLuongTon)
+                            .addComponent(jlbGiaNhap))
+                        .addGap(18, 18, 18)
+                        .addGroup(jpnThongTinHangHoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtfSoLuongTon, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtfGiaNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jpnThongTinHangHoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jlbHeSo)
+                        .addGroup(jpnThongTinHangHoaLayout.createSequentialGroup()
+                            .addGap(108, 108, 108)
+                            .addComponent(jtfHeSo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jpnThongTinHangHoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpnThongTinHangHoaLayout.createSequentialGroup()
+                                .addComponent(jlbDVT)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jtfDVT, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpnThongTinHangHoaLayout.createSequentialGroup()
+                                .addComponent(jlbGiaBan)
+                                .addGap(53, 53, 53)
+                                .addComponent(jtfGiaBan, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(50, 50, 50))
         );
         jpnThongTinHangHoaLayout.setVerticalGroup(
@@ -302,11 +299,7 @@ public class HangHoaJFrame extends javax.swing.JFrame {
                             .addComponent(jlbHinhAnh)
                             .addComponent(jtfHinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jpnThongTinHangHoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpnThongTinHangHoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jlbTrangThai)
-                        .addComponent(jchkTrangThai))
-                    .addComponent(btnChonAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnChonAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(57, Short.MAX_VALUE))
         );
 
@@ -358,11 +351,11 @@ public class HangHoaJFrame extends javax.swing.JFrame {
         hanghoa.setHeSo((Double.parseDouble(jtfHeSo.getText())));
         hanghoa.setGiaNhap(Double.parseDouble(jtfGiaNhap.getText()));
         hanghoa.setSoLuongTon(Double.parseDouble(jtfSoLuongTon.getText()));
-        hanghoa.setTrangThai((jchkTrangThai.isSelected()) ? true : false);
         if (flag == 1) {
             int kq = HangHoaDAO.getInstance().insertHangHoa(hanghoa);
             if (kq > 0) {
                 JOptionPane.showMessageDialog(this, "Thêm thành công!", "Thêm hàng hóa", JOptionPane.INFORMATION_MESSAGE);
+                
             } else {
                 JOptionPane.showMessageDialog(this, "Thêm thất bại!", "Thêm hàng hóa", JOptionPane.WARNING_MESSAGE);
             }
@@ -390,6 +383,17 @@ public class HangHoaJFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnChonAnhActionPerformed
 
+    private void jtfTenHHFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfTenHHFocusLost
+        // TODO add your handling code here:
+        String tenHang = jtfTenHH.getText();
+        if (tenHang.length() > 0) {
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Tên hàng không được để trống!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+            jtfTenHH.requestFocus();
+        }
+    }//GEN-LAST:event_jtfTenHHFocusLost
+
     /**
      * @param args the command line arguments
      */
@@ -399,7 +403,6 @@ public class HangHoaJFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnLuu;
     private javax.swing.JComboBox<NhaCungCap> jcbNhaCC;
     private javax.swing.JComboBox<NhomHang> jcbNhomHH;
-    private javax.swing.JCheckBox jchkTrangThai;
     private javax.swing.JLabel jlbDVT;
     private javax.swing.JLabel jlbGiaBan;
     private javax.swing.JLabel jlbGiaNhap;
@@ -410,7 +413,6 @@ public class HangHoaJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jlbNhomHH;
     private javax.swing.JLabel jlbSoLuongTon;
     private javax.swing.JLabel jlbTenHH;
-    private javax.swing.JLabel jlbTrangThai;
     private javax.swing.JPanel jpnThongTinHangHoa;
     private javax.swing.JTextField jtfDVT;
     private javax.swing.JTextField jtfGiaBan;

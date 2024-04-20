@@ -38,7 +38,7 @@ public class HangHoaJPanel extends javax.swing.JPanel {
     }
 
     void LoadHHVaoTable(JTable jt, JPanel jpn, JScrollPane jsp, int trangthai) {
-        String[] header = {"Mã hàng hóa", "Mã nhóm hàng", "Mã nhà cung cấp", "Tên hàng hóa", "DVT", "Giá bán", "Hệ số", "Giá nhập", "Hình Ảnh", "Số lượng tồn", "Trạng thái"};
+        String[] header = {"Mã hàng hóa", "Mã nhóm hàng", "Mã nhà cung cấp", "Tên hàng hóa", "DVT", "Giá bán", "Hệ số", "Giá nhập", "Hình Ảnh", "Số lượng tồn"};
         if (jt == null && jpn == null && jsp == null) {
             jt = jtHangHoa;
             jpn = jpnView;
@@ -50,15 +50,10 @@ public class HangHoaJPanel extends javax.swing.JPanel {
             public boolean isCellEditable(int rowIndex, int colIndex) {
                 return false;
             }
-
-            @Override
-            public Class<?> getColumnClass(int columnIndex) {
-                return columnIndex == 10 ? Boolean.class : String.class;
-            }
         };
 
         for (HangHoa hh : listHH) {
-            Object[] row = {hh.getMaHang(), hh.getMaNhomHang(), hh.getMaNCC(), hh.getTenHang(), hh.getdVT(), hh.getGiaBan(), hh.getHeSo(), hh.getGiaNhap(), hh.getHinhAnh(), hh.getSoLuongTon(), hh.getTrangThai()};
+            Object[] row = {hh.getMaHang(), hh.getMaNhomHang(), hh.getMaNCC(), hh.getTenHang(), hh.getdVT(), hh.getGiaBan(), hh.getHeSo(), hh.getGiaNhap(), hh.getHinhAnh(), hh.getSoLuongTon()};
             modelTableDb.addRow(row);
         }
 
@@ -102,7 +97,6 @@ public class HangHoaJPanel extends javax.swing.JPanel {
         jtHangHoa = new javax.swing.JTable();
         jpnKhoiPhucHH = new javax.swing.JPanel();
         btnKhoiPhuc = new javax.swing.JButton();
-        btnXoaVinhVien = new javax.swing.JButton();
         jpnViewKhoiPhuc = new javax.swing.JPanel();
         jspHangHoaKhoiPhuc = new javax.swing.JScrollPane();
         jtHangHoaKhoiPhuc = new javax.swing.JTable();
@@ -205,15 +199,6 @@ public class HangHoaJPanel extends javax.swing.JPanel {
             }
         });
 
-        btnXoaVinhVien.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        btnXoaVinhVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon-delete-forever.png"))); // NOI18N
-        btnXoaVinhVien.setText("Xóa vĩnh viễn");
-        btnXoaVinhVien.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXoaVinhVienActionPerformed(evt);
-            }
-        });
-
         jtHangHoaKhoiPhuc.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -250,8 +235,6 @@ public class HangHoaJPanel extends javax.swing.JPanel {
                     .addComponent(jpnViewKhoiPhuc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jpnKhoiPhucHHLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnXoaVinhVien)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnKhoiPhuc, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -259,9 +242,7 @@ public class HangHoaJPanel extends javax.swing.JPanel {
             jpnKhoiPhucHHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnKhoiPhucHHLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jpnKhoiPhucHHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnKhoiPhuc, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnXoaVinhVien, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnKhoiPhuc, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
                 .addComponent(jpnViewKhoiPhuc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -359,28 +340,6 @@ public class HangHoaJPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnKhoiPhucActionPerformed
 
-    private void btnXoaVinhVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaVinhVienActionPerformed
-        // TODO add your handling code here:
-        try {
-            int index = jtHangHoaKhoiPhuc.getSelectedRow();
-
-            HangHoa hangHoa = listHH.get(index);
-
-            int maHang = hangHoa.getMaHang();
-            String tenHang = hangHoa.getTenHang();
-
-            int kq = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa vĩnh viễn hàng hóa có tên là: " + tenHang + "?", "Câu hỏi", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-            if (kq == JOptionPane.YES_OPTION) {
-                HangHoaDAO.getInstance().deletePermanentHangHoa(maHang);
-            }
-            listHH.remove(index);
-            LoadHHVaoTable(jtHangHoaKhoiPhuc, jpnViewKhoiPhuc, jspHangHoaKhoiPhuc, 0);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn hàng hóa muốn xóa vĩnh viễn!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
-        }
-
-    }//GEN-LAST:event_btnXoaVinhVienActionPerformed
-
     private void jtbQuanLyHHStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jtbQuanLyHHStateChanged
         // TODO add your handling code here:
         int index = jtbQuanLyHH.getSelectedIndex();
@@ -396,7 +355,6 @@ public class HangHoaJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnKhoiPhuc;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnXoa;
-    private javax.swing.JButton btnXoaVinhVien;
     private javax.swing.JPanel jpnKhoiPhucHH;
     private javax.swing.JPanel jpnQuanLyHH;
     private javax.swing.JPanel jpnView;

@@ -363,8 +363,7 @@ ALTER TABLE chitietphieunhap
     @GiaNhap DECIMAL(18, 2),
     @HeSo FLOAT,
     @HinhAnh NVARCHAR(255),
-	@SoLuongTon FLOAT,
-    @TrangThai NVARCHAR(50)
+	@SoLuongTon FLOAT
 AS
 BEGIN
     UPDATE hanghoa
@@ -375,8 +374,7 @@ BEGIN
         GiaNhap = @GiaNhap,
         HeSo = @HeSo,
         SoLuongTon = @SoLuongTon,
-        HinhAnh = @HinhAnh,
-        TrangThai = @TrangThai
+        HinhAnh = @HinhAnh
     WHERE MaHang = @MaHang;
 END
 GO
@@ -390,12 +388,11 @@ CREATE PROCEDURE sp_InsertHangHoa
     @GiaNhap DECIMAL(18, 2),
     @HeSo FLOAT,
     @HinhAnh NVARCHAR(255),
-	@SoLuongTon FLOAT,
-    @TrangThai NVARCHAR(50)
+	@SoLuongTon FLOAT
 AS
 BEGIN
-    INSERT INTO hanghoa (MaNhomHang, MaNCC, TenHang, DVT, GiaNhap, HeSo, HinhAnh, SoLuongTon, TrangThai)
-    VALUES (@MaNhomHang, @MaNCC, @TenHang, @DVT, @GiaNhap, @HeSo, @HinhAnh, @SoLuongTon, @TrangThai);
+    INSERT INTO hanghoa (MaNhomHang, MaNCC, TenHang, DVT, GiaNhap, HeSo, HinhAnh, SoLuongTon)
+    VALUES (@MaNhomHang, @MaNCC, @TenHang, @DVT, @GiaNhap, @HeSo, @HinhAnh, @SoLuongTon);
 END
 GO
 

@@ -59,23 +59,18 @@ public class HangHoaDAO {
 
     public int updateHangHoa(HangHoa hanghoa) {
         int rs = DataProvider.getInstance().executeNonQuery("call sp_UpdateHangHoa", hanghoa.getMaHang(), hanghoa.getMaNhomHang(), hanghoa.getMaNCC(), hanghoa.getTenHang(),
-                hanghoa.getdVT(), hanghoa.getGiaNhap(), hanghoa.getHeSo(), hanghoa.getHinhAnh(), hanghoa.getSoLuongTon(), hanghoa.getTrangThai());
+                hanghoa.getdVT(), hanghoa.getGiaNhap(), hanghoa.getHeSo(), hanghoa.getHinhAnh(), hanghoa.getSoLuongTon());
         return rs;
     }
 
     public int insertHangHoa(HangHoa hanghoa) {
         int rs = DataProvider.getInstance().executeNonQuery("call sp_InsertHangHoa", hanghoa.getMaNhomHang(), hanghoa.getMaNCC(), hanghoa.getTenHang(),
-                hanghoa.getdVT(), hanghoa.getGiaNhap(), hanghoa.getHeSo(), hanghoa.getHinhAnh(), hanghoa.getSoLuongTon(), hanghoa.getTrangThai());
+                hanghoa.getdVT(), hanghoa.getGiaNhap(), hanghoa.getHeSo(), hanghoa.getHinhAnh(), hanghoa.getSoLuongTon());
         return rs;
     }
 
     public int deleteHangHoa(int maHangHoa) {
         int rs = DataProvider.getInstance().executeNonQuery("Update hanghoa set TrangThai=0 where MaHang=?", maHangHoa);
-        return rs;
-    }
-    
-    public int deletePermanentHangHoa(int maHangHoa) {
-        int rs = DataProvider.getInstance().executeNonQuery("Delete from hanghoa where MaHang=?", maHangHoa);
         return rs;
     }
     
