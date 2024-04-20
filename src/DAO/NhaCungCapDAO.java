@@ -57,14 +57,14 @@ public class NhaCungCapDAO {
         return nhacungcap;
     }
     public int updateNhaCungCap(NhaCungCap ncc) {
-        int rs = DataProvider.getInstance().executeNonQuery("Update nhacungcap set TenNCC=N'" + ncc.getTenNCC() + 
-        "', SDT='" + ncc.getSDT()+ "', DiaChi=N'" + ncc.getDiaChi()+ "', TrangThai='" + ncc.getTrangThai() + "' where MaNCC=" + ncc.getMaNCC());
+        int rs = DataProvider.getInstance().executeNonQuery("call sp_updateNCC", ncc.getMaNCC(), ncc.getTenNCC(), 
+        ncc.getSDT(), ncc.getDiaChi());
         return rs;
     }
     
     public int insertNhaCungCap(NhaCungCap ncc) {
-        int rs = DataProvider.getInstance().executeNonQuery("Insert into nhacungcap values(" + ncc.getMaNCC()+ ", N'" + ncc.getTenNCC()+ 
-        "','" + ncc.getSDT()+ "', N'" + ncc.getDiaChi()+ "', " + ncc.getTrangThai() + ")");
+        int rs = DataProvider.getInstance().executeNonQuery("call sp_insertNCC", ncc.getMaNCC(), ncc.getTenNCC(),
+        ncc.getSDT(), ncc.getDiaChi());
         return rs;
     }
     
