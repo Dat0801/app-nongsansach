@@ -94,7 +94,7 @@ public class HangHoaDAO {
     }
 
     public int insertHangHoa(HangHoa hanghoa) {
-        int rs = DataProvider.getInstance().executeNonQuery("call sp_InsertHangHoa", hanghoa.getMaNhomHang(), hanghoa.getMaNCC(), hanghoa.getTenHang(),
+        int rs = DataProvider.getInstance().executeNonQuery("call sp_InsertHangHoa", hanghoa.getMaHang(), hanghoa.getMaNhomHang(), hanghoa.getMaNCC(), hanghoa.getTenHang(),
                 hanghoa.getdVT(), hanghoa.getGiaNhap(), hanghoa.getHeSo(), hanghoa.getHinhAnh(), hanghoa.getSoLuongTon());
         return rs;
     }
