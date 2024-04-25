@@ -46,6 +46,16 @@ public class HangHoaJFrame extends javax.swing.JFrame {
 
     }
 
+    public String generateMaHang() {
+        HangHoa hanghoa = HangHoaDAO.getInstance().getLastHangHoa();
+        int sothutu = (Integer.parseInt(hanghoa.getMaHang().substring(2)) + 1);
+        String mahang = "HH" + sothutu;
+        if (sothutu < 100) {
+            mahang = "HH0" + sothutu;
+        }
+        return mahang;
+    }
+
     public void setView(HangHoa hangHoa) {
         if (hangHoa != null) {
             jtfMaHH.setText(hangHoa.getMaHang());
@@ -60,12 +70,7 @@ public class HangHoaJFrame extends javax.swing.JFrame {
             jtfHinhAnh.setText(hangHoa.getHinhAnh());
             jtfSoLuongTon.setText(hangHoa.getSoLuongTon() + "");
         } else {
-            HangHoa hanghoa = HangHoaDAO.getInstance().getLastHangHoa();
-            int sothutu = (Integer.parseInt(hanghoa.getMaHang().substring(2)) + 1);
-            String mahang = "HH" + sothutu;
-            if (sothutu < 100) {
-                mahang = "HH0" + sothutu;
-            }
+            String mahang = generateMaHang();
             jtfMaHH.setText(mahang);
             setComboBoxNHH(null);
             setComboBoxNCC(null);
@@ -88,6 +93,8 @@ public class HangHoaJFrame extends javax.swing.JFrame {
     }
 
     public void clearForm() {
+        String mahang = generateMaHang();
+        jtfMaHH.setText(mahang);
         jtfTenHH.setText("");
         jtfHinhAnh.setText("");
         jtfDVT.setText("");
@@ -95,6 +102,7 @@ public class HangHoaJFrame extends javax.swing.JFrame {
         jtfGiaNhap.setText("");
         jtfHinhAnh.setText("");
         jtfSoLuongTon.setText("");
+        jtfGiaBan.setText("");
     }
 
     public void setComboBoxNHH(HangHoa hangHoa) {
@@ -410,6 +418,7 @@ public class HangHoaJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         HangHoa hanghoa = new HangHoa();
         if (validateInput()) {
+            hanghoa.setMaHang(jtfMaHH.getText());
             NhomHang selectedNhomHang = (NhomHang) jcbNhomHH.getSelectedItem();
             hanghoa.setMaNhomHang(selectedNhomHang.getMaNhomHang());
             NhaCungCap selectedNhaCungCap = (NhaCungCap) jcbNhaCC.getSelectedItem();
