@@ -64,7 +64,9 @@
                           <Component id="jpnView" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="jtfSearch" min="-2" pref="434" max="-2" attributes="0"/>
-                              <EmptySpace pref="478" max="32767" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="btnTimKiem" min="-2" pref="149" max="-2" attributes="0"/>
+                              <EmptySpace pref="335" max="32767" attributes="0"/>
                               <Component id="btnXoa" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnThem" min="-2" pref="149" max="-2" attributes="0"/>
@@ -82,6 +84,7 @@
                           <Component id="btnThem" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
                           <Component id="btnXoa" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
                           <Component id="jtfSearch" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                          <Component id="btnTimKiem" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                       <Component id="jpnView" max="32767" attributes="0"/>
@@ -125,6 +128,9 @@
                   <Font name="Arial" size="18" style="0"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfSearchKeyPressed"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JPanel" name="jpnView">
 
@@ -170,6 +176,20 @@
                 </Container>
               </SubComponents>
             </Container>
+            <Component class="javax.swing.JButton" name="btnTimKiem">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Arial" size="16" style="1"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Images/icon-search.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="T&#xec;m ki&#x1ebf;m"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTimKiemActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jpnKhoiPhucHH">
@@ -190,8 +210,6 @@
                           <Component id="jpnViewKhoiPhuc" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Component id="btnXoaVinhVien" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnKhoiPhuc" min="-2" pref="149" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -203,10 +221,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnKhoiPhuc" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
-                          <Component id="btnXoaVinhVien" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="btnKhoiPhuc" min="-2" pref="50" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                       <Component id="jpnViewKhoiPhuc" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -227,20 +242,6 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnKhoiPhucActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="btnXoaVinhVien">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Arial" size="16" style="1"/>
-                </Property>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Images/icon-delete-forever.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="X&#xf3;a v&#x129;nh vi&#x1ec5;n"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXoaVinhVienActionPerformed"/>
               </Events>
             </Component>
             <Container class="javax.swing.JPanel" name="jpnViewKhoiPhuc">

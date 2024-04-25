@@ -4,11 +4,11 @@ GO
 USE CHNONGSAN
 
 CREATE TABLE hanghoa (
-  MaHang int IDENTITY(1,1) NOT NULL,
-  MaNhomHang int NOT NULL,
-  MaNCC int NOT NULL,
+  MaHang varchar(10) NOT NULL,
+  MaNhomHang varchar(10) NOT NULL,
+  MaNCC varchar(10) NOT NULL,
   TenHang nvarchar(50) NOT NULL,
-  DVT nvarchar(30) DEFAULT N'Chưa xác định',
+  DVT nvarchar(30) DEFAULT N'Kg',
   GiaBan float DEFAULT 0,
   HeSo float DEFAULT 1.2,
   GiaNhap float NOT NULL,
@@ -54,65 +54,65 @@ BEGIN
 END;
 GO
 
-INSERT INTO hanghoa (MaNhomHang, MaNCC, TenHang, DVT, HeSo, GiaNhap, HinhAnh, SoLuongTon) VALUES
-(4, 1, N'Chuối già Nam Mỹ', N'Kg', 1.2, 25000, 'chuoiGia.jpg', 16.5),
-(4, 2, N'Dưa hấu đỏ', N'Kg', 1.2, 12500, 'duaHauDo.jpg', 15),
-(4, 1, N'Dưa lưới', N'Kg',  1.2, 45000, 'duaLuoi.jpg', 20),
-(4, 2, N'Cam vàng nội địa Trung', N'Kg',  1.2, 40000, 'camVang.jpg', 20.5),
-(4, 3, N'Nho xanh Nam Phi', N'Kg',  1.2, 125000, 'nhoXanh.jpg', 10.5),
-(4, 4, N'Quýt giống Úc', N'Kg',  1.2, 40000, 'quytUc.jpg', 12.5),
-(4, 3, N'Cam sành', N'Kg', 1.2, 12500, 'camSanh.jpg', 23),
-(4, 5, N'Táo Autumn Mỹ', N'Kg', 1.2, 57500, 'taoMy.jpg', 8),
-(4, 5, N'Ổi Đài Loan', N'Kg',  1.2, 17500, 'oiDaiLoan.jpg', 6),
-(1, 1, N'Cải bẹ xanh', N'Kg', 1.2, 15000, 'caiBeXanh.jpg', 9),
-(1, 1, N'Cải ngọt', N'Kg',  1.2, 15000, 'caiNgot.jpg', 6),
-(1, 2, N'Cải thìa', N'Kg',  1.2, 15000, 'caiThia.jpg', 11),
-(1, 3, N'Cải bẹ dún', N'Kg', 1.2, 15000, 'caiBeDun.jpg', 9),
-(1, 3, N'Rau dền', N'Kg', 1.2, 12500, 'rauDen.jpg', 12),
-(1, 2, N'Rau lang', N'Kg',  1.2, 15000, 'rauLang.jpg', 14),
-(1, 4, N'Rau mồng tơi', N'Kg', 1.2, 12500, 'rauMongToi.jpg', 10.5),
-(1, 5, N'Rau muống nước', N'Kg', 1.2, 7500, 'rauMuongNuoc.jpg', 13),
-(1, 5, N'Rau ngót', N'Kg', 1.2, 15000, 'rauNgot.jpg', 5.2),
-(1, 4, N'Rau tần ô', N'Kg', 1.2, 22500, 'rauTanO.jpg', 6.6),
-(2, 1, N'Khoai lang Nhật', N'Kg', 1.2, 15000, 'khoaiLangNhat.jpg', 7),
-(2, 2, N'Bí đỏ hồ lô', N'Kg',  1.2, 12500, 'biDoHoLo.jpg', 12),
-(2, 1, N'Bí xanh', N'Kg', 1.2, 22500, 'biXanh.jpg', 7),
-(2, 2, N'Cà chua', N'Kg',  1.2, 20000, 'caChua.jpg', 12),
-(2, 3, N'Cà rốt', N'Kg', 1.2, 17500, 'caRot.jpg', 9),
-(2, 3, N'Khoai tây', N'Kg', 1.2, 25000, 'khoaiTay.jpg', 15),
-(2, 4, N'Củ cải trắng', N'Kg',  1.2, 15000, 'cuCaiTrang.jpg', 6),
-(2, 5, N'Củ dền', N'Kg', 1.2, 25000, 'cuDen.jpg', 9),
-(2, 5, N'Khoai mỡ', N'Kg',  1.2, 25000, 'khoaiMo.jpg', 10),
-(2, 4, N'Ớt chuông', N'Kg', 1.2, 17500, 'otChuong.jpg', 8),
-(3, 5, N'Nấm hương', N'Kg', 1.2, 190000, 'namHuong.jpg', 6),
-(3, 4, N'Nấm bào ngư trắng', N'Kg',  1.2, 190000, 'namBaoNguTrang.jpg', 5),
-(3, 5, N'Nấm kim châm', N'Kg', 1.2, 190000, 'namKimCham.jpg', 7),
-(3, 4, N'Nấm mối đen', N'Kg', 1.2, 190000, 'namMoiDen.jpg', 4),
-(3, 5, N'Nấm linh chi nâu', N'Kg', 1.2, 185000, 'namLinhChi.jpg', 6),
-(3, 4, N'Nấm đùi gà', N'Kg', 1.2, 185000, 'namDuiGa.jpg', 3),
-(3, 5, N'Nấm rơm', N'Kg',  1.2, 100000, 'namRom.jpg', 10),
-(3, 4, N'Nấm Notaly', N'Kg',  1.2, 190000, 'namNotaly.jpg', 4),
-(3, 5, N'Nấm tuyết', N'Kg',  1.2, 500000, 'namTuyet.jpg', 3),
-(3, 5, N'Nấm mỡ nâu', N'Kg',  1.2, 290000, 'namMoNau.jpg', 7);
+INSERT INTO hanghoa (MaHang, MaNhomHang, MaNCC, TenHang, DVT, HeSo, GiaNhap, HinhAnh, SoLuongTon) VALUES
+('HH001', 'NH004', 'NCC001', N'Chuối già Nam Mỹ', N'Kg', 1.2, 25000, 'chuoiGia.jpg', 16.5),
+('HH002', 'NH004', 'NCC002', N'Dưa hấu đỏ', N'Kg', 1.2, 12500, 'duaHauDo.jpg', 15),
+('HH003', 'NH004', 'NCC001', N'Dưa lưới', N'Kg',  1.2, 45000, 'duaLuoi.jpg', 20),
+('HH004', 'NH004', 'NCC002', N'Cam vàng nội địa Trung', N'Kg',  1.2, 40000, 'camVang.jpg', 20.5),
+('HH005', 'NH004', 'NCC003', N'Nho xanh Nam Phi', N'Kg',  1.2, 125000, 'nhoXanh.jpg', 10.5),
+('HH006', 'NH004', 'NCC004', N'Quýt giống Úc', N'Kg',  1.2, 40000, 'quytUc.jpg', 12.5),
+('HH007', 'NH004', 'NCC003', N'Cam sành', N'Kg', 1.2, 12500, 'camSanh.jpg', 23),
+('HH008', 'NH004', 'NCC005', N'Táo Autumn Mỹ', N'Kg', 1.2, 57500, 'taoMy.jpg', 8),
+('HH009', 'NH004', 'NCC005', N'Ổi Đài Loan', N'Kg',  1.2, 17500, 'oiDaiLoan.jpg', 6),
+('HH010', 'NH001', 'NCC001', N'Cải bẹ xanh', N'Kg', 1.2, 15000, 'caiBeXanh.jpg', 9),
+('HH011', 'NH001', 'NCC001', N'Cải ngọt', N'Kg',  1.2, 15000, 'caiNgot.jpg', 6),
+('HH012', 'NH001', 'NCC002', N'Cải thìa', N'Kg',  1.2, 15000, 'caiThia.jpg', 11),
+('HH013', 'NH001', 'NCC003', N'Cải bẹ dún', N'Kg', 1.2, 15000, 'caiBeDun.jpg', 9),
+('HH014', 'NH001', 'NCC003', N'Rau dền', N'Kg', 1.2, 12500, 'rauDen.jpg', 12),
+('HH015', 'NH001', 'NCC002', N'Rau lang', N'Kg',  1.2, 15000, 'rauLang.jpg', 14),
+('HH016', 'NH001', 'NCC004', N'Rau mồng tơi', N'Kg', 1.2, 12500, 'rauMongToi.jpg', 10.5),
+('HH017', 'NH001', 'NCC005', N'Rau muống nước', N'Kg', 1.2, 7500, 'rauMuongNuoc.jpg', 13),
+('HH018', 'NH001', 'NCC005', N'Rau ngót', N'Kg', 1.2, 15000, 'rauNgot.jpg', 5.2),
+('HH019', 'NH001', 'NCC004', N'Rau tần ô', N'Kg', 1.2, 22500, 'rauTanO.jpg', 6.6),
+('HH020', 'NH002', 'NCC001', N'Khoai lang Nhật', N'Kg', 1.2, 15000, 'khoaiLangNhat.jpg', 7),
+('HH021', 'NH002', 'NCC002', N'Bí đỏ hồ lô', N'Kg',  1.2, 12500, 'biDoHoLo.jpg', 12),
+('HH022', 'NH002', 'NCC001', N'Bí xanh', N'Kg', 1.2, 22500, 'biXanh.jpg', 7),
+('HH023', 'NH002', 'NCC002', N'Cà chua', N'Kg',  1.2, 20000, 'caChua.jpg', 12),
+('HH024', 'NH002', 'NCC003', N'Cà rốt', N'Kg', 1.2, 17500, 'caRot.jpg', 9),
+('HH025', 'NH002', 'NCC003', N'Khoai tây', N'Kg', 1.2, 25000, 'khoaiTay.jpg', 15),
+('HH026', 'NH002', 'NCC004', N'Củ cải trắng', N'Kg',  1.2, 15000, 'cuCaiTrang.jpg', 6),
+('HH027', 'NH002', 'NCC005', N'Củ dền', N'Kg', 1.2, 25000, 'cuDen.jpg', 9),
+('HH028', 'NH002', 'NCC005', N'Khoai mỡ', N'Kg',  1.2, 25000, 'khoaiMo.jpg', 10),
+('HH029', 'NH002', 'NCC004', N'Ớt chuông', N'Kg', 1.2, 17500, 'otChuong.jpg', 8),
+('HH030', 'NH003', 'NCC005', N'Nấm hương', N'Kg', 1.2, 190000, 'namHuong.jpg', 6),
+('HH031', 'NH003', 'NCC004', N'Nấm bào ngư trắng', N'Kg',  1.2, 190000, 'namBaoNguTrang.jpg', 5),
+('HH032', 'NH003', 'NCC005', N'Nấm kim châm', N'Kg', 1.2, 190000, 'namKimCham.jpg', 7),
+('HH033', 'NH003', 'NCC004', N'Nấm mối đen', N'Kg', 1.2, 190000, 'namMoiDen.jpg', 4),
+('HH034', 'NH003', 'NCC005', N'Nấm linh chi nâu', N'Kg', 1.2, 185000, 'namLinhChi.jpg', 6),
+('HH035', 'NH003', 'NCC004', N'Nấm đùi gà', N'Kg', 1.2, 185000, 'namDuiGa.jpg', 3),
+('HH036', 'NH003', 'NCC005', N'Nấm rơm', N'Kg',  1.2, 100000, 'namRom.jpg', 10),
+('HH037', 'NH003', 'NCC004', N'Nấm Notaly', N'Kg',  1.2, 190000, 'namNotaly.jpg', 4),
+('HH038', 'NH003', 'NCC005', N'Nấm tuyết', N'Kg',  1.2, 500000, 'namTuyet.jpg', 3),
+('HH039', 'NH003', 'NCC005', N'Nấm mỡ nâu', N'Kg',  1.2, 290000, 'namMoNau.jpg', 7);
 
 CREATE TABLE hoadon (
-  MaHD int IDENTITY(1,1) NOT NULL,
-  MaNV int NOT NULL,
-  MaKH int DEFAULT NULL,
+  MaHD varchar(10) NOT NULL,
+  MaNV varchar(10) NOT NULL,
+  MaKH varchar(10) DEFAULT NULL,
   NgayTao datetime DEFAULT GETDATE(),
   TongTien float DEFAULT 0,
   TrangThai nvarchar(50) DEFAULT N'Đã hoàn thành'
 ) 
 
-INSERT INTO hoadon (MaNV, MaKH, TongTien) VALUES
-(1, 1, 0),
-(2, 2, 0),
-(3, 3, 0),
-(3, null, 0);
+INSERT INTO hoadon (MaHD, MaNV, MaKH, TongTien) VALUES
+('HD001', 'NV001', 'KH001', 0),
+('HD002', 'NV002', 'KH002', 0),
+('HD003', 'NV003', 'KH003', 0),
+('HD004', 'NV003', null, 0);
 
 CREATE TABLE chitiethoadon (
-  MaHang int NOT NULL,
-  MaHD int NOT NULL,
+  MaHang varchar(10) NOT NULL,
+  MaHD varchar(10) NOT NULL,
   SoLuong int DEFAULT 1,
   ThanhTien float DEFAULT 0
 );
@@ -158,33 +158,32 @@ BEGIN
 END;
 GO
 
-
 INSERT INTO chitiethoadon (MaHang, MaHD, SoLuong, ThanhTien) VALUES
-(1, 1, 2, 0),
-(11, 2, 3, 0),
-(12, 2, 3, 0),
-(13, 3, 2, 0),
-(14, 3, 5, 0),
-(15, 4, 2, 0),
-(16, 4, 4, 0),
-(23, 1, 2, 0),
-(36, 2, 3, 0);
+('HH001', 'HD001', 2, 0),
+('HH011', 'HD002', 3, 0),
+('HH012', 'HD002', 3, 0),
+('HH013', 'HD003', 2, 0),
+('HH014', 'HD003', 5, 0),
+('HH015', 'HD004', 2, 0),
+('HH016', 'HD004', 4, 0),
+('HH023', 'HD001', 2, 0),
+('HH036', 'HD002', 3, 0);
 
 CREATE TABLE phieunhap (
-  MaPN int IDENTITY(1,1) NOT NULL,
-  MaNV int NOT NULL,
-  MaNCC int NOT NULL,
+  MaPN varchar(10) NOT NULL,
+  MaNV varchar(10) NOT NULL,
+  MaNCC varchar(10) NOT NULL,
   NgayNhap datetime DEFAULT GETDATE(),
   TongTien float NOT NULL,
   TrangThai nvarchar(50) DEFAULT N'Đã nhập hàng'
 ) 
 
-INSERT INTO phieunhap (MaNV, MaNCC, TongTien) VALUES
-(1, 1, 2000000);
+INSERT INTO phieunhap (MaPN, MaNV, MaNCC, TongTien) VALUES
+('PN001', 'NV001', 'NCC001', 2000000);
 
 CREATE TABLE chitietphieunhap (
-  MaPN int NOT NULL,
-  MaHang int NOT NULL,
+  MaPN varchar(10) NOT NULL,
+  MaHang varchar(10) NOT NULL,
   GiaNhap int NOT NULL,
   SoLuong int DEFAULT 5,
   ThanhTien int DEFAULT 0
@@ -240,14 +239,14 @@ GO
 
 
 INSERT INTO chitietphieunhap (MaPN, MaHang, GiaNhap, SoLuong, ThanhTien) VALUES
-(1, 1, 12500, 4, 0),
-(1, 3, 50000, 5, 0),
-(1, 6, 12000, 5, 0),
-(1, 12, 8000, 5, 0),
-(1, 15, 8000, 5, 0);
+('PN001', 'HH001', 12500, 4, 0),
+('PN001', 'HH003', 50000, 5, 0),
+('PN001', 'HH006', 12000, 5, 0),
+('PN001', 'HH012', 8000, 5, 0),
+('PN001', 'HH015', 8000, 5, 0);
 
 CREATE TABLE khachhang (
-  MaKH int IDENTITY(1,1) NOT NULL,
+  MaKH varchar(10) NOT NULL,
   TenKH nvarchar(50) NOT NULL,
   SDT nvarchar(30) DEFAULT N'Chưa xác định',
   DiaChi nvarchar(50) DEFAULT N'Chưa xác định',
@@ -255,30 +254,30 @@ CREATE TABLE khachhang (
 ) 
 
 
-INSERT INTO khachhang (TenKH, SDT, DiaChi) VALUES
-(N'Nguyễn Văn Phú', '0987654321', N'Lê Trọng Tấn'),
-(N'Trần Thị Dung', '0123456789', N'Bình Chánh'),
-(N'Lê Văn Sỹ', '0912345678', N'Lạc Long Quân'),
-(N'Phạm Thị Kim', '0876543210', N'Thành Thái'),
-(N'Hoàng Văn Cường', '0965432187', N'Điện Biên Phủ');
+INSERT INTO khachhang (MaKH, TenKH, SDT, DiaChi) VALUES
+('KH001', N'Nguyễn Văn Phú', '0987654321', N'Lê Trọng Tấn'),
+('KH002', N'Trần Thị Dung', '0123456789', N'Bình Chánh'),
+('KH003', N'Lê Văn Sỹ', '0912345678', N'Lạc Long Quân'),
+('KH004', N'Phạm Thị Kim', '0876543210', N'Thành Thái'),
+('KH005', N'Hoàng Văn Cường', '0965432187', N'Điện Biên Phủ');
 
 CREATE TABLE nhacungcap (
-  MaNCC int IDENTITY(1,1) NOT NULL,
+  MaNCC varchar(10) NOT NULL,
   TenNCC nvarchar(50) NOT NULL,
   SDT nvarchar(30) DEFAULT N'Chưa xác định',
   DiaChi nvarchar(50) DEFAULT N'Chưa xác định',
   TrangThai bit DEFAULT 1
 ) 
 
-INSERT INTO nhacungcap (TenNCC, SDT, DiaChi) VALUES
-(N'LangFarm', '0765486382', N'Bình Thạnh'),
-(N'Nông sản Nguyên Vy', '0765486383', N'Lâm Đồng'),
-(N'SUNRISE INS', '0765486384', 'Tp.HCM'),
-(N'Thành Nam', '0765486385', N'Bình Dương'),
-(N'Nam Đô', '0765486386', N'Đà Nẵng');
+INSERT INTO nhacungcap (MaNCC, TenNCC, SDT, DiaChi) VALUES
+('NCC001', N'LangFarm', '0765486382', N'Bình Thạnh'),
+('NCC002', N'Nông sản Nguyên Vy', '0765486383', N'Lâm Đồng'),
+('NCC003', N'SUNRISE INS', '0765486384', 'Tp.HCM'),
+('NCC004', N'Thành Nam', '0765486385', N'Bình Dương'),
+('NCC005', N'Nam Đô', '0765486386', N'Đà Nẵng');
 
 CREATE TABLE nhanvien (
-  MaNV int IDENTITY(1,1) NOT NULL,
+  MaNV varchar(10) NOT NULL,
   TenNV nvarchar(50) NOT NULL,
   SDT nvarchar(30) DEFAULT N'Chưa xác định',
   UserName nvarchar(30) NOT NULL,
@@ -288,23 +287,23 @@ CREATE TABLE nhanvien (
   TrangThai bit DEFAULT 1
 ) 
 
-INSERT INTO nhanvien (TenNV, SDT, UserName, Password, ChucVu, DiaChi) VALUES
-(N'Nguyễn Văn Bình', '0897785658', 'admin', 'admin123', N'Quản lý', 'TPHCM'),
-(N'Hồ Văn Cường', '0897785623', 'cuong', '123', N'Nhân viên', 'TPHCM'),
-(N'Trương Thị Tuyết Linh', '0897785612', 'linh', '123', N'Nhân viên', 'TPHCM'),
-(N'Võ Văn Minh', '0897785123', 'minh', '123', N'Nhân viên', 'TPHCM');
+INSERT INTO nhanvien (MaNV, TenNV, SDT, UserName, Password, ChucVu, DiaChi) VALUES
+('NV001', N'Nguyễn Văn Bình', '0897785658', 'admin', 'admin123', N'Quản lý', 'TPHCM'),
+('NV002', N'Hồ Văn Cường', '0897785623', 'cuong', '123', N'Nhân viên', 'TPHCM'),
+('NV003', N'Trương Thị Tuyết Linh', '0897785612', 'linh', '123', N'Nhân viên', 'TPHCM'),
+('NV004', N'Võ Văn Minh', '0897785123', 'minh', '123', N'Nhân viên', 'TPHCM');
 
 CREATE TABLE nhomhang (
-  MaNhomHang int IDENTITY(1,1) NOT NULL,
+  MaNhomHang varchar(10) NOT NULL,
   TenNhomHang nvarchar(50) NOT NULL,
   TrangThai bit DEFAULT 1
 ) 
 
-INSERT INTO nhomhang (TenNhomHang) VALUES
-(N'Rau'),
-(N'Củ'),
-(N'Nấm'),
-(N'Trái cây');
+INSERT INTO nhomhang (MaNhomHang, TenNhomHang) VALUES
+('NH001', N'Rau'),
+('NH002', N'Củ'),
+('NH003', N'Nấm'),
+('NH004', N'Trái cây');
 
 ALTER TABLE khachhang
   ADD CONSTRAINT PK_KhachHang PRIMARY KEY (MaKH);
@@ -355,16 +354,15 @@ ALTER TABLE chitietphieunhap
  -- Update HangHoa
  GO
  CREATE PROCEDURE sp_UpdateHangHoa
-    @MaHang INT,
-    @MaNhomHang INT,
-    @MaNCC INT,
+    @MaHang varchar(10),
+    @MaNhomHang varchar(10),
+    @MaNCC varchar(10),
     @TenHang NVARCHAR(255),
     @DVT NVARCHAR(50),
     @GiaNhap DECIMAL(18, 2),
     @HeSo FLOAT,
     @HinhAnh NVARCHAR(255),
-	@SoLuongTon FLOAT,
-    @TrangThai NVARCHAR(50)
+	@SoLuongTon FLOAT
 AS
 BEGIN
     UPDATE hanghoa
@@ -375,27 +373,26 @@ BEGIN
         GiaNhap = @GiaNhap,
         HeSo = @HeSo,
         SoLuongTon = @SoLuongTon,
-        HinhAnh = @HinhAnh,
-        TrangThai = @TrangThai
+        HinhAnh = @HinhAnh
     WHERE MaHang = @MaHang;
 END
 GO
 
 -- Insert HangHoa
 CREATE PROCEDURE sp_InsertHangHoa
-    @MaNhomHang INT,
-    @MaNCC INT,
+	@MaHang varchar(10),
+    @MaNhomHang varchar(10),
+    @MaNCC varchar(10),
     @TenHang NVARCHAR(255),
     @DVT NVARCHAR(50),
     @GiaNhap DECIMAL(18, 2),
     @HeSo FLOAT,
     @HinhAnh NVARCHAR(255),
-	@SoLuongTon FLOAT,
-    @TrangThai NVARCHAR(50)
+	@SoLuongTon FLOAT
 AS
 BEGIN
-    INSERT INTO hanghoa (MaNhomHang, MaNCC, TenHang, DVT, GiaNhap, HeSo, HinhAnh, SoLuongTon, TrangThai)
-    VALUES (@MaNhomHang, @MaNCC, @TenHang, @DVT, @GiaNhap, @HeSo, @HinhAnh, @SoLuongTon, @TrangThai);
+    INSERT INTO hanghoa (MaHang, MaNhomHang, MaNCC, TenHang, DVT, GiaNhap, HeSo, HinhAnh, SoLuongTon)
+    VALUES (@MaHang, @MaNhomHang, @MaNCC, @TenHang, @DVT, @GiaNhap, @HeSo, @HinhAnh, @SoLuongTon);
 END
 GO
 
@@ -436,3 +433,14 @@ AS
 BEGIN
     SELECT * FROM nhanvien WHERE UserName = @username AND Password = @password
 END
+GO
+
+-- Search
+CREATE PROCEDURE sp_SearchInHangHoa
+	@seachStr nvarchar(50)
+AS
+BEGIN
+    SELECT * FROM hanghoa WHERE MaHang = @seachStr or TenHang like N'%' + @seachStr +  '%'
+END
+GO
+

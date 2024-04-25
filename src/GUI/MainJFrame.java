@@ -7,8 +7,11 @@ package GUI;
 
 import Main.DanhMucBean;
 import Main.ScreenSwitch;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -29,7 +32,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         List<DanhMucBean> listItem = new ArrayList<>();
         listItem.add(new DanhMucBean("TrangChu", jpnTrangChu, jlbTrangChu));
-        listItem.add(new DanhMucBean("BanHang", jpnBanHang, jlbBanHang));        
+        listItem.add(new DanhMucBean("BanHang", jpnBanHang, jlbBanHang));
         listItem.add(new DanhMucBean("HangHoa", jpnHangHoa, jlbHangHoa));
         listItem.add(new DanhMucBean("NhomHangHoa", jpnNhomHangHoa, jlbNhomHangHoa));
         listItem.add(new DanhMucBean("HoaDon", jpnHoaDon, jlbHoaDon));
@@ -70,6 +73,11 @@ public class MainJFrame extends javax.swing.JFrame {
         jpnView = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jpnMenu.setBackground(new java.awt.Color(102, 102, 102));
 
@@ -343,6 +351,15 @@ public class MainJFrame extends javax.swing.JFrame {
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
     }//GEN-LAST:event_jbtDangXuatActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        int choice = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn thoát?", "Xác nhận thoát", JOptionPane.YES_NO_OPTION);
+        if (choice == JOptionPane.YES_OPTION) {
+            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            this.dispose();
+        }
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
