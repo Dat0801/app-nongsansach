@@ -38,7 +38,7 @@ public class NhaCungCapJPanel extends javax.swing.JPanel {
     }
     ArrayList<NhaCungCap> listNCC;
     void LoadNCCVaoTable(JTable jt, JPanel jpn, JScrollPane jsp, int trangthai) {
-        String[] header = {"Mã nhà cung cấp", "Tên nhà cung cấp", "SDT", "Địa chỉ", "Trạng thái"};
+        String[] header = {"Mã nhà cung cấp", "Tên nhà cung cấp", "SDT", "Địa chỉ"};
         if (jt == null && jpn == null && jsp == null) {
             jt = jtNhaCungCap;
             jpn = jpnView;
@@ -51,14 +51,10 @@ public class NhaCungCapJPanel extends javax.swing.JPanel {
                 return false;
             }
 
-            @Override
-            public Class<?> getColumnClass(int columnIndex) {
-                return columnIndex == 10 ? Boolean.class : String.class;
-            }
         };
 
         for (NhaCungCap ncc : listNCC) {
-            Object[] row = {ncc.getMaNCC(), ncc.getTenNCC(), ncc.getSDT(), ncc.getDiaChi(), ncc.getTrangThai()};
+            Object[] row = {ncc.getMaNCC(), ncc.getTenNCC(), ncc.getSDT(), ncc.getDiaChi()};
             modelTableDb.addRow(row);
         }
 

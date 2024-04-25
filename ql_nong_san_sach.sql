@@ -396,6 +396,35 @@ BEGIN
 END
 GO
 
+--procedure nhacungcap
+--update
+CREATE PROCEDURE sp_updateNCC
+    @MaNCC INT,
+    @TenNCC NVARCHAR(50),
+    @SDT VARCHAR(30),    
+    @DiaChi NVARCHAR(50)    
+AS
+BEGIN
+    UPDATE nhacungcap
+    SET 
+        TenNCC = @TenNCC,
+        SDT = @SDT,
+        DiaChi = @DiaChi        
+    WHERE MaNCC = @MaNCC;
+END
+GO
+--insert
+CREATE PROCEDURE sp_insertNCC    
+    @MaNCC INT,
+    @TenNCC NVARCHAR(50),
+    @SDT VARCHAR(30),    
+    @DiaChi NVARCHAR(50)  
+AS
+BEGIN
+    INSERT INTO nhacungcap(TenNCC, SDT, DiaChi)
+    VALUES (@TenNCC, @SDT, @DiaChi);
+END
+GO
 -- Login
 CREATE PROCEDURE sp_Login
     @username NVARCHAR(50),
