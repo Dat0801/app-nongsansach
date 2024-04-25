@@ -14,16 +14,15 @@ import java.sql.SQLException;
  * @author Quang
  */
 public class PhieuNhap {
-    int maPN, maNV, maNCC;
     Date ngayNhap;
     float tongTien;
-    String trangThai;
+    String maPN, maNV, maNCC, trangThai;
     
     public PhieuNhap(ResultSet rs) {
         try {
-            this.maPN = rs.getInt("MaPN");
-            this.maNV = rs.getInt("MaNV");
-            this.maNCC = rs.getInt("MaNCC");
+            this.maPN = rs.getString("MaPN");
+            this.maNV = rs.getString("MaNV");
+            this.maNCC = rs.getString("MaNCC");
             this.ngayNhap = rs.getDate("NgayNhap");
             this.tongTien = rs.getFloat("TongTien");
             this.trangThai = rs.getString("TrangThai");
@@ -34,7 +33,7 @@ public class PhieuNhap {
     public PhieuNhap() {
     }
 
-    public PhieuNhap(int maPN, int maNV, int maNCC, Date ngayNhap, float tongTien, String trangThai) {
+    public PhieuNhap(String maPN, String maNV, String maNCC, Date ngayNhap, float tongTien, String trangThai) {
         this.maPN = maPN;
         this.maNV = maNV;
         this.maNCC = maNCC;
@@ -43,15 +42,15 @@ public class PhieuNhap {
         this.trangThai = trangThai;
     }
 
-    public int getMaPN() {
+    public String getMaPN() {
         return maPN;
     }
 
-    public int getMaNV() {
+    public String getMaNV() {
         return maNV;
     }
 
-    public int getMaNCC() {
+    public String getMaNCC() {
         return maNCC;
     }
 
@@ -67,15 +66,15 @@ public class PhieuNhap {
         return trangThai;
     }
 
-    public void setMaPN(int maPN) {
+    public void setMaPN(String maPN) {
         this.maPN = maPN;
     }
 
-    public void setMaNV(int maNV) {
+    public void setMaNV(String maNV) {
         this.maNV = maNV;
     }
 
-    public void setMaNCC(int maNCC) {
+    public void setMaNCC(String maNCC) {
         this.maNCC = maNCC;
     }
 

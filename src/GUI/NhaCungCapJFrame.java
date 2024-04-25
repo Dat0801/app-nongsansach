@@ -187,7 +187,7 @@ public class NhaCungCapJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         NhaCungCap ncc = new NhaCungCap();        
         
-        ncc.setMaNCC(Integer.parseInt(jtfMaNCC.getText()));
+        ncc.setMaNCC(jtfMaNCC.getText());
         ncc.setTenNCC(jtfTenNCC.getText().trim());
         ncc.setSDT(jtfSDT.getText().trim());        
         ncc.setDiaChi(jtfDiaChi.getText());
@@ -196,7 +196,7 @@ public class NhaCungCapJFrame extends javax.swing.JFrame {
             NhaCungCapDAO.getInstance().insertNhaCungCap(ncc);
             JOptionPane.showMessageDialog(this, "Thêm thành công!", "Thêm nhà cung cấp", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            ncc.setMaNCC(Integer.parseInt(jtfMaNCC.getText()));
+            ncc.setMaNCC(jtfMaNCC.getText());
             NhaCungCapDAO.getInstance().updateNhaCungCap(ncc);
             JOptionPane.showMessageDialog(this, "Sửa thành công!", "Sửa nhà cung cấp", JOptionPane.INFORMATION_MESSAGE);
         }

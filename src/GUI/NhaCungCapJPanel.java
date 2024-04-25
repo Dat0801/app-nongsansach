@@ -339,7 +339,7 @@ public class NhaCungCapJPanel extends javax.swing.JPanel {
             int index = jtNhaCungCap.getSelectedRow();
             NhaCungCap ncc = listNCC.get(index);
 
-            int maNCC = ncc.getMaNCC();
+            String maNCC = ncc.getMaNCC();
             String tenNCC = ncc.getTenNCC();
 
             int kq = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa nhà cung cấp có tên là: " + tenNCC + "?", "Câu hỏi", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -360,7 +360,7 @@ public class NhaCungCapJPanel extends javax.swing.JPanel {
 
             NhaCungCap ncc = listNCC.get(index);
 
-            int maNCC = ncc.getMaNCC();
+            String maNCC = ncc.getMaNCC();
             String tenNCC = ncc.getTenNCC();
 
             int kq = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa vĩnh viễn hàng hóa có tên là: " + tenNCC + "?", "Câu hỏi", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);

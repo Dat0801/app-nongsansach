@@ -13,9 +13,8 @@ import java.sql.SQLException;
  */
 public class HangHoa {
 
-    int maHang, maNhomHang, maNCC;
     boolean trangThai;
-    String tenHang, dVT, hinhAnh;
+    String maHang, maNhomHang, maNCC, tenHang, dVT, hinhAnh;
     double giaBan, giaNhap, heSo, soLuongTon;
 
     public void setTrangThai(boolean trangThai) {
@@ -26,19 +25,19 @@ public class HangHoa {
         return trangThai;
     }
 
-    public int getMaHang() {
+    public String getMaHang() {
         return maHang;
     }
 
-    public void setMaHang(int maHang) {
+    public void setMaHang(String maHang) {
         this.maHang = maHang;
     }
 
-    public int getMaNhomHang() {
+    public String getMaNhomHang() {
         return maNhomHang;
     }
 
-    public void setMaNhomHang(int maNhomHang) {
+    public void setMaNhomHang(String maNhomHang) {
         this.maNhomHang = maNhomHang;
     }
 
@@ -86,7 +85,7 @@ public class HangHoa {
         this.giaBan = giaBan;
     }
 
-    public int getMaNCC() {
+    public String getMaNCC() {
         return maNCC;
     }
 
@@ -94,7 +93,7 @@ public class HangHoa {
         return heSo;
     }
 
-    public void setMaNCC(int maNCC) {
+    public void setMaNCC(String maNCC) {
         this.maNCC = maNCC;
     }
 
@@ -112,9 +111,9 @@ public class HangHoa {
 
     public HangHoa(ResultSet rs) {
         try {
-            this.maHang = rs.getInt("MaHang");
-            this.maNhomHang = rs.getInt("MaNhomHang");
-            this.maNCC = rs.getInt("MaNCC");
+            this.maHang = rs.getString("MaHang");
+            this.maNhomHang = rs.getString("MaNhomHang");
+            this.maNCC = rs.getString("MaNCC");
             this.tenHang = rs.getString("TenHang");
             this.soLuongTon = rs.getDouble("SoLuongTon");
             this.dVT = rs.getString("DVT");

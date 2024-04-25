@@ -44,8 +44,8 @@ public class NhomHangDAO {
         return listNhomHang;
     }
 
-    public NhomHang getNhomHang(int maNhom) {
-        ResultSet rs = DataProvider.getInstance().executeQuery("Select * from NhomHang where MaNhomHang=" + maNhom);
+    public NhomHang getNhomHang(String maNhom) {
+        ResultSet rs = DataProvider.getInstance().executeQuery("Select * from NhomHang where MaNhomHang=?", maNhom);
         NhomHang nhomhang = null;
         try {
             while (rs.next()) {
