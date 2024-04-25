@@ -14,11 +14,10 @@ import java.sql.SQLException;
  */
 public class NhanVien {
 
-    int maNV;
     boolean trangThai;
-    String tenNV, SDT, userName, password, chucVu, diaChi;
+    String maNV, tenNV, SDT, userName, password, chucVu, diaChi;
 
-    public int getMaNV() {
+    public String getMaNV() {
         return maNV;
     }
 
@@ -50,7 +49,7 @@ public class NhanVien {
         return diaChi;
     }
 
-    public void setMaNV(int maNV) {
+    public void setMaNV(String maNV) {
         this.maNV = maNV;
     }
 
@@ -84,7 +83,7 @@ public class NhanVien {
 
     public NhanVien(ResultSet rs) {
         try {
-            this.maNV = rs.getInt("MaNV");
+            this.maNV = rs.getString("MaNV");
             this.tenNV = rs.getString("TenNV");
             this.SDT = rs.getString("SDT");
             this.userName = rs.getString("UserName");

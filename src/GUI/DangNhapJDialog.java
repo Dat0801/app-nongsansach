@@ -152,7 +152,7 @@ public class DangNhapJDialog extends javax.swing.JDialog {
                         MainJFrame mainJFrame = new MainJFrame();
                         mainJFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
                         mainJFrame.setVisible(true);
-                        mainJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        mainJFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
                     }
                 }
             }

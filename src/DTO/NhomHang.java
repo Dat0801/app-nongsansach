@@ -15,16 +15,15 @@ import java.util.Objects;
  */
 public class NhomHang {
 
-    int maNhomHang;
     boolean trangThai;
-    String tenNhomHang;
+    String maNhomHang, tenNhomHang;
 
-    public NhomHang(int maNhomHang, String tenNhomHang) {
+    public NhomHang(String maNhomHang, String tenNhomHang) {
         this.maNhomHang = maNhomHang;
         this.tenNhomHang = tenNhomHang;
     }
 
-    public void setMaNhomHang(int maNhomHang) {
+    public void setMaNhomHang(String maNhomHang) {
         this.maNhomHang = maNhomHang;
     }
 
@@ -36,7 +35,7 @@ public class NhomHang {
         this.tenNhomHang = tenNhomHang;
     }
 
-    public int getMaNhomHang() {
+    public String getMaNhomHang() {
         return maNhomHang;
     }
 
@@ -50,7 +49,7 @@ public class NhomHang {
 
     public NhomHang(ResultSet rs) {
         try {
-            this.maNhomHang = rs.getInt("MaNhomHang");
+            this.maNhomHang = rs.getString("MaNhomHang");
             this.tenNhomHang = rs.getString("TenNhomHang");
             this.trangThai = rs.getBoolean("TrangThai");
         } catch (SQLException e) {

@@ -13,10 +13,9 @@ import java.sql.SQLException;
  * @author Admin
  */
 public class NhaCungCap {
-    int maNCC;
-    String tenNCC, SDT, diaChi;
+    String maNCC, tenNCC, SDT, diaChi;
 
-    public NhaCungCap(int maNCC, String tenNCC) {
+    public NhaCungCap(String maNCC, String tenNCC) {
         this.maNCC = maNCC;
         this.tenNCC = tenNCC;
     }
@@ -24,7 +23,7 @@ public class NhaCungCap {
     public NhaCungCap() {
     }
 
-    public void setMaNCC(int maNCC) {
+    public void setMaNCC(String maNCC) {
         this.maNCC = maNCC;
     }
 
@@ -46,7 +45,7 @@ public class NhaCungCap {
     boolean trangThai;
 
     
-    public int getMaNCC() {
+    public String getMaNCC() {
         return maNCC;
     }
 
@@ -68,7 +67,7 @@ public class NhaCungCap {
     
     public NhaCungCap(ResultSet rs) {
         try {
-            this.maNCC = rs.getInt("MaNCC");
+            this.maNCC = rs.getString("MaNCC");
             this.tenNCC = rs.getString("TenNCC");
             this.SDT = rs.getString("SDT");
             this.diaChi = rs.getString("DiaChi");
