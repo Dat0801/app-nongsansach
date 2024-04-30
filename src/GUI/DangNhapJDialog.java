@@ -149,7 +149,7 @@ public class DangNhapJDialog extends javax.swing.JDialog {
                         jlbMsg.setText("<html><div style='width:200px; white-space: pre-wrap; text-align: center;'>Tài khoản của bạn đang bị tạm khóa!</div></html>");
                     } else {
                         this.dispose();
-                        MainJFrame mainJFrame = new MainJFrame();
+                        MainJFrame mainJFrame = new MainJFrame(nv);
                         mainJFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
                         mainJFrame.setVisible(true);
                         mainJFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);

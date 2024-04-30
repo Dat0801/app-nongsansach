@@ -113,7 +113,7 @@ INSERT INTO hoadon (MaHD, MaNV, MaKH, TongTien) VALUES
 CREATE TABLE chitiethoadon (
   MaHang varchar(10) NOT NULL,
   MaHD varchar(10) NOT NULL,
-  SoLuong int DEFAULT 1,
+  SoLuong float DEFAULT 1,
   ThanhTien float DEFAULT 0
 );
 GO
