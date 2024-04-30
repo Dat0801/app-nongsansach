@@ -5,9 +5,9 @@
  */
 package GUI;
 
+import DTO.NhanVien;
 import Main.DanhMucBean;
 import Main.ScreenSwitch;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
@@ -18,11 +18,11 @@ import javax.swing.JOptionPane;
  * @author Admin
  */
 public class MainJFrame extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form MainJFrame
      */
-    public MainJFrame() {
+    public MainJFrame(NhanVien nv) {
         initComponents();
 
         setTitle("CỬA HÀNG NÔNG SẢN SẠCH");

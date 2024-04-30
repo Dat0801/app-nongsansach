@@ -27,6 +27,8 @@ public class HangHoaDAO {
     private HangHoaDAO() {
 
     }
+    public static int HangHoaWidth = 50;
+    public static int HangHoaHeight = 70;
 
     public ArrayList<HangHoa> getListHangHoa(int trangthai) {
         ArrayList<HangHoa> listHH = new ArrayList<HangHoa>();
@@ -73,7 +75,7 @@ public class HangHoaDAO {
     }
 
     public HangHoa getLastHangHoa() {
-        
+
         ResultSet rs = DataProvider.getInstance().executeQuery("SELECT TOP 1 * FROM hanghoa ORDER BY mahang DESC");
         HangHoa hanghoa = null;
         try {
