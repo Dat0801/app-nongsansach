@@ -27,17 +27,9 @@ public class ThanhToanJFrame extends javax.swing.JFrame {
 
     public void setView() {
         jtfTongTien.setText(this.TongTien + "");
+        jtfGiamGia.setText("0");
+        jtfKhachCanTra.setText(this.TongTien + "");
     }
-//    public String generateMaHD() {
-//        HangHoa hanghoa = HangHoaDAO.getInstance().getLastHangHoa();
-//        int sothutu = (Integer.parseInt(hanghoa.getMaHang().substring(2)) + 1);
-//        String mahang = "HH" + sothutu;
-//        if (sothutu < 100) {
-//            mahang = "HH0" + sothutu;
-//        }
-//        return mahang;
-//    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -239,9 +231,9 @@ public class ThanhToanJFrame extends javax.swing.JFrame {
         double tongTienSauGiam = this.TongTien;
         if (!jtfGiamGia.getText().isEmpty()) {
             double giamGia = Double.parseDouble(jtfGiamGia.getText());
-            if (giamGia < 10) {
-                JOptionPane.showMessageDialog(this, "Vui lòng nhập giảm giá lớn hơn hoặc bằng 10%", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
-                jtfGiamGia.setText("");
+            if (giamGia < 0) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập giảm giá lớn hơn hoặc bằng 0%", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                jtfGiamGia.setText("0");
             } else {
                 tongTienSauGiam = this.TongTien - (this.TongTien * (giamGia / 100));
             }

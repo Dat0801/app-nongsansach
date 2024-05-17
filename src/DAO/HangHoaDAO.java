@@ -31,22 +31,38 @@ public class HangHoaDAO {
     public static int HangHoaHeight = 70;
 
     public ArrayList<HangHoa> getListHangHoa(int trangthai) {
-        ArrayList<HangHoa> listHH = new ArrayList<HangHoa>();
+        ArrayList<HangHoa> listHH = new ArrayList<>();
         try {
-            ResultSet rs = DataProvider.getInstance().executeQuery("Select * from hanghoa where TrangThai=?", trangthai);
+            ResultSet rs = DataProvider.getInstance().executeQuery("call sp_getListHangHoa", trangthai);
             while (rs.next()) {
                 HangHoa hanghoa = new HangHoa(rs);
                 listHH.add(hanghoa);
             }
         } catch (SQLException ex) {
             // Handle the SQLException appropriately
-            ex.printStackTrace(); // For example, printing the stack trace
+            // For example, printing the stack trace
+        }
+        return listHH;
+    }
+    
+     public ArrayList<HangHoa> getListHangHoa(String MaNhomHang) {
+        ArrayList<HangHoa> listHH = new ArrayList<>();
+        try {
+            ResultSet rs = DataProvider.getInstance().executeQuery("call sp_getListHangHoaTheoMaNhom", MaNhomHang);
+            while (rs.next()) {
+                HangHoa hanghoa = new HangHoa(rs);
+                listHH.add(hanghoa);
+            }
+        } catch (SQLException ex) {
+            // Handle the SQLException appropriately
+            // For example, printing the stack trace
+            
         }
         return listHH;
     }
 
     public ArrayList<HangHoa> search(String searchStr) {
-        ArrayList<HangHoa> listHH = new ArrayList<HangHoa>();
+        ArrayList<HangHoa> listHH = new ArrayList<>();
         try {
             ResultSet rs = DataProvider.getInstance().executeQuery("call sp_SearchInHangHoa", searchStr);
             while (rs.next()) {
@@ -55,13 +71,13 @@ public class HangHoaDAO {
             }
         } catch (SQLException ex) {
             // Handle the SQLException appropriately
-            ex.printStackTrace(); // For example, printing the stack trace
+            // For example, printing the stack trace
         }
         return listHH;
     }
 
     public HangHoa getHangHoa(String maHH) {
-        ResultSet rs = DataProvider.getInstance().executeQuery("Select * from hanghoa where MaHang=?", maHH);
+        ResultSet rs = DataProvider.getInstance().executeQuery("call sp_getHangHoa", maHH);
         HangHoa hanghoa = null;
         try {
             while (rs.next()) {
@@ -69,14 +85,14 @@ public class HangHoaDAO {
             }
         } catch (SQLException ex) {
             // Handle the SQLException appropriately
-            ex.printStackTrace(); // For example, printing the stack trace
+            // For example, printing the stack trace
         }
         return hanghoa;
     }
 
     public HangHoa getLastHangHoa() {
 
-        ResultSet rs = DataProvider.getInstance().executeQuery("SELECT TOP 1 * FROM hanghoa ORDER BY mahang DESC");
+        ResultSet rs = DataProvider.getInstance().executeQuery("call sp_getLastHangHoa");
         HangHoa hanghoa = null;
         try {
             while (rs.next()) {
@@ -84,7 +100,7 @@ public class HangHoaDAO {
             }
         } catch (SQLException ex) {
             // Handle the SQLException appropriately
-            ex.printStackTrace(); // For example, printing the stack trace
+            // For example, printing the stack trace
         }
         return hanghoa;
     }
@@ -102,12 +118,12 @@ public class HangHoaDAO {
     }
 
     public int deleteHangHoa(String maHangHoa) {
-        int rs = DataProvider.getInstance().executeNonQuery("Update hanghoa set TrangThai=0 where MaHang=?", maHangHoa);
+        int rs = DataProvider.getInstance().executeNonQuery("call sp_deleteHangHoa", maHangHoa);
         return rs;
     }
 
     public int recoveryHangHoa(String maHangHoa) {
-        int rs = DataProvider.getInstance().executeNonQuery("Update hanghoa set TrangThai=1 where MaHang=?", maHangHoa);
+        int rs = DataProvider.getInstance().executeNonQuery("call sp_recoverHangHoa", maHangHoa);
         return rs;
     }
 }
