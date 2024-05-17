@@ -29,16 +29,17 @@ public class ChiTietHoaDonDAO {
     }
 
     public ArrayList<ChiTietHoaDon> getListCTHD() {
-        ArrayList<ChiTietHoaDon> listCTHD = new ArrayList<ChiTietHoaDon>();
+        ArrayList<ChiTietHoaDon> listCTHD = new ArrayList<>();
         try {
-            ResultSet rs = DataProvider.getInstance().executeQuery("SELECT chitiethoadon.MaHang, MaHD, TenHang, SoLuong, DVT, GiaBan, ThanhTien FROM chitiethoadon JOIN hanghoa ON chitiethoadon.MaHang = hanghoa.MaHang;");
+            ResultSet rs = DataProvider.getInstance().executeQuery("call sp_getListCTHD");
             while (rs.next()) {
                 ChiTietHoaDon cthd = new ChiTietHoaDon(rs);
                 listCTHD.add(cthd);
             }
         } catch (SQLException ex) {
             // Handle the SQLException appropriately
-            ex.printStackTrace(); // For example, printing the stack trace
+            // For example, printing the stack trace
+            
         }
         return listCTHD;
     }

@@ -326,8 +326,8 @@ public class NhaCungCapJPanel extends javax.swing.JPanel {
             dialog.setLocationRelativeTo(null);
             dialog.setTitle("Sửa nhà cung cấp");
             dialog.setVisible(true);
+        }
     }//GEN-LAST:event_jtNhaCungCapMouseClicked
-    }
     
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:

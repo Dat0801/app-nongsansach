@@ -396,6 +396,142 @@ BEGIN
 END
 GO
 
+-- Search HangHoa
+CREATE PROCEDURE sp_SearchInHangHoa 
+	@seachStr nvarchar(50)
+AS
+BEGIN
+    SELECT * FROM hanghoa WHERE MaHang = @seachStr or TenHang like N'%' + @seachStr +  '%'
+END
+GO
+
+-- Get List HangHoa
+CREATE PROCEDURE sp_getListHangHoa
+	@trangThai int
+AS
+BEGIN
+    SELECT * FROM hanghoa WHERE TrangThai = @trangThai;
+END
+GO
+
+-- Get HangHoa
+CREATE PROCEDURE sp_getHangHoa
+	@MaHang varchar(10)
+AS
+BEGIN
+	Select * from hanghoa where MaHang= @MaHang
+END
+GO
+
+-- Get Last HangHoa
+CREATE PROCEDURE sp_getLastHangHoa
+AS
+BEGIN
+	SELECT TOP 1 * FROM hanghoa ORDER BY mahang DESC
+END
+GO
+
+-- Delete HangHoa
+CREATE PROCEDURE sp_deleteHangHoa
+	@MaHang varchar(10)
+AS
+BEGIN
+	Update hanghoa set TrangThai=0 where MaHang= @MaHang
+END
+GO
+
+-- Recover HangHoa
+CREATE PROCEDURE sp_recoverHangHoa
+	@MaHang varchar(10)
+AS
+BEGIN
+	Update hanghoa set TrangThai=1 where MaHang= @MaHang
+END
+GO
+
+-- Get List HangHoa Theo MaNhom
+CREATE PROCEDURE sp_getListHangHoaTheoMaNhom
+	@MaNhom varchar(10)
+AS
+BEGIN
+    SELECT * FROM hanghoa WHERE MaNhomHang = @MaNhom AND TrangThai = 1;
+END
+GO
+
+--Procedure ChiTietHoaDon
+--Get List ChiTietHoaDon
+CREATE PROCEDURE sp_getListCTHD
+AS
+BEGIN
+    SELECT chitiethoadon.MaHang, MaHD, TenHang, SoLuong, SoLuongTon DVT, GiaBan, ThanhTien FROM chitiethoadon JOIN hanghoa ON chitiethoadon.MaHang = hanghoa.MaHang;
+END
+GO
+
+--Procedure KhachHang
+-- Get List KhachHang
+CREATE PROCEDURE sp_getListKhachHang
+	@trangThai int
+AS
+BEGIN
+    SELECT * FROM KhachHang WHERE TrangThai = @trangThai;
+END
+GO
+
+-- Get KhachHang
+CREATE PROCEDURE sp_getKhachHang
+	@MaKH varchar(10)
+AS
+BEGIN
+    SELECT * FROM KhachHang WHERE TrangThai = 1 AND MaKH = @MaKH;
+END
+GO
+
+-- Update KhachHang
+CREATE PROCEDURE sp_updateKH
+    @MaKH nvarchar(10),
+    @TenKH NVARCHAR(50),
+    @SDT VARCHAR(30),    
+    @DiaChi NVARCHAR(50)    
+AS
+BEGIN
+    UPDATE khachhang
+    SET 
+        TenKH = @TenKH,
+        SDT = @SDT,
+        DiaChi = @DiaChi        
+    WHERE MaKH = @MaKH;
+END
+GO
+-- Insert KhachHang
+CREATE PROCEDURE sp_insertKH
+    @MaKH nvarchar(10),
+    @TenKH NVARCHAR(50),
+    @SDT VARCHAR(30),    
+    @DiaChi NVARCHAR(50)    
+AS
+BEGIN
+    INSERT INTO khachhang(MaKH, TenKH, SDT, DiaChi)
+    VALUES (@MaKH, @TenKH, @SDT, @DiaChi);
+END
+
+GO
+-- Delete KhachHang
+CREATE PROCEDURE sp_deleteKhachHang
+	@MaKH varchar(10)
+AS
+BEGIN
+	Update khachhang set TrangThai=0 where MaKH= @MaKH
+END
+GO
+
+-- Recover KhachHang
+CREATE PROCEDURE sp_recoverKhachHang
+	@MaKH varchar(10)
+AS
+BEGIN
+	Update khachhang set TrangThai=1 where MaKH= @MaKH
+END
+GO
 --procedure nhacungcap
 --update
 CREATE PROCEDURE sp_updateNCC
@@ -425,6 +561,8 @@ BEGIN
     VALUES (@MANCC, @TenNCC, @SDT, @DiaChi);
 END
 GO
+
+-- Procedure for account
 -- Login
 CREATE PROCEDURE sp_Login
     @username NVARCHAR(50),
@@ -435,12 +573,5 @@ BEGIN
 END
 GO
 
--- Search
-CREATE PROCEDURE sp_SearchInHangHoa
-	@seachStr nvarchar(50)
-AS
-BEGIN
-    SELECT * FROM hanghoa WHERE MaHang = @seachStr or TenHang like N'%' + @seachStr +  '%'
-END
-GO
+
 

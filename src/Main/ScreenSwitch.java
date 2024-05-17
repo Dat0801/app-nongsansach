@@ -8,6 +8,7 @@ package Main;
 import GUI.BanHangJPanel;
 import GUI.HangHoaJPanel;
 import GUI.HoaDonJPanel;
+import GUI.KhachHangJPanel;
 import GUI.NhaCungCapJPanel;
 import GUI.NhapHangJPanel;
 import GUI.NhomHangHoaJPanel;
@@ -30,7 +31,7 @@ public class ScreenSwitch {
     private String kindSelected = "";
 
     private List<DanhMucBean> listItem = null;
-    
+
     public ScreenSwitch(JPanel jpnRoot) {
         this.root = jpnRoot;
     }
@@ -92,6 +93,9 @@ public class ScreenSwitch {
                     break;
                 case "NhaCungCap":
                     node = new NhaCungCapJPanel();
+                    break;
+                case "KhachHang":
+                    node = new KhachHangJPanel();
                     break;
                 default:
                     node = new TrangChuJPanel();

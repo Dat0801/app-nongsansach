@@ -9,10 +9,6 @@ package GUI;
 import DAO.NhaCungCapDAO;
 import DTO.NhaCungCap;
 import Main.FontOptionPane;
-import java.io.File;
-import java.util.List;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**

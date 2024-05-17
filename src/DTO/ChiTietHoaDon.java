@@ -15,7 +15,15 @@ import java.sql.SQLException;
 public class ChiTietHoaDon {
 
     String MaHang, MaHD, TenHang, DVT;
-    double SoLuong, DonGia, ThanhTien;
+    double SoLuong, SoLuongTon, DonGia, ThanhTien;
+
+    public void setSoLuongTon(double SoLuongTon) {
+        this.SoLuongTon = SoLuongTon;
+    }
+
+    public double getSoLuongTon() {
+        return SoLuongTon;
+    }
 
     public String getMaHang() {
         return MaHang;
@@ -46,6 +54,7 @@ public class ChiTietHoaDon {
         this.TenHang = hangHoa.getTenHang();
         this.DVT = hangHoa.getdVT();
         this.SoLuong = 1;
+        this.SoLuongTon = hangHoa.getSoLuongTon();
         this.DonGia = hangHoa.getGiaBan();
         this.ThanhTien = 1 * hangHoa.getGiaBan();
     }
@@ -86,7 +95,8 @@ public class ChiTietHoaDon {
         this.MaHang = rs.getString("MaHang");
         this.MaHD = rs.getString("MaHD");
         this.TenHang = rs.getString("TenHang");
-        this.SoLuong = rs.getDouble("SoLuong");
+        this.SoLuong = rs.getDouble("SoLuong");        
+        this.SoLuongTon = rs.getDouble("SoLuongTon");
         this.DVT = rs.getString("DVT");
         this.DonGia = rs.getDouble("GiaBan");
         this.ThanhTien = rs.getDouble("ThanhTien");
