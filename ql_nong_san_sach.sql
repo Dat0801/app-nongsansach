@@ -486,6 +486,25 @@ BEGIN
 END
 GO
 
+-- Get KhachHang theo sdt
+CREATE PROCEDURE sp_getKhachHangTheoSDT
+	@sdt nvarchar(30)
+AS
+BEGIN
+    SELECT * FROM KhachHang WHERE TrangThai = 1 AND SDT = @sdt;
+END
+GO
+
+-- Get Last KhachHang
+CREATE PROCEDURE sp_getLastKhachHang
+AS
+BEGIN
+	SELECT TOP 1 * FROM khachhang ORDER BY MaKH DESC
+END
+GO
+
+exec sp_getLastKhachHang
+
 -- Update KhachHang
 CREATE PROCEDURE sp_updateKH
     @MaKH nvarchar(10),
@@ -532,6 +551,62 @@ BEGIN
 	Update khachhang set TrangThai=1 where MaKH= @MaKH
 END
 GO
+
+--procedure hoadon
+-- Get List KhachHang
+CREATE PROCEDURE sp_getListHoaDon
+	@trangThai int
+AS
+BEGIN
+    SELECT * FROM HoaDon WHERE TrangThai = @trangThai;
+END
+GO
+
+-- Get KhachHang
+CREATE PROCEDURE sp_getHoaDon
+	@MaHD varchar(10)
+AS
+BEGIN
+    SELECT * FROM HoaDon WHERE TrangThai = 1 AND MaHD = @MaHD;
+END
+GO
+
+-- get last hoadon
+CREATE PROCEDURE sp_getLastHoaDon
+AS
+BEGIN
+	SELECT TOP 1 * FROM HoaDon ORDER BY MaHD DESC
+END
+GO
+
+-- Insert HoaDon
+CREATE PROCEDURE sp_insertHoaDon
+    @MaHD varchar(10),
+    @MaNV varchar(10),
+    @MaKH varchar(10),    
+    @NgayTao datetime,
+	@TongTien float,
+	@TrangThai nvarchar(50)  
+AS
+BEGIN
+    INSERT INTO hoadon(MaHD, MaNV, MaKH, NgayTao, TongTien, TrangThai)
+    VALUES (@MaHD, @MaNV, @MaKH, @NgayTao, @TongTien, @TrangThai);
+END
+GO
+
+-- Insert ChiTietHoaDon
+CREATE PROCEDURE sp_insertChiTietHoaDon
+    @MaHang varchar(10),
+    @MaHD varchar(10),
+	@SoLuong float,
+	@ThanhTien float  
+AS
+BEGIN
+    INSERT INTO chitiethoadon(MaHang, MaHD, SoLuong, ThanhTien)
+    VALUES (@MaHang, @MaHD, @SoLuong, @ThanhTien);
+END
+GO
+
 --procedure nhacungcap
 --update
 CREATE PROCEDURE sp_updateNCC

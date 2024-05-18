@@ -49,6 +49,9 @@ public class KhachHangJFrame extends javax.swing.JFrame {
         jlbDiaChi = new javax.swing.JLabel();
         jtfDiaChi = new javax.swing.JTextField();
         jtfSDT = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         btnLuu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -78,6 +81,15 @@ public class KhachHangJFrame extends javax.swing.JFrame {
 
         jtfSDT.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
+        jLabel1.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel1.setText("(*)");
+
+        jLabel2.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel2.setText("(*)");
+
+        jLabel3.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel3.setText("(*)");
+
         javax.swing.GroupLayout jpnThongTinKhachHangLayout = new javax.swing.GroupLayout(jpnThongTinKhachHang);
         jpnThongTinKhachHang.setLayout(jpnThongTinKhachHangLayout);
         jpnThongTinKhachHangLayout.setHorizontalGroup(
@@ -91,10 +103,19 @@ public class KhachHangJFrame extends javax.swing.JFrame {
                         .addComponent(jtfMaKH))
                     .addGroup(jpnThongTinKhachHangLayout.createSequentialGroup()
                         .addGroup(jpnThongTinKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlbTenKH)
-                            .addComponent(jlbSDT)
-                            .addComponent(jlbDiaChi))
-                        .addGap(50, 50, 50)
+                            .addGroup(jpnThongTinKhachHangLayout.createSequentialGroup()
+                                .addComponent(jlbDiaChi)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel3))
+                            .addGroup(jpnThongTinKhachHangLayout.createSequentialGroup()
+                                .addComponent(jlbTenKH)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel1))
+                            .addGroup(jpnThongTinKhachHangLayout.createSequentialGroup()
+                                .addComponent(jlbSDT)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel2)))
+                        .addGap(25, 25, 25)
                         .addGroup(jpnThongTinKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jtfDiaChi, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
                             .addComponent(jtfTenKH)
@@ -111,15 +132,18 @@ public class KhachHangJFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jpnThongTinKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlbTenKH)
-                    .addComponent(jtfTenKH, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtfTenKH, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addGroup(jpnThongTinKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlbSDT)
-                    .addComponent(jtfSDT, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtfSDT, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(jpnThongTinKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlbDiaChi))
+                    .addComponent(jlbDiaChi)
+                    .addComponent(jLabel3))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
 
@@ -155,8 +179,6 @@ public class KhachHangJFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jpnThongTinKhachHang.getAccessibleContext().setAccessibleName("Thông tin khách hàng");
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -170,11 +192,12 @@ public class KhachHangJFrame extends javax.swing.JFrame {
         kh.setDiaChi(jtfDiaChi.getText());
         if (flag == 1) {
             KhachHangDAO.getInstance().insertKhachHang(kh);
-            JOptionPane.showMessageDialog(this, "Thêm thành công!", "Thêm nhà cung cấp", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Thêm thành công!", "Thêm khách hàng", JOptionPane.INFORMATION_MESSAGE);
+            clearForm();
         } else {
             kh.setMaKH(jtfMaKH.getText());
             KhachHangDAO.getInstance().updateKhachHang(kh);
-            JOptionPane.showMessageDialog(this, "Sửa thành công!", "Sửa nhà cung cấp", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Sửa thành công!", "Sửa khách hàng", JOptionPane.INFORMATION_MESSAGE);
         }
         if (this.KhachHangPanel != null) {
             KhachHangPanel.LoadKHVaoTable(null, null, null, 1);
@@ -187,7 +210,31 @@ public class KhachHangJFrame extends javax.swing.JFrame {
             jtfTenKH.setText(kh.getTenKH() + "");
             jtfSDT.setText(kh.getSDT() + "");
             jtfDiaChi.setText(kh.getDiaChi() + "");
+        } else {
+            String makh = generateMaKH();
+            jtfMaKH.setText(makh);
         }
+    }
+
+    public void clearForm() {
+        String makh = generateMaKH();
+        jtfMaKH.setText(makh);
+        jtfTenKH.setText("");
+        jtfSDT.setText("");
+        jtfDiaChi.setText("");
+    }
+
+    public String generateMaKH() {
+        KhachHang khachhang = KhachHangDAO.getInstance().getLastKhachHang();
+        int sothutu = (Integer.parseInt(khachhang.getMaKH().substring(2)) + 1);
+        String makh = "KH";
+        if (sothutu < 10) {
+            makh = "KH00";
+        } else if (sothutu < 100) {
+            makh = "KH0";
+        }
+        makh += sothutu;
+        return makh;
     }
 
     /**
@@ -196,6 +243,9 @@ public class KhachHangJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLuu;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jlbDiaChi;
     private javax.swing.JLabel jlbMaKH;
     private javax.swing.JLabel jlbSDT;

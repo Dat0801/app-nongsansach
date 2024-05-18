@@ -5,6 +5,12 @@
  */
 package GUI;
 
+import DAO.HoaDonDAO;
+import DTO.ChiTietHoaDon;
+import DTO.HoaDon;
+import DTO.KhachHang;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,14 +20,17 @@ import javax.swing.JOptionPane;
 public class ThanhToanJFrame extends javax.swing.JFrame {
 
     private double TongTien;
+    private KhachHang khachhang;
+    public ArrayList<ChiTietHoaDon> listCTHD = null;
 
     /**
      * Creates new form ThanhToanJFrame
      */
-    public ThanhToanJFrame(double tongTien) {
+    public ThanhToanJFrame(double tongTien, KhachHang khachhang, ArrayList<ChiTietHoaDon> listCTHD) {
         initComponents();
         this.TongTien = tongTien;
-        jtfGiamGia.requestFocus();
+        this.khachhang = khachhang;
+        this.listCTHD = listCTHD;
         setView();
     }
 
@@ -29,7 +38,29 @@ public class ThanhToanJFrame extends javax.swing.JFrame {
         jtfTongTien.setText(this.TongTien + "");
         jtfGiamGia.setText("0");
         jtfKhachCanTra.setText(this.TongTien + "");
+        String mahd = generateMaHD();
+        jtfMaHD.setText(mahd);
+        if (this.khachhang != null) {
+            jlbKhachHang.setText(this.khachhang.getTenKH());
+        } else {
+            jlbKhachHang.setText("Khách Lẻ");
+        }
+        jtfKhachThanhToan.requestFocus();
     }
+
+    public String generateMaHD() {
+        HoaDon hoadon = HoaDonDAO.getInstance().getLastHoaDon();
+        int sothutu = (Integer.parseInt(hoadon.getMaHD().substring(2)) + 1);
+        String mahd = "HD";
+        if (sothutu < 10) {
+            mahd = "HD00";
+        } else if (sothutu < 100) {
+            mahd = "HD0";
+        }
+        mahd += sothutu;
+        return mahd;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -54,6 +85,7 @@ public class ThanhToanJFrame extends javax.swing.JFrame {
         jtfTienThua = new javax.swing.JTextField();
         jlbDVT1 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jlbTongTien1 = new javax.swing.JLabel();
         btnThanhToan = new javax.swing.JButton();
         jlbMaHH1 = new javax.swing.JLabel();
 
@@ -84,8 +116,8 @@ public class ThanhToanJFrame extends javax.swing.JFrame {
         jlbGiaBan.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jlbGiaBan.setText("Giảm giá");
 
+        jtfKhachCanTra.setEditable(false);
         jtfKhachCanTra.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jtfKhachCanTra.setEnabled(false);
 
         jlbGiaNhap.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jlbGiaNhap.setText("Khách cần trả");
@@ -105,14 +137,17 @@ public class ThanhToanJFrame extends javax.swing.JFrame {
             }
         });
 
+        jtfTienThua.setEditable(false);
         jtfTienThua.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jtfTienThua.setEnabled(false);
 
         jlbDVT1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jlbDVT1.setText("Tiền thừa trả khách");
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jLabel1.setText("%");
+
+        jlbTongTien1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jlbTongTien1.setText("Tên khách hàng");
 
         javax.swing.GroupLayout jpnThongTinHoaDonLayout = new javax.swing.GroupLayout(jpnThongTinHoaDon);
         jpnThongTinHoaDon.setLayout(jpnThongTinHoaDonLayout);
@@ -124,10 +159,9 @@ public class ThanhToanJFrame extends javax.swing.JFrame {
                     .addGroup(jpnThongTinHoaDonLayout.createSequentialGroup()
                         .addGroup(jpnThongTinHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jlbTongTien)
-                            .addComponent(jlbKhachHang)
                             .addComponent(jlbSoLuongTon))
                         .addGap(379, 379, 379))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnThongTinHoaDonLayout.createSequentialGroup()
+                    .addGroup(jpnThongTinHoaDonLayout.createSequentialGroup()
                         .addGroup(jpnThongTinHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jpnThongTinHoaDonLayout.createSequentialGroup()
                                 .addComponent(jlbGiaBan)
@@ -137,18 +171,21 @@ public class ThanhToanJFrame extends javax.swing.JFrame {
                                 .addGroup(jpnThongTinHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jlbGiaNhap)
                                     .addComponent(jlbKhachThanhToan)
-                                    .addComponent(jlbDVT1))
+                                    .addComponent(jlbDVT1)
+                                    .addComponent(jlbTongTien1))
                                 .addGroup(jpnThongTinHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jpnThongTinHoaDonLayout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jtfKhachCanTra, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jpnThongTinHoaDonLayout.createSequentialGroup()
                                         .addGap(170, 170, 170)
-                                        .addGroup(jpnThongTinHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jtfKhachThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jtfMaHD, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jtfTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jtfTienThua, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                        .addGroup(jpnThongTinHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jlbKhachHang)
+                                            .addGroup(jpnThongTinHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(jtfKhachThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jtfMaHD, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jtfTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jtfTienThua, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                         .addGap(0, 0, 0)
                         .addComponent(jLabel1)
                         .addGap(50, 50, 50))))
@@ -156,9 +193,11 @@ public class ThanhToanJFrame extends javax.swing.JFrame {
         jpnThongTinHoaDonLayout.setVerticalGroup(
             jpnThongTinHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnThongTinHoaDonLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jlbKhachHang)
-                .addGap(20, 20, 20)
+                .addGap(15, 15, 15)
+                .addGroup(jpnThongTinHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlbKhachHang)
+                    .addComponent(jlbTongTien1))
+                .addGap(18, 18, 18)
                 .addGroup(jpnThongTinHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlbTongTien)
                     .addComponent(jtfMaHD, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -252,7 +291,7 @@ public class ThanhToanJFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập số tiền khách thanh toán", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
             jtfKhachThanhToan.requestFocus();
         } else {
-            
+
         }
     }//GEN-LAST:event_btnThanhToanActionPerformed
     private void jtfGiamGiaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfGiamGiaFocusLost
@@ -292,6 +331,7 @@ public class ThanhToanJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jlbMaHH1;
     private javax.swing.JLabel jlbSoLuongTon;
     private javax.swing.JLabel jlbTongTien;
+    private javax.swing.JLabel jlbTongTien1;
     private javax.swing.JPanel jpnThongTinHoaDon;
     private javax.swing.JTextField jtfGiamGia;
     private javax.swing.JTextField jtfKhachCanTra;

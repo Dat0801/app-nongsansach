@@ -49,10 +49,13 @@ public class HangHoaJFrame extends javax.swing.JFrame {
     public String generateMaHang() {
         HangHoa hanghoa = HangHoaDAO.getInstance().getLastHangHoa();
         int sothutu = (Integer.parseInt(hanghoa.getMaHang().substring(2)) + 1);
-        String mahang = "HH" + sothutu;
-        if (sothutu < 100) {
-            mahang = "HH0" + sothutu;
+        String mahang = "HH";
+        if(sothutu < 10) {
+            mahang = "HH00";
+        } else if (sothutu < 100) {
+            mahang = "HH0";
         }
+        mahang += sothutu;
         return mahang;
     }
 
