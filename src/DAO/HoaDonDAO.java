@@ -29,7 +29,7 @@ public class HoaDonDAO {
     }
 
     public ArrayList<HoaDon> getListHoaDon() {
-        ArrayList<HoaDon> listPN = new ArrayList<HoaDon>();
+        ArrayList<HoaDon> listPN = new ArrayList<>();
         try {
             ResultSet rs = DataProvider.getInstance().executeQuery("Select * from HoaDon");
             while (rs.next()) {
@@ -38,7 +38,7 @@ public class HoaDonDAO {
             }
         } catch (SQLException ex) {
             // Handle the SQLException appropriately
-            ex.printStackTrace(); // For example, printing the stack trace
+            // For example, printing the stack trace
         }
         return listPN;
     }
@@ -71,4 +71,11 @@ public class HoaDonDAO {
         }
         return hoadon;
     }
+    
+    public int insertHoaDon(HoaDon hoadon) {
+        int rs = DataProvider.getInstance().executeNonQuery("call sp_insertHoaDon", hoadon.getMaHD(), hoadon.getMaNV(), hoadon.getMaKH(),
+                hoadon.getTongTien());
+        return rs;
+    }
+    
 }

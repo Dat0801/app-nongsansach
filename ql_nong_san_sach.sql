@@ -584,13 +584,11 @@ CREATE PROCEDURE sp_insertHoaDon
     @MaHD varchar(10),
     @MaNV varchar(10),
     @MaKH varchar(10),    
-    @NgayTao datetime,
-	@TongTien float,
-	@TrangThai nvarchar(50)  
+	@TongTien float
 AS
 BEGIN
-    INSERT INTO hoadon(MaHD, MaNV, MaKH, NgayTao, TongTien, TrangThai)
-    VALUES (@MaHD, @MaNV, @MaKH, @NgayTao, @TongTien, @TrangThai);
+    INSERT INTO hoadon(MaHD, MaNV, MaKH, TongTien)
+    VALUES (@MaHD, @MaNV, @MaKH, @TongTien);
 END
 GO
 
