@@ -56,6 +56,36 @@ public class KhachHangDAO {
         }
         return khachhang;
     }
+    
+    public KhachHang getKhachHangTheoSDT(String sdt) {
+        ResultSet rs = DataProvider.getInstance().executeQuery("call sp_getKhachHangTheoSDT", sdt);
+        KhachHang khachhang = null;
+        try {
+            while (rs.next()) {
+                khachhang = new KhachHang(rs);
+            }
+        } catch (SQLException ex) {
+            // Handle the SQLException appropriately
+            // For example, printing the stack trace
+        }
+        return khachhang;
+    }
+    
+    public KhachHang getLastKhachHang() {
+
+        ResultSet rs = DataProvider.getInstance().executeQuery("call sp_getLastKhachHang");
+        KhachHang khachhang = null;
+        try {
+            while (rs.next()) {
+                khachhang = new KhachHang(rs);
+            }
+        } catch (SQLException ex) {
+            // Handle the SQLException appropriately
+            // For example, printing the stack trace
+        }
+        return khachhang;
+    }
+    
     public int updateKhachHang(KhachHang ncc) {
         int rs = DataProvider.getInstance().executeNonQuery("call sp_updateKH", ncc.getMaKH(), ncc.getTenKH(), 
         ncc.getSDT(), ncc.getDiaChi());
