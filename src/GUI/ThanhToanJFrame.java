@@ -5,10 +5,12 @@
  */
 package GUI;
 
+import DAO.ChiTietHoaDonDAO;
 import DAO.HoaDonDAO;
 import DTO.ChiTietHoaDon;
 import DTO.HoaDon;
 import DTO.KhachHang;
+import DTO.SessionData;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -19,14 +21,14 @@ import javax.swing.JOptionPane;
  */
 public class ThanhToanJFrame extends javax.swing.JFrame {
 
-    private double TongTien;
+    private float TongTien;
     private KhachHang khachhang;
     public ArrayList<ChiTietHoaDon> listCTHD = null;
 
     /**
      * Creates new form ThanhToanJFrame
      */
-    public ThanhToanJFrame(double tongTien, KhachHang khachhang, ArrayList<ChiTietHoaDon> listCTHD) {
+    public ThanhToanJFrame(float tongTien, KhachHang khachhang, ArrayList<ChiTietHoaDon> listCTHD) {
         initComponents();
         this.TongTien = tongTien;
         this.khachhang = khachhang;
@@ -38,6 +40,7 @@ public class ThanhToanJFrame extends javax.swing.JFrame {
         jtfTongTien.setText(this.TongTien + "");
         jtfGiamGia.setText("0");
         jtfKhachCanTra.setText(this.TongTien + "");
+        jlbTenNhanVien.setText(SessionData.getNv().getTenNV());
         String mahd = generateMaHD();
         jtfMaHD.setText(mahd);
         if (this.khachhang != null) {
@@ -88,6 +91,7 @@ public class ThanhToanJFrame extends javax.swing.JFrame {
         jlbTongTien1 = new javax.swing.JLabel();
         btnThanhToan = new javax.swing.JButton();
         jlbMaHH1 = new javax.swing.JLabel();
+        jlbTenNhanVien = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -235,7 +239,10 @@ public class ThanhToanJFrame extends javax.swing.JFrame {
         });
 
         jlbMaHH1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jlbMaHH1.setText("Khách lẻ");
+        jlbMaHH1.setText("Nhân viên: ");
+
+        jlbTenNhanVien.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        jlbTenNhanVien.setText("Nhân viên");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -244,7 +251,10 @@ public class ThanhToanJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlbMaHH1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jlbMaHH1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jlbTenNhanVien))
                     .addComponent(jpnThongTinHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -256,7 +266,9 @@ public class ThanhToanJFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addComponent(jlbMaHH1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlbMaHH1)
+                    .addComponent(jlbTenNhanVien))
                 .addGap(31, 31, 31)
                 .addComponent(jpnThongTinHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
@@ -291,7 +303,13 @@ public class ThanhToanJFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập số tiền khách thanh toán", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
             jtfKhachThanhToan.requestFocus();
         } else {
-
+            HoaDon hd = new HoaDon(jtfMaHD.getText(), SessionData.getNv().getMaNV(), this.khachhang.getMaKH(), this.TongTien);
+            HoaDonDAO.getInstance().insertHoaDon(hd);
+            for (ChiTietHoaDon cthd : this.listCTHD) {
+                cthd.setMaHD(hd.getMaHD());
+                ChiTietHoaDonDAO.getInstance().insertChiTietHoaDon(cthd);
+            }
+            JOptionPane.showMessageDialog(this, "Thanh toán thành công!!", "Thanh toán", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnThanhToanActionPerformed
     private void jtfGiamGiaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfGiamGiaFocusLost
@@ -330,6 +348,7 @@ public class ThanhToanJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jlbKhachThanhToan;
     private javax.swing.JLabel jlbMaHH1;
     private javax.swing.JLabel jlbSoLuongTon;
+    private javax.swing.JLabel jlbTenNhanVien;
     private javax.swing.JLabel jlbTongTien;
     private javax.swing.JLabel jlbTongTien1;
     private javax.swing.JPanel jpnThongTinHoaDon;

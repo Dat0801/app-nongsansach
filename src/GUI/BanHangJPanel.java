@@ -387,8 +387,8 @@ public class BanHangJPanel extends javax.swing.JPanel {
         return loadedImages.get(imageName);
     }
 
-    Double tinhTongTien(List<ChiTietHoaDon> listCTHD) {
-        double TongTien = 0;
+    float tinhTongTien(List<ChiTietHoaDon> listCTHD) {
+        float TongTien = 0;
         if (listCTHD != null) {
             for (ChiTietHoaDon cthd : listCTHD) {
                 TongTien += cthd.getThanhTien();

@@ -7,6 +7,7 @@ package GUI;
 
 import DAO.TaiKhoanDAO;
 import DTO.NhanVien;
+import DTO.SessionData;
 import java.awt.Color;
 import javax.swing.JFrame;
 
@@ -149,6 +150,7 @@ public class DangNhapJDialog extends javax.swing.JDialog {
                         jlbMsg.setText("<html><div style='width:200px; white-space: pre-wrap; text-align: center;'>Tài khoản của bạn đang bị tạm khóa!</div></html>");
                     } else {
                         this.dispose();
+                        SessionData.setNv(nv);
                         MainJFrame mainJFrame = new MainJFrame(nv);
                         mainJFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
                         mainJFrame.setVisible(true);

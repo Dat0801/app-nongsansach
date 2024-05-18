@@ -79,4 +79,12 @@ public class HoaDon {
             
         }
     }
+
+    public HoaDon(String maHD, String maNV, String maKH, float tongTien) {
+        this.tongTien = tongTien;
+        this.maHD = maHD;
+        this.maNV = maNV;
+        this.maKH = maKH;
+    }
+    
 }

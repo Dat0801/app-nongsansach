@@ -43,4 +43,10 @@ public class ChiTietHoaDonDAO {
         }
         return listCTHD;
     }
+    
+     public int insertChiTietHoaDon(ChiTietHoaDon cthd) {
+        int rs = DataProvider.getInstance().executeNonQuery("call sp_insertChiTietHoaDon", cthd.getMaHang(), cthd.getMaHD(), cthd.getSoLuong(),
+                cthd.getThanhTien());
+        return rs;
+    }
 }
