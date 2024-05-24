@@ -60,6 +60,37 @@ public class HangHoaDAO {
         }
         return listHH;
     }
+     public ArrayList<HangHoa> getListHangHoaByMaNhomHangAndMaNCC(String MaNhomHang, String MaNCC) {
+        ArrayList<HangHoa> listHH = new ArrayList<>();
+        try {
+            ResultSet rs = DataProvider.getInstance().executeQuery("call sp_getListHangHoaTheoMaNhomVaMaNCC", MaNhomHang, MaNCC);
+            while (rs.next()) {
+                HangHoa hanghoa = new HangHoa(rs);
+                listHH.add(hanghoa);
+            }
+        } catch (SQLException ex) {
+            // Handle the SQLException appropriately
+            // For example, printing the stack trace
+            
+        }
+        return listHH;
+    }
+     
+     public ArrayList<HangHoa> getListHangHoaByNCC(String MaNCC) {
+        ArrayList<HangHoa> listHH = new ArrayList<>();
+        try {
+            ResultSet rs = DataProvider.getInstance().executeQuery("call sp_getListHangHoaTheoMaNCC", MaNCC);
+            while (rs.next()) {
+                HangHoa hanghoa = new HangHoa(rs);
+                listHH.add(hanghoa);
+            }
+        } catch (SQLException ex) {
+            // Handle the SQLException appropriately
+            // For example, printing the stack trace
+            
+        }
+        return listHH;
+    }
 
     public ArrayList<HangHoa> search(String searchStr) {
         ArrayList<HangHoa> listHH = new ArrayList<>();

@@ -1,6 +1,7 @@
 ﻿CREATE DATABASE CHNONGSAN
 GO
 
+
 USE CHNONGSAN
 
 CREATE TABLE hanghoa (
@@ -184,9 +185,9 @@ INSERT INTO phieunhap (MaPN, MaNV, MaNCC, TongTien) VALUES
 CREATE TABLE chitietphieunhap (
   MaPN varchar(10) NOT NULL,
   MaHang varchar(10) NOT NULL,
-  GiaNhap int NOT NULL,
-  SoLuong int DEFAULT 5,
-  ThanhTien int DEFAULT 0
+  GiaNhap float NOT NULL,
+  SoLuong float DEFAULT 5,
+  ThanhTien float DEFAULT 0
 ) 
 GO
 
@@ -451,7 +452,7 @@ GO
 
 -- Get List HangHoa Theo MaNhom
 CREATE PROCEDURE sp_getListHangHoaTheoMaNhom
-	@MaNhom varchar(10)
+	@MaNhom varchar(10),
 AS
 BEGIN
     SELECT * FROM hanghoa WHERE MaNhomHang = @MaNhom AND TrangThai = 1;
@@ -504,7 +505,7 @@ END
 GO
 
 exec sp_getLastKhachHang
-
+go
 -- Update KhachHang
 CREATE PROCEDURE sp_updateKH
     @MaKH nvarchar(10),
@@ -635,6 +636,48 @@ BEGIN
 END
 GO
 
+--Procedure CTPN
+--Get List CTPN
+CREATE PROCEDURE sp_getListCTPN
+AS
+BEGIN
+    SELECT chitietphieunhap.MaHang, MaPN, TenHang, SoLuong, SoLuongTon DVT, chitietphieunhap.GiaNhap, GiaBan, ThanhTien FROM chitietphieunhap JOIN hanghoa ON chitietphieunhap.MaHang = hanghoa.MaHang;
+END
+GO
+select * from chitietphieunhap
+
+select * from chitiethoadon
+GO
+-- Insert ChiTietHoaDon
+CREATE PROCEDURE sp_insertCTPN
+    @MaPN varchar(10),
+    @MaHang varchar(10),
+	@GiaNhap float,
+	@SoLuong float,
+	@ThanhTien float  
+AS
+BEGIN
+    INSERT INTO chitietphieunhap(MaHang, MaPN, GiaNhap, SoLuong, ThanhTien)
+    VALUES (@MaHang, @MaPN, @GiaNhap, @SoLuong, @ThanhTien);
+END
+GO
+-- Get List HangHoa Theo MaNhom va MaNCC
+CREATE PROCEDURE sp_getListHangHoaTheoMaNhomVaMaNCC
+	@MaNhom varchar(10),
+	@MaNCC varchar(10)
+AS
+BEGIN
+    SELECT * FROM hanghoa WHERE MaNhomHang = @MaNhom AND MaNCC = @MaNCC AND TrangThai = 1;
+END
+GO
+-- Get List HangHoa Theo MaNCC
+CREATE PROCEDURE sp_getListHangHoaTheoMaNCC	
+	@MaNCC varchar(10)
+AS
+BEGIN
+    SELECT * FROM hanghoa WHERE MaNCC = @MaNCC AND TrangThai = 1;
+END
+GO
 -- Procedure for account
 -- Login
 CREATE PROCEDURE sp_Login
@@ -645,6 +688,7 @@ BEGIN
     SELECT * FROM nhanvien WHERE UserName = @username AND Password = @password
 END
 GO
+
 
 
 
