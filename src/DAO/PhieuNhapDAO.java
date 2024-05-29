@@ -56,4 +56,22 @@ public class PhieuNhapDAO {
         }
         return phieunhap;
     }
+    public PhieuNhap getLastPhieuNhap() {
+
+        ResultSet rs = DataProvider.getInstance().executeQuery("call sp_getLastPhieuNhap");
+        PhieuNhap pn = null;
+        try {
+            while (rs.next()) {
+                pn = new PhieuNhap(rs);
+            }
+        } catch (SQLException ex) {
+            // Handle the SQLException appropriately
+            // For example, printing the stack trace
+        }
+        return pn;
+    }
+    public int insertPhieuNhap(PhieuNhap phieunhap) {
+        int rs = DataProvider.getInstance().executeNonQuery("call sp_insertHoaDon", phieunhap.getMaPN(), phieunhap.getMaNV(), phieunhap.getMaNCC(), phieunhap.getTongTien());
+        return rs;
+    }
 }

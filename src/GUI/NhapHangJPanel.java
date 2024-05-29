@@ -15,8 +15,10 @@ import DTO.ChiTietPhieuNhap;
 import DTO.ChiTietPhieuNhap;
 import DTO.HangHoa;
 import DTO.NhaCungCap;
+import DTO.NhanVien;
 import DTO.NhomHang;
 import DTO.PhieuNhap;
+import DTO.SessionData;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -45,17 +47,19 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-
+import javax.swing.JLabel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 /**
  *
  * @author Admin
  */
 public class NhapHangJPanel extends javax.swing.JPanel {
-
+    private NhaCungCap ncc;
     /**
      * Creates new form NhapHangJPanel
-     */
-    public NhapHangJPanel() {
+     */    
+    public NhapHangJPanel() {        
         initComponents();        
     }
 
@@ -65,6 +69,7 @@ public class NhapHangJPanel extends javax.swing.JPanel {
     
     private JPanel panel;
     private final Map<String, ImageIcon> loadedImages = new HashMap<>();
+    
     
     void loadHHTheoMaNCC(String MaNCC) {
         listHH = HangHoaDAO.getInstance().getListHangHoaByNCC(MaNCC);
@@ -79,42 +84,7 @@ public class NhapHangJPanel extends javax.swing.JPanel {
             @Override
             protected Void doInBackground() throws Exception {
                 for (HangHoa hh : listHH) {
-                    JButton btn = createButton(hh);
-                    panel.add(btn);
-                }
-                return null;
-            }
-
-            @Override
-            protected void done() {
-                jpnHangHoa.removeAll();
-                JScrollPane scrollPane = new JScrollPane(panel);
-                scrollPane.setPreferredSize(new Dimension(700, 700));
-                scrollPane.getVerticalScrollBar().setUnitIncrement(16);
-                scrollPane.getHorizontalScrollBar().setUnitIncrement(16);
-                jpnHangHoa.setLayout(new BorderLayout());
-                jpnHangHoa.add(scrollPane, BorderLayout.CENTER);
-                jpnHangHoa.revalidate();
-                jpnHangHoa.repaint();
-            }
-        };
-
-        worker.execute();
-    }
-    void loadHHTheoMaNhomHang(String MaNhomHang) {
-        listHH = HangHoaDAO.getInstance().getListHangHoa(MaNhomHang);
-        if (panel == null) {
-            panel = new JPanel();
-            panel.setLayout(new GridLayout(0, 4, 10, 10));
-        } else {
-            panel.removeAll();
-        }
-
-        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
-            @Override
-            protected Void doInBackground() throws Exception {
-                for (HangHoa hh : listHH) {
-                    JButton btn = createButton(hh);
+                    JLabel btn = createLabel(hh);
                     panel.add(btn);
                 }
                 return null;
@@ -149,7 +119,7 @@ public class NhapHangJPanel extends javax.swing.JPanel {
             @Override
             protected Void doInBackground() throws Exception {
                 for (HangHoa hh : listHH) {
-                    JButton btn = createButton(hh);
+                    JLabel btn = createLabel(hh);
                     panel.add(btn);
                 }
                 return null;
@@ -273,6 +243,7 @@ public class NhapHangJPanel extends javax.swing.JPanel {
         jLabel2.setText("Nhân viên");
 
         jcbNhomHang.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jcbNhomHang.setEnabled(false);
         jcbNhomHang.setPreferredSize(new java.awt.Dimension(250, 50));
         jcbNhomHang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -345,10 +316,10 @@ public class NhapHangJPanel extends javax.swing.JPanel {
             .addGroup(jpnPhieuNhapLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jpnPhieuNhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jpnPhieuNhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jcbNhomHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jcbNCC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnXoaTatCa, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
                     .addComponent(btnXoaHH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -385,65 +356,46 @@ public class NhapHangJPanel extends javax.swing.JPanel {
                 .addGap(15, 15, 15))
         );
     }// </editor-fold>//GEN-END:initComponents
-    private JButton createButton(HangHoa hh) {
-        ImageIcon icon = getImageIcon(hh.getHinhAnh(), 50, 50);
-        JButton btn = new JButton(hh.getTenHang(), icon);
-        btn.setPreferredSize(new Dimension(HangHoaDAO.HangHoaWidth, HangHoaDAO.HangHoaHeight));
-        btn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+    private JLabel createLabel(HangHoa hh) {
+        ImageIcon icon = getImageIcon(hh.getHinhAnh(), 150, 150);
+        JLabel lbl = new JLabel(hh.getTenHang(), icon, JLabel.CENTER);
+        lbl.setFont(new Font("Times New Roman", Font.BOLD, 20));
+        lbl.setForeground(Color.BLACK);
+        lbl.setHorizontalTextPosition(JLabel.CENTER);
+        lbl.setVerticalTextPosition(JLabel.BOTTOM);
+
+        lbl.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
                 ChiTietPhieuNhap ctpn = new ChiTietPhieuNhap(hh);
                 if (listCTPN == null) {
                     listCTPN = new ArrayList<>();
                 }
-                int flag = 0;
+                boolean found = false;
                 for (ChiTietPhieuNhap ctpnCu : listCTPN) {
                     if (ctpnCu.getMaHang().equals(ctpn.getMaHang())) {
-                        double oldSoLuong = ctpnCu.getSoLuong() + ctpn.getSoLuong();
-                        double ThanhTien = oldSoLuong * ctpnCu.getDonGia();
+                        double oldSoLuong = ctpnCu.getSoLuong() + ctpn.getSoLuong();                        
+                        double thanhTien = oldSoLuong * ctpnCu.getDonGia();
                         ctpnCu.setSoLuong(oldSoLuong);
-                        ctpnCu.setThanhTien(ThanhTien);
-                        flag = 1;
+                        ctpnCu.setThanhTien(thanhTien);
+                        found = true;
+                        break;
                     }
                 }
-                if (flag == 0) {
+                if (!found) {
                     listCTPN.add(ctpn);
                 }
                 LoadCTPNVaoTable(jtCTPN, jpnView, jspCTPN);
             }
         });
 
-        btn.setFont(new Font("Times New Roman", Font.BOLD, 14));
-        btn.setForeground(Color.BLACK);
-        btn.setHorizontalAlignment(JButton.CENTER);
-        btn.setVerticalTextPosition(JButton.BOTTOM);
-        btn.setHorizontalTextPosition(JButton.CENTER);
+        return lbl;
+    }
 
-        return btn;
-    }
     private ImageIcon getImageIcon(String imageName, int width, int height) {
-        if (!loadedImages.containsKey(imageName)) {
-            URL imageUrl = getClass().getResource("/Images/" + imageName);
-            if (imageUrl == null) {
-                System.err.println("Could not find image: /Images/" + imageName);
-                return null;
-            }
-            ImageIcon icon = new ImageIcon(new ImageIcon(imageUrl).getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
-            loadedImages.put(imageName, icon);
-        }
-        return loadedImages.get(imageName);
-    }
-    float tinhTongTien(List<ChiTietPhieuNhap> listCTPN) {
-        float TongTien = 0;
-        if (listCTPN != null) {
-            for (ChiTietPhieuNhap ctpn : listCTPN) {
-                TongTien += ctpn.getThanhTien();
-            }
-            jlbTongTien.setText("Tổng tiền: " + TongTien + "VNĐ");
-        } else {
-            jlbTongTien.setText("Tổng tiền: 0 VNĐ");
-        }
-        return TongTien;
+        ImageIcon image = new ImageIcon("src\\Images\\" + imageName);
+        Image im = image.getImage();
+        ImageIcon icon = new ImageIcon(im.getScaledInstance(width, height, im.SCALE_SMOOTH));
+        return icon;
     }
     void LoadCTPNVaoTable(JTable jt, JPanel jpn, JScrollPane jsp) {
         String[] header = {"Mã hàng hóa", "Tên hàng hóa", "Số lượng", "DVT", "Đơn giá", "Thành Tiền"};
@@ -515,6 +467,7 @@ public class NhapHangJPanel extends javax.swing.JPanel {
     }
     private void loadComboBoxNhomHang() {
         DefaultComboBoxModel<NhomHang> model = new DefaultComboBoxModel<>();
+        model.addElement(null);
         List<NhomHang> listNH = NhomHangDAO.getInstance().getListNhomHang();
 
         for (NhomHang nhomhang : listNH) {
@@ -524,6 +477,7 @@ public class NhapHangJPanel extends javax.swing.JPanel {
     }
     private void loadComboBoxNCC() {
         DefaultComboBoxModel<NhaCungCap> model = new DefaultComboBoxModel<>();
+        model.addElement(null);
         List<NhaCungCap> listNCC = NhaCungCapDAO.getInstance().getListNhaCungCap(1);
 
         for (NhaCungCap ncc : listNCC) {
@@ -547,32 +501,38 @@ public class NhapHangJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (evt.getClickCount() == 2 && jtCTPN.getSelectedRow() != -1) {
             int index = jtCTPN.getSelectedRow();
-
-//            ChiTietPhieuNhap ctpn = listCTPN.get(index);
-//
-//            NhapHangJFrame frame = new NhapHangJFrame(ctpn, this);
-//
-//            TaoDialog(frame, "Sửa hàng hóa");
         }
     }//GEN-LAST:event_jtCTPNMouseClicked
 
+    float tinhTongTien(List<ChiTietPhieuNhap> listCTPN) {
+        float TongTien = 0;
+        if (listCTPN != null) {
+            for (ChiTietPhieuNhap ctpn : listCTPN) {
+                TongTien += ctpn.getThanhTien();
+            }
+            jlbTongTien.setText("Tổng tiền: " + TongTien + "VNĐ");
+        } else {
+            jlbTongTien.setText("Tổng tiền: 0 VNĐ");
+        }
+        return TongTien;
+    }
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
         // TODO add your handling code here:
-//        if (listCTPN != null) {
-//            ThanhToanJFrame frame = new ThanhToanJFrame(tinhTongTien(listCTPN), this.khachhang, listCTPN);
-//
-//            frame.setResizable(false);
-//
-//            dialog = new JDialog();
-//            dialog.setModal(true);
-//            dialog.getContentPane().add(frame.getContentPane());
-//            dialog.pack();
-//            dialog.setLocationRelativeTo(null);
-//            dialog.setTitle("Thông tin thanh toán");
-//            dialog.setVisible(true);
-//        } else {
-//            JOptionPane.showMessageDialog(null, "Giỏ hàng đang trống! Vui lòng chọn sản phẩm để đưa vào giỏ!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
-//        }
+        if (listCTPN != null) {
+            ThanhToanNhapHangJFrame frame = new ThanhToanNhapHangJFrame(tinhTongTien(listCTPN), this.ncc, listCTPN);
+
+            frame.setResizable(false);
+
+            dialog = new JDialog();
+            dialog.setModal(true);
+            dialog.getContentPane().add(frame.getContentPane());
+            dialog.pack();
+            dialog.setLocationRelativeTo(null);
+            dialog.setTitle("Thông tin thanh toán");
+            dialog.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Giỏ hàng đang trống! Vui lòng chọn sản phẩm để đưa vào giỏ!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void btnXoaHHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaHHActionPerformed
@@ -592,8 +552,21 @@ public class NhapHangJPanel extends javax.swing.JPanel {
 
     private void jcbNhomHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbNhomHangActionPerformed
         // TODO add your handling code here:
+        ncc = (NhaCungCap) jcbNCC.getSelectedItem();
         NhomHang nhomhang = (NhomHang) jcbNhomHang.getSelectedItem();
-        loadHHTheoMaNhomHang(nhomhang.getMaNhomHang());
+        if(ncc!=null)
+        {
+            jcbNhomHang.setEnabled(true);            
+        } 
+        if(ncc!=null && nhomhang!=null)
+        {
+            loadHHTheoMaNhomHangVaMaNCC(nhomhang.getMaNhomHang(), ncc.getMaNCC());
+        }
+        if(ncc!=null && nhomhang==null)
+        {
+            loadHHTheoMaNCC(ncc.getMaNCC());
+        }         
+            
     }//GEN-LAST:event_jcbNhomHangActionPerformed
 
     private void btnXoaTatCaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaTatCaActionPerformed
@@ -603,7 +576,7 @@ public class NhapHangJPanel extends javax.swing.JPanel {
                 int kq = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa tất cả sản phẩm trong giỏ hàng?", "Câu hỏi", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (kq == JOptionPane.YES_OPTION) {
                     listCTPN = null;
-                    LoadCTHDVaoTable(jtCTPN, jpnView, jspCTPN);
+                    LoadCTPNVaoTable(jtCTPN, jpnView, jspCTPN);
                 }
             }
         } catch (Exception ex) {
@@ -614,17 +587,32 @@ public class NhapHangJPanel extends javax.swing.JPanel {
     private void jtbQuanLyNhapHangStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jtbQuanLyNhapHangStateChanged
         // TODO add your handling code here:
         loadComboBoxNhomHang();
+        loadComboBoxNCC();
+        jlbEmpName.setText(SessionData.getNv().getTenNV());
         int index = jtbQuanLyNhapHang.getSelectedIndex();
-        if (index == 0) {            
-            NhaCungCap ncc = (NhaCungCap) jcbNCC.getSelectedItem(); 
-            NhomHang nhomhang = (NhomHang) jcbNhomHang.getSelectedItem();
-            loadHHTheoMaNCC(ncc.getMaNCC());
+        if (index == 0) {                                 
             LoadCTPNVaoTable(jtCTPN, jpnView, jspCTPN);
         }
     }//GEN-LAST:event_jtbQuanLyNhapHangStateChanged
 
     private void jcbNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbNCCActionPerformed
         // TODO add your handling code here:
+        ncc = (NhaCungCap) jcbNCC.getSelectedItem(); 
+        NhomHang nhomhang = (NhomHang) jcbNhomHang.getSelectedItem();
+        if(ncc!=null)
+        {
+            jcbNhomHang.setEnabled(true);
+        } 
+        if(ncc!=null && nhomhang!=null)
+        {
+            loadHHTheoMaNhomHangVaMaNCC(nhomhang.getMaNhomHang(), ncc.getMaNCC());
+        }
+        if(ncc!=null && nhomhang==null)
+        {
+            loadHHTheoMaNCC(ncc.getMaNCC());
+        }
+                   
+            
     }//GEN-LAST:event_jcbNCCActionPerformed
 
 
@@ -635,7 +623,7 @@ public class NhapHangJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JComboBox<NhomHang> jcbNCC;
+    private javax.swing.JComboBox<NhaCungCap> jcbNCC;
     private javax.swing.JComboBox<NhomHang> jcbNhomHang;
     private javax.swing.JLabel jlbEmpName;
     private javax.swing.JLabel jlbTongTien;

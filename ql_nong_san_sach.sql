@@ -431,7 +431,7 @@ BEGIN
 	SELECT TOP 1 * FROM hanghoa ORDER BY mahang DESC
 END
 GO
-
+exec sp_getLastHangHoa
 -- Delete HangHoa
 CREATE PROCEDURE sp_deleteHangHoa
 	@MaHang varchar(10)
@@ -688,7 +688,13 @@ BEGIN
     SELECT * FROM nhanvien WHERE UserName = @username AND Password = @password
 END
 GO
-
-
+--Procedure for phieunhap
+CREATE PROCEDURE sp_getLastPhieuNhap
+AS
+BEGIN
+	SELECT TOP 1 * FROM phieunhap ORDER BY MaPN DESC
+END
+GO
+exec sp_getLastPhieuNhap
 
 
