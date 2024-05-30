@@ -5,6 +5,7 @@
  */
 package Main;
 
+import DTO.NhanVien;
 import GUI.BanHangJPanel;
 import GUI.HangHoaJPanel;
 import GUI.HoaDonJPanel;
@@ -29,11 +30,11 @@ public class ScreenSwitch {
 
     private JPanel root;
     private String kindSelected = "";
-
+    
     private List<DanhMucBean> listItem = null;
 
     public ScreenSwitch(JPanel jpnRoot) {
-        this.root = jpnRoot;
+        this.root = jpnRoot;        
     }
 
     public void setView(JPanel jpnItem, JLabel jlbItem) {

@@ -22,9 +22,10 @@ public class MainJFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainJFrame
      */
+    private NhanVien nhanvien;
     public MainJFrame(NhanVien nv) {
         initComponents();
-
+        this.nhanvien=nv;
         setTitle("CỬA HÀNG NÔNG SẢN SẠCH");
 
         ScreenSwitch controller = new ScreenSwitch(jpnView);

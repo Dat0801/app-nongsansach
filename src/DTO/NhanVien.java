@@ -17,6 +17,9 @@ public class NhanVien {
     boolean trangThai;
     String maNV, tenNV, SDT, userName, password, chucVu, diaChi;
 
+    public NhanVien() {
+    }
+
     public String getMaNV() {
         return maNV;
     }

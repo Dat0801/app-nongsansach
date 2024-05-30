@@ -89,5 +89,10 @@ public class PhieuNhap {
     public void setTrangThai(String trangThai) {
         this.trangThai = trangThai;
     }
-    
+    public PhieuNhap(String maPN, String maNV, String maNCC, float tongTien) {
+        this.tongTien = tongTien;
+        this.maPN = maPN;
+        this.maNV = maNV;
+        this.maNCC = maNCC;
+    }
 }
