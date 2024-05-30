@@ -696,5 +696,8 @@ BEGIN
 END
 GO
 exec sp_getLastPhieuNhap
+select * from phieunhap
+select * from chitietphieunhap
+select * from nhacungcap
 
 
