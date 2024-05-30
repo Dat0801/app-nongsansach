@@ -76,6 +76,20 @@ public class HangHoaDAO {
         return listHH;
     }
 
+     public HangHoa searchWithMaHang(String mahang) {
+        HangHoa hh = null;
+        try {
+            ResultSet rs = DataProvider.getInstance().executeQuery("call sp_SearchHangHoaWithMaHang", mahang);
+            while (rs.next()) {
+                hh = new HangHoa(rs);
+            }
+        } catch (SQLException ex) {
+            // Handle the SQLException appropriately
+            // For example, printing the stack trace
+        }
+        return hh;
+    }
+    
     public HangHoa getHangHoa(String maHH) {
         ResultSet rs = DataProvider.getInstance().executeQuery("call sp_getHangHoa", maHH);
         HangHoa hanghoa = null;

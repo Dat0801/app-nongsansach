@@ -8,6 +8,7 @@ package GUI;
 import DAO.KhachHangDAO;
 import DTO.KhachHang;
 import Main.FontOptionPane;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,6 +19,9 @@ public class KhachHangJFrame extends javax.swing.JFrame {
 
     private KhachHangJPanel KhachHangPanel;
 
+    public JButton getBtnLuu() {
+        return btnLuu;
+    }
     /**
      * Creates new form KhachHangJFrame
      */
@@ -130,10 +134,11 @@ public class KhachHangJFrame extends javax.swing.JFrame {
                     .addComponent(jtfMaKH, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlbMaKH))
                 .addGap(18, 18, 18)
-                .addGroup(jpnThongTinKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlbTenKH)
-                    .addComponent(jtfTenKH, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                .addGroup(jpnThongTinKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(jpnThongTinKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jlbTenKH)
+                        .addComponent(jtfTenKH, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jpnThongTinKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlbSDT)
@@ -185,22 +190,24 @@ public class KhachHangJFrame extends javax.swing.JFrame {
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
         // TODO add your handling code here:
         KhachHang kh = new KhachHang();
+        if (validateInput()) {
 
-        kh.setMaKH(jtfMaKH.getText());
-        kh.setTenKH(jtfTenKH.getText().trim());
-        kh.setSDT(jtfSDT.getText().trim());
-        kh.setDiaChi(jtfDiaChi.getText());
-        if (flag == 1) {
-            KhachHangDAO.getInstance().insertKhachHang(kh);
-            JOptionPane.showMessageDialog(this, "Thêm thành công!", "Thêm khách hàng", JOptionPane.INFORMATION_MESSAGE);
-            clearForm();
-        } else {
             kh.setMaKH(jtfMaKH.getText());
-            KhachHangDAO.getInstance().updateKhachHang(kh);
-            JOptionPane.showMessageDialog(this, "Sửa thành công!", "Sửa khách hàng", JOptionPane.INFORMATION_MESSAGE);
-        }
-        if (this.KhachHangPanel != null) {
-            KhachHangPanel.LoadKHVaoTable(null, null, null, 1);
+            kh.setTenKH(jtfTenKH.getText().trim());
+            kh.setSDT(jtfSDT.getText().trim());
+            kh.setDiaChi(jtfDiaChi.getText());
+            if (flag == 1) {
+                KhachHangDAO.getInstance().insertKhachHang(kh);
+                JOptionPane.showMessageDialog(this, "Thêm thành công!", "Thêm khách hàng", JOptionPane.INFORMATION_MESSAGE);
+                clearForm();
+            } else {
+                kh.setMaKH(jtfMaKH.getText());
+                KhachHangDAO.getInstance().updateKhachHang(kh);
+                JOptionPane.showMessageDialog(this, "Sửa thành công!", "Sửa khách hàng", JOptionPane.INFORMATION_MESSAGE);
+            }
+            if (this.KhachHangPanel != null) {
+                KhachHangPanel.LoadKHVaoTable(null, null, null, 1);
+            }
         }
     }//GEN-LAST:event_btnLuuActionPerformed
 
@@ -235,6 +242,24 @@ public class KhachHangJFrame extends javax.swing.JFrame {
         }
         makh += sothutu;
         return makh;
+    }
+
+    private boolean validateInput() {
+        if (jtfTenKH.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng không để trống thông tin tên khách hàng", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+            jtfTenKH.requestFocus();
+            return false;
+        } else if (jtfSDT.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng không để trống thông tin số điện thoại", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+            jtfSDT.requestFocus();
+            return false;
+        } else if (jtfDiaChi.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng không để trống thông tin địa chỉ", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+            jtfDiaChi.requestFocus();
+            return false;
+        }
+        return true;
+
     }
 
     /**

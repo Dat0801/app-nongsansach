@@ -147,6 +147,11 @@ public class HangHoaJPanel extends javax.swing.JPanel {
         });
 
         jtfSearch.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jtfSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfSearchActionPerformed(evt);
+            }
+        });
         jtfSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jtfSearchKeyPressed(evt);
@@ -383,6 +388,11 @@ public class HangHoaJPanel extends javax.swing.JPanel {
             LoadHHVaoTable(jtHangHoa, jpnView, jspHangHoa, 1, jtfSearch.getText());
         }
     }//GEN-LAST:event_jtfSearchKeyPressed
+
+    private void jtfSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfSearchActionPerformed
+        // TODO add your handling code here:
+        btnTimKiemActionPerformed(evt);
+    }//GEN-LAST:event_jtfSearchActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
