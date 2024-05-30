@@ -5,6 +5,19 @@
  */
 package GUI;
 
+import DAO.ThongKeDAO;
+import DTO.HangHoa;
+import DTO.HoaDon;
+import java.awt.CardLayout;
+import java.awt.Dimension;
+import java.util.List;
+import javax.swing.JPanel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+
 /**
  *
  * @author Admin
@@ -16,6 +29,56 @@ public class TrangChuJPanel extends javax.swing.JPanel {
      */
     public TrangChuJPanel() {
         initComponents();
+        setDataToChart1(jpnDoanhThuTheoNgay);
+        setDataToChart2(jpnHangHoaBanChayTheoSoLuong);
+    }
+
+    public void setDataToChart1(JPanel jpnItem) {
+        List<HoaDon> listItem = ThongKeDAO.getInstance().thongKeDoanhThuTheoNgay();
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        if (listItem != null) {
+            for (HoaDon item : listItem) {
+                dataset.addValue(item.getTongTien(), "Doanh thu", item.getNgayTao());
+            }
+        }
+
+        JFreeChart barChart = ChartFactory.createBarChart(
+                "Biểu đồ thống kê doanh thu theo ngày".toUpperCase(),
+                "Thời gian", "Doanh thu",
+                dataset, PlotOrientation.VERTICAL, false, true, false);
+
+        ChartPanel chartPanel = new ChartPanel(barChart);
+        chartPanel.setPreferredSize(new Dimension(jpnItem.getWidth(), 321));
+
+        jpnItem.removeAll();
+        jpnItem.setLayout(new CardLayout());
+        jpnItem.add(chartPanel);
+        jpnItem.validate();
+        jpnItem.repaint();
+    }
+
+    public void setDataToChart2(JPanel jpnItem) {
+        List<HangHoa> listItem = ThongKeDAO.getInstance().thongKeHangHoaBanChayTheoSoLuong();
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        if (listItem != null) {
+            for (HangHoa item : listItem) {
+                dataset.addValue(item.getSoLuongTon(), "Hàng hóa bán chạy", item.getTenHang());
+            }
+        }
+
+        JFreeChart barChart = ChartFactory.createBarChart(
+                "Biểu đồ thống kê hàng hóa bán chạy theo số lượng".toUpperCase(),
+                "Hàng hóa", "Số lượng",
+                dataset, PlotOrientation.VERTICAL, false, true, false);
+
+        ChartPanel chartPanel = new ChartPanel(barChart);
+        chartPanel.setPreferredSize(new Dimension(jpnItem.getWidth(), 321));
+
+        jpnItem.removeAll();
+        jpnItem.setLayout(new CardLayout());
+        jpnItem.add(chartPanel);
+        jpnItem.validate();
+        jpnItem.repaint();
     }
 
     /**
@@ -27,30 +90,69 @@ public class TrangChuJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jpnDoanhThuTheoNgay = new javax.swing.JPanel();
+        jpnHangHoaBanChayTheoSoLuong = new javax.swing.JPanel();
 
-        jLabel1.setText("Trang chủ");
+        javax.swing.GroupLayout jpnDoanhThuTheoNgayLayout = new javax.swing.GroupLayout(jpnDoanhThuTheoNgay);
+        jpnDoanhThuTheoNgay.setLayout(jpnDoanhThuTheoNgayLayout);
+        jpnDoanhThuTheoNgayLayout.setHorizontalGroup(
+            jpnDoanhThuTheoNgayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jpnDoanhThuTheoNgayLayout.setVerticalGroup(
+            jpnDoanhThuTheoNgayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 295, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jpnHangHoaBanChayTheoSoLuongLayout = new javax.swing.GroupLayout(jpnHangHoaBanChayTheoSoLuong);
+        jpnHangHoaBanChayTheoSoLuong.setLayout(jpnHangHoaBanChayTheoSoLuongLayout);
+        jpnHangHoaBanChayTheoSoLuongLayout.setHorizontalGroup(
+            jpnHangHoaBanChayTheoSoLuongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1299, Short.MAX_VALUE)
+        );
+        jpnHangHoaBanChayTheoSoLuongLayout.setVerticalGroup(
+            jpnHangHoaBanChayTheoSoLuongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 295, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jpnHangHoaBanChayTheoSoLuong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jpnDoanhThuTheoNgay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jpnDoanhThuTheoNgay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jpnHangHoaBanChayTheoSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(45, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(161, 161, 161)
-                .addComponent(jLabel1)
-                .addContainerGap(181, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(95, 95, 95)
-                .addComponent(jLabel1)
-                .addContainerGap(189, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jpnDoanhThuTheoNgay;
+    private javax.swing.JPanel jpnHangHoaBanChayTheoSoLuong;
     // End of variables declaration//GEN-END:variables
 }

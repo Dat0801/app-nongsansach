@@ -21,30 +21,26 @@ import javax.swing.JOptionPane;
  */
 public class ThanhToanJFrame extends javax.swing.JFrame {
 
-    private float TongTien;
-    private KhachHang khachhang;
-    public ArrayList<ChiTietHoaDon> listCTHD = null;
+    public BanHangJPanel formbanhang = null;
 
     /**
      * Creates new form ThanhToanJFrame
      */
-    public ThanhToanJFrame(float tongTien, KhachHang khachhang, ArrayList<ChiTietHoaDon> listCTHD) {
+    public ThanhToanJFrame(BanHangJPanel banhang) {
         initComponents();
-        this.TongTien = tongTien;
-        this.khachhang = khachhang;
-        this.listCTHD = listCTHD;
+        this.formbanhang = banhang;
         setView();
     }
 
     public void setView() {
-        jtfTongTien.setText(this.TongTien + "");
+        jtfTongTien.setText(this.formbanhang.TongTien + "");
         jtfGiamGia.setText("0");
-        jtfKhachCanTra.setText(this.TongTien + "");
+        jtfKhachCanTra.setText(this.formbanhang.TongTien + "");
         jlbTenNhanVien.setText(SessionData.getNv().getTenNV());
         String mahd = generateMaHD();
         jtfMaHD.setText(mahd);
-        if (this.khachhang != null) {
-            jlbKhachHang.setText(this.khachhang.getTenKH());
+        if (this.formbanhang.khachhang != null) {
+            jlbKhachHang.setText(this.formbanhang.khachhang.getTenKH());
         } else {
             jlbKhachHang.setText("Khách Lẻ");
         }
@@ -279,17 +275,17 @@ public class ThanhToanJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     private void setTienSauGiamGia() {
-        double tongTienSauGiam = this.TongTien;
+        double tongTienSauGiam = this.formbanhang.TongTien;
         if (!jtfGiamGia.getText().isEmpty()) {
             double giamGia = Double.parseDouble(jtfGiamGia.getText());
             if (giamGia < 0) {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập giảm giá lớn hơn hoặc bằng 0%", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
                 jtfGiamGia.setText("0");
             } else {
-                tongTienSauGiam = this.TongTien - (this.TongTien * (giamGia / 100));
+                tongTienSauGiam = this.formbanhang.TongTien - (this.formbanhang.TongTien * (giamGia / 100));
             }
         } else {
-            tongTienSauGiam = this.TongTien;
+            tongTienSauGiam = this.formbanhang.TongTien;
         }
         jtfKhachCanTra.setText(tongTienSauGiam + "");
     }
@@ -303,13 +299,22 @@ public class ThanhToanJFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập số tiền khách thanh toán", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
             jtfKhachThanhToan.requestFocus();
         } else {
-            HoaDon hd = new HoaDon(jtfMaHD.getText(), SessionData.getNv().getMaNV(), this.khachhang.getMaKH(), this.TongTien);
+            String MaKH = null;
+            if (this.formbanhang.khachhang != null) {
+                MaKH = this.formbanhang.khachhang.getMaKH();
+            }
+            HoaDon hd = new HoaDon(jtfMaHD.getText(), SessionData.getNv().getMaNV(), MaKH, this.formbanhang.TongTien);
             HoaDonDAO.getInstance().insertHoaDon(hd);
-            for (ChiTietHoaDon cthd : this.listCTHD) {
+            for (ChiTietHoaDon cthd : this.formbanhang.listCTHD) {
                 cthd.setMaHD(hd.getMaHD());
                 ChiTietHoaDonDAO.getInstance().insertChiTietHoaDon(cthd);
             }
             JOptionPane.showMessageDialog(this, "Thanh toán thành công!!", "Thanh toán", JOptionPane.INFORMATION_MESSAGE);
+            if (this.formbanhang.listCTHD != null) {
+               this.formbanhang.listCTHD = null;
+               this.formbanhang.LoadCTHDVaoTable(null, null, null);
+               this.formbanhang.tinhTongTien(this.formbanhang.listCTHD);
+            }
         }
     }//GEN-LAST:event_btnThanhToanActionPerformed
     private void jtfGiamGiaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfGiamGiaFocusLost

@@ -80,6 +80,10 @@ public class HoaDon {
         }
     }
 
+    public HoaDon() {
+        
+    }
+    
     public HoaDon(String maHD, String maNV, String maKH, float tongTien) {
         this.tongTien = tongTien;
         this.maHD = maHD;

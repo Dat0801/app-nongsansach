@@ -113,10 +113,12 @@
                       <Component id="jlbMaKH" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jlbTenKH" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jtfTenKH" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jlbTenKH" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jtfTenKH" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">

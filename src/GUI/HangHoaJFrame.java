@@ -17,6 +17,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import Main.FontOptionPane;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 /**
@@ -50,7 +52,7 @@ public class HangHoaJFrame extends javax.swing.JFrame {
         HangHoa hanghoa = HangHoaDAO.getInstance().getLastHangHoa();
         int sothutu = (Integer.parseInt(hanghoa.getMaHang().substring(2)) + 1);
         String mahang = "HH";
-        if(sothutu < 10) {
+        if (sothutu < 10) {
             mahang = "HH00";
         } else if (sothutu < 100) {
             mahang = "HH0";
@@ -160,6 +162,7 @@ public class HangHoaJFrame extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jlbHinhAnhSP = new javax.swing.JLabel();
         btnLuu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -283,12 +286,15 @@ public class HangHoaJFrame extends javax.swing.JFrame {
                                         .addComponent(jlbNhaCC)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel5)))
-                                .addGap(25, 25, 25))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jpnThongTinHangHoaLayout.createSequentialGroup()
-                                .addComponent(jlbNhomHH)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel6)
-                                .addGap(18, 18, 18)))
+                                .addGroup(jpnThongTinHangHoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jpnThongTinHangHoaLayout.createSequentialGroup()
+                                        .addComponent(jlbNhomHH)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel6))
+                                    .addComponent(jlbHinhAnhSP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(jpnThongTinHangHoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jpnThongTinHangHoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jtfHinhAnh, javax.swing.GroupLayout.Alignment.LEADING)
@@ -298,7 +304,7 @@ public class HangHoaJFrame extends javax.swing.JFrame {
                                     .addGap(43, 43, 43)))
                             .addComponent(jcbNhomHH, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jtfMaHH, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addGroup(jpnThongTinHangHoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jpnThongTinHangHoaLayout.createSequentialGroup()
                         .addGroup(jpnThongTinHangHoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -362,7 +368,9 @@ public class HangHoaJFrame extends javax.swing.JFrame {
                             .addComponent(jlbHinhAnh)
                             .addComponent(jlbDVT))
                         .addGap(10, 10, 10)
-                        .addComponent(btnChonAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jpnThongTinHangHoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnChonAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlbHinhAnhSP, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jpnThongTinHangHoaLayout.createSequentialGroup()
                         .addComponent(jtfGiaBan, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
@@ -483,15 +491,27 @@ public class HangHoaJFrame extends javax.swing.JFrame {
 
     }
 
+    private void setImageIcon(String imageName) {
+        ImageIcon image = new ImageIcon("src\\Images\\" + imageName);
+        Image im = image.getImage();
+        ImageIcon icon = new ImageIcon(im.getScaledInstance(jlbHinhAnhSP.getWidth(), jlbHinhAnhSP.getHeight(), im.SCALE_SMOOTH));
+        jlbHinhAnhSP.setIcon(icon);
+    }
+
     private void btnChonAnhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChonAnhActionPerformed
         // TODO add your handling code here:
         JFileChooser fileChooser = new JFileChooser();
+        File defaultDirectory = new File("src\\Images\\");
+        fileChooser.setCurrentDirectory(defaultDirectory);
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         int returnValue = fileChooser.showOpenDialog(this);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
-            String fileName = file.getName();
+            String path = file.getAbsolutePath();
+            String []string = path.split("\\\\");
+            String fileName = string[string.length-2] + "\\" + string[string.length-1];
             jtfHinhAnh.setText(fileName);
+            setImageIcon(jtfHinhAnh.getText());
         }
     }//GEN-LAST:event_btnChonAnhActionPerformed
     public void setGiaBan() {
@@ -532,6 +552,7 @@ public class HangHoaJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jlbGiaNhap;
     private javax.swing.JLabel jlbHeSo;
     private javax.swing.JLabel jlbHinhAnh;
+    private javax.swing.JLabel jlbHinhAnhSP;
     private javax.swing.JLabel jlbMaHH;
     private javax.swing.JLabel jlbNhaCC;
     private javax.swing.JLabel jlbNhomHH;
