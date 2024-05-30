@@ -56,45 +56,45 @@ END;
 GO
 
 INSERT INTO hanghoa (MaHang, MaNhomHang, MaNCC, TenHang, DVT, HeSo, GiaNhap, HinhAnh, SoLuongTon) VALUES
-('HH001', 'NH004', 'NCC001', N'Chuối già Nam Mỹ', N'Kg', 1.2, 25000, 'chuoiGia.jpg', 16.5),
-('HH002', 'NH004', 'NCC002', N'Dưa hấu đỏ', N'Kg', 1.2, 12500, 'duaHauDo.jpg', 15),
-('HH003', 'NH004', 'NCC001', N'Dưa lưới', N'Kg',  1.2, 45000, 'duaLuoi.jpg', 20),
-('HH004', 'NH004', 'NCC002', N'Cam vàng nội địa Trung', N'Kg',  1.2, 40000, 'camVang.jpg', 20.5),
-('HH005', 'NH004', 'NCC003', N'Nho xanh Nam Phi', N'Kg',  1.2, 125000, 'nhoXanh.jpg', 10.5),
-('HH006', 'NH004', 'NCC004', N'Quýt giống Úc', N'Kg',  1.2, 40000, 'quytUc.jpg', 12.5),
-('HH007', 'NH004', 'NCC003', N'Cam sành', N'Kg', 1.2, 12500, 'camSanh.jpg', 23),
-('HH008', 'NH004', 'NCC005', N'Táo Autumn Mỹ', N'Kg', 1.2, 57500, 'taoMy.jpg', 8),
-('HH009', 'NH004', 'NCC005', N'Ổi Đài Loan', N'Kg',  1.2, 17500, 'oiDaiLoan.jpg', 6),
-('HH010', 'NH001', 'NCC001', N'Cải bẹ xanh', N'Kg', 1.2, 15000, 'caiBeXanh.jpg', 9),
-('HH011', 'NH001', 'NCC001', N'Cải ngọt', N'Kg',  1.2, 15000, 'caiNgot.jpg', 6),
-('HH012', 'NH001', 'NCC002', N'Cải thìa', N'Kg',  1.2, 15000, 'caiThia.jpg', 11),
-('HH013', 'NH001', 'NCC003', N'Cải bẹ dún', N'Kg', 1.2, 15000, 'caiBeDun.jpg', 9),
-('HH014', 'NH001', 'NCC003', N'Rau dền', N'Kg', 1.2, 12500, 'rauDen.jpg', 12),
-('HH015', 'NH001', 'NCC002', N'Rau lang', N'Kg',  1.2, 15000, 'rauLang.jpg', 14),
-('HH016', 'NH001', 'NCC004', N'Rau mồng tơi', N'Kg', 1.2, 12500, 'rauMongToi.jpg', 10.5),
-('HH017', 'NH001', 'NCC005', N'Rau muống nước', N'Kg', 1.2, 7500, 'rauMuongNuoc.jpg', 13),
-('HH018', 'NH001', 'NCC005', N'Rau ngót', N'Kg', 1.2, 15000, 'rauNgot.jpg', 5.2),
-('HH019', 'NH001', 'NCC004', N'Rau tần ô', N'Kg', 1.2, 22500, 'rauTanO.jpg', 6.6),
-('HH020', 'NH002', 'NCC001', N'Khoai lang Nhật', N'Kg', 1.2, 15000, 'khoaiLangNhat.jpg', 7),
-('HH021', 'NH002', 'NCC002', N'Bí đỏ hồ lô', N'Kg',  1.2, 12500, 'biDoHoLo.jpg', 12),
-('HH022', 'NH002', 'NCC001', N'Bí xanh', N'Kg', 1.2, 22500, 'biXanh.jpg', 7),
-('HH023', 'NH002', 'NCC002', N'Cà chua', N'Kg',  1.2, 20000, 'caChua.jpg', 12),
-('HH024', 'NH002', 'NCC003', N'Cà rốt', N'Kg', 1.2, 17500, 'caRot.jpg', 9),
-('HH025', 'NH002', 'NCC003', N'Khoai tây', N'Kg', 1.2, 25000, 'khoaiTay.jpg', 15),
-('HH026', 'NH002', 'NCC004', N'Củ cải trắng', N'Kg',  1.2, 15000, 'cuCaiTrang.jpg', 6),
-('HH027', 'NH002', 'NCC005', N'Củ dền', N'Kg', 1.2, 25000, 'cuDen.jpg', 9),
-('HH028', 'NH002', 'NCC005', N'Khoai mỡ', N'Kg',  1.2, 25000, 'khoaiMo.jpg', 10),
-('HH029', 'NH002', 'NCC004', N'Ớt chuông', N'Kg', 1.2, 17500, 'otChuong.jpg', 8),
-('HH030', 'NH003', 'NCC005', N'Nấm hương', N'Kg', 1.2, 190000, 'namHuong.jpg', 6),
-('HH031', 'NH003', 'NCC004', N'Nấm bào ngư trắng', N'Kg',  1.2, 190000, 'namBaoNguTrang.jpg', 5),
-('HH032', 'NH003', 'NCC005', N'Nấm kim châm', N'Kg', 1.2, 190000, 'namKimCham.jpg', 7),
-('HH033', 'NH003', 'NCC004', N'Nấm mối đen', N'Kg', 1.2, 190000, 'namMoiDen.jpg', 4),
-('HH034', 'NH003', 'NCC005', N'Nấm linh chi nâu', N'Kg', 1.2, 185000, 'namLinhChi.jpg', 6),
-('HH035', 'NH003', 'NCC004', N'Nấm đùi gà', N'Kg', 1.2, 185000, 'namDuiGa.jpg', 3),
-('HH036', 'NH003', 'NCC005', N'Nấm rơm', N'Kg',  1.2, 100000, 'namRom.jpg', 10),
-('HH037', 'NH003', 'NCC004', N'Nấm Notaly', N'Kg',  1.2, 190000, 'namNotaly.jpg', 4),
-('HH038', 'NH003', 'NCC005', N'Nấm tuyết', N'Kg',  1.2, 500000, 'namTuyet.jpg', 3),
-('HH039', 'NH003', 'NCC005', N'Nấm mỡ nâu', N'Kg',  1.2, 290000, 'namMoNau.jpg', 7);
+('HH001', 'NH004', 'NCC001', N'Chuối già Nam Mỹ', N'Kg', 1.2, 25000, 'traicay\chuoiGia.jpg', 16.5),
+('HH002', 'NH004', 'NCC002', N'Dưa hấu đỏ', N'Kg', 1.2, 12500, 'traicay\duaHauDo.jpg', 15),
+('HH003', 'NH004', 'NCC001', N'Dưa lưới', N'Kg',  1.2, 45000, 'traicay\duaLuoi.jpg', 20),
+('HH004', 'NH004', 'NCC002', N'Cam vàng nội địa Trung', N'Kg',  1.2, 40000, 'traicay\camVang.jpg', 20.5),
+('HH005', 'NH004', 'NCC003', N'Nho xanh Nam Phi', N'Kg',  1.2, 125000, 'traicay\nhoXanh.jpg', 10.5),
+('HH006', 'NH004', 'NCC004', N'Quýt giống Úc', N'Kg',  1.2, 40000, 'traicay\quytUc.jpg', 12.5),
+('HH007', 'NH004', 'NCC003', N'Cam sành', N'Kg', 1.2, 12500, 'traicay\camSanh.jpg', 23),
+('HH008', 'NH004', 'NCC005', N'Táo Autumn Mỹ', N'Kg', 1.2, 57500, 'traicay\taoMy.jpg', 8),
+('HH009', 'NH004', 'NCC005', N'Ổi Đài Loan', N'Kg',  1.2, 17500, 'traicay\oiDaiLoan.jpg', 6),
+('HH010', 'NH001', 'NCC001', N'Cải bẹ xanh', N'Kg', 1.2, 15000, 'rau\caiBeXanh.jpg', 9),
+('HH011', 'NH001', 'NCC001', N'Cải ngọt', N'Kg',  1.2, 15000, 'rau\caiNgot.jpg', 6),
+('HH012', 'NH001', 'NCC002', N'Cải thìa', N'Kg',  1.2, 15000, 'rau\caiThia.jpg', 11),
+('HH013', 'NH001', 'NCC003', N'Cải bẹ dún', N'Kg', 1.2, 15000, 'rau\caiBeDun.jpg', 9),
+('HH014', 'NH001', 'NCC003', N'Rau dền', N'Kg', 1.2, 12500, 'rau\rauDen.jpg', 12),
+('HH015', 'NH001', 'NCC002', N'Rau lang', N'Kg',  1.2, 15000, 'rau\rauLang.jpg', 14),
+('HH016', 'NH001', 'NCC004', N'Rau mồng tơi', N'Kg', 1.2, 12500, 'rau\rauMongToi.jpg', 10.5),
+('HH017', 'NH001', 'NCC005', N'Rau muống nước', N'Kg', 1.2, 7500, 'rau\rauMuongNuoc.jpg', 13),
+('HH018', 'NH001', 'NCC005', N'Rau ngót', N'Kg', 1.2, 15000, 'rau\rauNgot.jpg', 5.2),
+('HH019', 'NH001', 'NCC004', N'Rau tần ô', N'Kg', 1.2, 22500, 'rau\rauTanO.jpg', 6.6),
+('HH020', 'NH002', 'NCC001', N'Khoai lang Nhật', N'Kg', 1.2, 15000, 'cu\khoaiLangNhat.jpg', 7),
+('HH021', 'NH002', 'NCC002', N'Bí đỏ hồ lô', N'Kg',  1.2, 12500, 'cu\biDoHoLo.jpg', 12),
+('HH022', 'NH002', 'NCC001', N'Bí xanh', N'Kg', 1.2, 22500, 'cu\biXanh.jpg', 7),
+('HH023', 'NH002', 'NCC002', N'Cà chua', N'Kg',  1.2, 20000, 'cu\caChua.jpg', 12),
+('HH024', 'NH002', 'NCC003', N'Cà rốt', N'Kg', 1.2, 17500, 'cu\caRot.jpg', 9),
+('HH025', 'NH002', 'NCC003', N'Khoai tây', N'Kg', 1.2, 25000, 'cu\khoaiTay.jpg', 15),
+('HH026', 'NH002', 'NCC004', N'Củ cải trắng', N'Kg',  1.2, 15000, 'cu\cuCaiTrang.jpg', 6),
+('HH027', 'NH002', 'NCC005', N'Củ dền', N'Kg', 1.2, 25000, 'cu\cuDen.jpg', 9),
+('HH028', 'NH002', 'NCC005', N'Khoai mỡ', N'Kg',  1.2, 25000, 'cu\khoaiMo.jpg', 10),
+('HH029', 'NH002', 'NCC004', N'Ớt chuông', N'Kg', 1.2, 17500, 'cu\otChuong.jpg', 8),
+('HH030', 'NH003', 'NCC005', N'Nấm hương', N'Kg', 1.2, 190000, 'nam\namHuong.jpg', 6),
+('HH031', 'NH003', 'NCC004', N'Nấm bào ngư trắng', N'Kg',  1.2, 190000, 'nam\namBaoNguTrang.jpg', 5),
+('HH032', 'NH003', 'NCC005', N'Nấm kim châm', N'Kg', 1.2, 190000, 'nam\namKimCham.jpg', 7),
+('HH033', 'NH003', 'NCC004', N'Nấm mối đen', N'Kg', 1.2, 190000, 'nam\namMoiDen.jpg', 4),
+('HH034', 'NH003', 'NCC005', N'Nấm linh chi nâu', N'Kg', 1.2, 185000, 'nam\namLinhChi.jpg', 6),
+('HH035', 'NH003', 'NCC004', N'Nấm đùi gà', N'Kg', 1.2, 185000, 'nam\namDuiGa.jpg', 3),
+('HH036', 'NH003', 'NCC005', N'Nấm rơm', N'Kg',  1.2, 100000, 'nam\namRom.jpg', 10),
+('HH037', 'NH003', 'NCC004', N'Nấm Notaly', N'Kg',  1.2, 190000, 'nam\namNotaly.jpg', 4),
+('HH038', 'NH003', 'NCC005', N'Nấm tuyết', N'Kg',  1.2, 500000, 'nam\namTuyet.jpg', 3),
+('HH039', 'NH003', 'NCC005', N'Nấm mỡ nâu', N'Kg',  1.2, 290000, 'nam\namMoNau.jpg', 7);
 
 CREATE TABLE hoadon (
   MaHD varchar(10) NOT NULL,
@@ -160,7 +160,7 @@ END;
 GO
 
 INSERT INTO chitiethoadon (MaHang, MaHD, SoLuong, ThanhTien) VALUES
-('HH001', 'HD001', 2, 0),
+('HH001', 'HD001', 2.5, 0),
 ('HH011', 'HD002', 3, 0),
 ('HH012', 'HD002', 3, 0),
 ('HH013', 'HD003', 2, 0),
@@ -346,6 +346,8 @@ ALTER TABLE chitiethoadon
   ADD CONSTRAINT PK_ChiTietHoaDon PRIMARY KEY (MaHang, MaHD);
 ALTER TABLE chitiethoadon
   ADD CONSTRAINT FK_ChiTietHoaDon_HoaDon FOREIGN KEY (MaHD) REFERENCES hoadon (MaHD);
+ALTER TABLE chitiethoadon
+  ADD CONSTRAINT FK_ChiTietHoaDon_HangHoa FOREIGN KEY (MaHang) REFERENCES hanghoa (MaHang);
 ALTER TABLE chitietphieunhap
   ADD CONSTRAINT PK_ChiTietPhieuNhap PRIMARY KEY (MaPN, MaHang);
 ALTER TABLE chitietphieunhap
@@ -403,6 +405,15 @@ CREATE PROCEDURE sp_SearchInHangHoa
 AS
 BEGIN
     SELECT * FROM hanghoa WHERE MaHang = @seachStr or TenHang like N'%' + @seachStr +  '%'
+END
+GO
+
+-- Search HangHoa with MaHang
+CREATE PROCEDURE sp_SearchHangHoaWithMaHang 
+	@seachStr nvarchar(50)
+AS
+BEGIN
+    SELECT * FROM hanghoa WHERE MaHang = @seachStr
 END
 GO
 
@@ -504,8 +515,6 @@ BEGIN
 END
 GO
 
-exec sp_getLastKhachHang
-go
 -- Update KhachHang
 CREATE PROCEDURE sp_updateKH
     @MaKH nvarchar(10),
@@ -522,6 +531,7 @@ BEGIN
     WHERE MaKH = @MaKH;
 END
 GO
+
 -- Insert KhachHang
 CREATE PROCEDURE sp_insertKH
     @MaKH nvarchar(10),
@@ -686,6 +696,28 @@ CREATE PROCEDURE sp_Login
 AS
 BEGIN
     SELECT * FROM nhanvien WHERE UserName = @username AND Password = @password
+END
+GO
+
+-- Procedure ThongKe
+-- Thong ke doanh thu theo ngay
+CREATE PROCEDURE sp_DoanhThuTheoNgay  
+AS
+BEGIN
+    select CONVERT(DATE, NgayTao) as Ngay, SUM(TongTien) as DoanhThu
+	from hoadon
+	group by NgayTao
+END
+GO
+
+-- Thong ke hang hoa ban chay theo so luong
+CREATE PROCEDURE sp_HangHoaBanChayTheoSoLuong  
+AS
+BEGIN
+    select TenHang, sum(chitiethoadon.SoLuong) as SoLuong
+	from hanghoa, chitiethoadon
+	where chitiethoadon.MaHang = hanghoa.MaHang
+	group by TenHang
 END
 GO
 --Procedure for phieunhap

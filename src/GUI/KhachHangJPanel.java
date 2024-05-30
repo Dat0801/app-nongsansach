@@ -26,6 +26,7 @@ import javax.swing.table.TableRowSorter;
  * @author Admin
  */
 public class KhachHangJPanel extends javax.swing.JPanel {
+    public JDialog dialog;
 
     /**
      * Creates new form KhachHangJPanel
@@ -53,6 +54,7 @@ public class KhachHangJPanel extends javax.swing.JPanel {
         jspKhachHang = new javax.swing.JScrollPane();
         jtKhachHang = new javax.swing.JTable();
         btnThem = new javax.swing.JButton();
+        btnTimKiem = new javax.swing.JButton();
         jpnKhoiPhucKH = new javax.swing.JPanel();
         jpnViewKhoiPhuc = new javax.swing.JPanel();
         jspKhachHangKhoiPhuc = new javax.swing.JScrollPane();
@@ -115,11 +117,20 @@ public class KhachHangJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnTimKiem.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        btnTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon-search.png"))); // NOI18N
+        btnTimKiem.setText("Tìm kiếm");
+
         javax.swing.GroupLayout jpnQuanLyKHLayout = new javax.swing.GroupLayout(jpnQuanLyKH);
         jpnQuanLyKH.setLayout(jpnQuanLyKHLayout);
         jpnQuanLyKHLayout.setHorizontalGroup(
             jpnQuanLyKHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1237, Short.MAX_VALUE)
+            .addGroup(jpnQuanLyKHLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jtfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addComponent(btnTimKiem)
+                .addContainerGap(634, Short.MAX_VALUE))
             .addGroup(jpnQuanLyKHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jpnQuanLyKHLayout.createSequentialGroup()
                     .addGap(24, 24, 24)
@@ -128,8 +139,7 @@ public class KhachHangJPanel extends javax.swing.JPanel {
                             .addComponent(jpnView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGap(4, 4, 4))
                         .addGroup(jpnQuanLyKHLayout.createSequentialGroup()
-                            .addComponent(jtfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(70, 70, 70)
+                            .addGap(0, 0, Short.MAX_VALUE)
                             .addComponent(btnXoa)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -137,15 +147,18 @@ public class KhachHangJPanel extends javax.swing.JPanel {
         );
         jpnQuanLyKHLayout.setVerticalGroup(
             jpnQuanLyKHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 759, Short.MAX_VALUE)
+            .addGroup(jpnQuanLyKHLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpnQuanLyKHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jtfSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                    .addComponent(btnTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(696, Short.MAX_VALUE))
             .addGroup(jpnQuanLyKHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jpnQuanLyKHLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addGroup(jpnQuanLyKHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jtfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jpnQuanLyKHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jpnQuanLyKHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGap(18, 18, 18)
                     .addComponent(jpnView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGap(14, 14, 14)))
@@ -228,6 +241,7 @@ public class KhachHangJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
     ArrayList<KhachHang> listKH;
+
     void LoadKHVaoTable(JTable jt, JPanel jpn, JScrollPane jsp, int trangthai) {
         String[] header = {"Mã khách hàng", "Tên khách hàng", "SDT", "Địa chỉ"};
         if (jt == null && jpn == null && jsp == null) {
@@ -308,19 +322,22 @@ public class KhachHangJPanel extends javax.swing.JPanel {
             dialog.setVisible(true);
         }
     }//GEN-LAST:event_jtKhachHangMouseClicked
+    private void TaoDialog(KhachHangJFrame frame, String title) {
+        frame.setResizable(false);
 
+        dialog = new JDialog();
+        dialog.setModal(true);
+        dialog.getContentPane().add(frame.getContentPane());
+        dialog.getRootPane().setDefaultButton(frame.getBtnLuu());
+        dialog.pack();
+        dialog.setLocationRelativeTo(null);
+        dialog.setTitle(title);
+        dialog.setVisible(true);
+    }
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
         KhachHangJFrame frame = new KhachHangJFrame(null, this, 1);
-        frame.setResizable(false);
-
-        JDialog dialog = new JDialog();
-        dialog.setModal(true);
-        dialog.getContentPane().add(frame.getContentPane());
-        dialog.pack();
-        dialog.setLocationRelativeTo(null);
-        dialog.setTitle("Thêm khách hàng");
-        dialog.setVisible(true);
+        TaoDialog(frame, "Thêm hàng hóa");
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void jtbQuanLyKHStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jtbQuanLyKHStateChanged
@@ -353,6 +370,7 @@ public class KhachHangJPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnKhoiPhuc;
     private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnTimKiem;
     private javax.swing.JButton btnXoa;
     private javax.swing.JPanel jpnKhoiPhucKH;
     private javax.swing.JPanel jpnQuanLyKH;
