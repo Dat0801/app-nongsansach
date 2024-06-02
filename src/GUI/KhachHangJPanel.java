@@ -26,6 +26,7 @@ import javax.swing.table.TableRowSorter;
  * @author Admin
  */
 public class KhachHangJPanel extends javax.swing.JPanel {
+
     public JDialog dialog;
 
     /**
@@ -34,7 +35,7 @@ public class KhachHangJPanel extends javax.swing.JPanel {
     public KhachHangJPanel() {
         initComponents();
         FontOptionPane.setUIFont();
-        LoadKHVaoTable(jtKhachHang, jpnView, jspKhachHang, 1);
+        LoadKHVaoTable(jtKhachHang, jpnView, jspKhachHang, 1, null);
     }
 
     /**
@@ -69,6 +70,11 @@ public class KhachHangJPanel extends javax.swing.JPanel {
         });
 
         jtfSearch.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jtfSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfSearchActionPerformed(evt);
+            }
+        });
 
         btnXoa.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon-delete.png"))); // NOI18N
@@ -120,6 +126,11 @@ public class KhachHangJPanel extends javax.swing.JPanel {
         btnTimKiem.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         btnTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon-search.png"))); // NOI18N
         btnTimKiem.setText("Tìm kiếm");
+        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimKiemActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jpnQuanLyKHLayout = new javax.swing.GroupLayout(jpnQuanLyKH);
         jpnQuanLyKH.setLayout(jpnQuanLyKHLayout);
@@ -242,14 +253,18 @@ public class KhachHangJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     ArrayList<KhachHang> listKH;
 
-    void LoadKHVaoTable(JTable jt, JPanel jpn, JScrollPane jsp, int trangthai) {
+    void LoadKHVaoTable(JTable jt, JPanel jpn, JScrollPane jsp, int trangthai, String searchStr) {
         String[] header = {"Mã khách hàng", "Tên khách hàng", "SDT", "Địa chỉ"};
         if (jt == null && jpn == null && jsp == null) {
             jt = jtKhachHang;
             jpn = jpnView;
             jsp = jspKhachHang;
         }
-        listKH = KhachHangDAO.getInstance().getListKhachHang(trangthai);
+        if (searchStr != null) {
+            listKH = KhachHangDAO.getInstance().search(searchStr);
+        } else {
+            listKH = KhachHangDAO.getInstance().getListKhachHang(trangthai);
+        }
         DefaultTableModel modelTableDb = new DefaultTableModel(header, 0) {
             @Override
             public boolean isCellEditable(int rowIndex, int colIndex) {
@@ -297,7 +312,7 @@ public class KhachHangJPanel extends javax.swing.JPanel {
                 KhachHangDAO.getInstance().deleteKhachHang(maKH);
             }
             listKH.remove(index);
-            LoadKHVaoTable(jtKhachHang, jpnView, jspKhachHang, 1);
+            LoadKHVaoTable(jtKhachHang, jpnView, jspKhachHang, 1, null);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn khách hàng muốn xóa!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
         }
@@ -311,15 +326,7 @@ public class KhachHangJPanel extends javax.swing.JPanel {
             KhachHang ncc = listKH.get(index);
 
             KhachHangJFrame frame = new KhachHangJFrame(ncc, this, 0);
-            frame.setResizable(false);
-
-            JDialog dialog = new JDialog();
-            dialog.setModal(true);
-            dialog.getContentPane().add(frame.getContentPane());
-            dialog.pack();
-            dialog.setLocationRelativeTo(null);
-            dialog.setTitle("Sửa khách hàng");
-            dialog.setVisible(true);
+            TaoDialog(frame, "Sửa khách hàng");
         }
     }//GEN-LAST:event_jtKhachHangMouseClicked
     private void TaoDialog(KhachHangJFrame frame, String title) {
@@ -344,9 +351,9 @@ public class KhachHangJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         int index = jtbQuanLyKH.getSelectedIndex();
         if (index == 0) {
-            LoadKHVaoTable(jtKhachHang, jpnView, jspKhachHang, 1);
+            LoadKHVaoTable(jtKhachHang, jpnView, jspKhachHang, 1, null);
         } else {
-            LoadKHVaoTable(jtKhachHangKhoiPhuc, jpnViewKhoiPhuc, jspKhachHangKhoiPhuc, 0);
+            LoadKHVaoTable(jtKhachHangKhoiPhuc, jpnViewKhoiPhuc, jspKhachHangKhoiPhuc, 0, null);
         }
     }//GEN-LAST:event_jtbQuanLyKHStateChanged
 
@@ -360,11 +367,21 @@ public class KhachHangJPanel extends javax.swing.JPanel {
             KhachHangDAO.getInstance().recoveryKhachHang(ncc.getMaKH());
 
             listKH.remove(index);
-            LoadKHVaoTable(jtKhachHangKhoiPhuc, jpnViewKhoiPhuc, jspKhachHangKhoiPhuc, 0);
+            LoadKHVaoTable(jtKhachHangKhoiPhuc, jpnViewKhoiPhuc, jspKhachHangKhoiPhuc, 0, null);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn khách hàng muốn khôi phục!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnKhoiPhucActionPerformed
+
+    private void jtfSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfSearchActionPerformed
+        // TODO add your handling code here:
+        btnTimKiemActionPerformed(evt);
+    }//GEN-LAST:event_jtfSearchActionPerformed
+
+    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
+        // TODO add your handling code here:
+        LoadKHVaoTable(jtKhachHang, jpnView, jspKhachHang, 1, jtfSearch.getText());
+    }//GEN-LAST:event_btnTimKiemActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

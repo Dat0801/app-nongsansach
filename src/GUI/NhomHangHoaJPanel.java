@@ -5,11 +5,27 @@
  */
 package GUI;
 
+import DAO.NhomHangDAO;
+import DTO.NhomHang;
+import java.awt.CardLayout;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.util.ArrayList;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author Admin
  */
 public class NhomHangHoaJPanel extends javax.swing.JPanel {
+
+    public JDialog dialog;
 
     /**
      * Creates new form NhomHangHoaJPanel
@@ -27,30 +43,178 @@ public class NhomHangHoaJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        jtbQuanLyNhomHang = new javax.swing.JTabbedPane();
+        jpnQuanLyNhomHang = new javax.swing.JPanel();
+        jtfSearch3 = new javax.swing.JTextField();
+        jpnView3 = new javax.swing.JPanel();
+        jspNhomHang = new javax.swing.JScrollPane();
+        jtNhomHang = new javax.swing.JTable();
+        btnTimKiem = new javax.swing.JButton();
 
-        jLabel1.setText("Nhóm Hàng Hóa");
+        jtbQuanLyNhomHang.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jtbQuanLyNhomHang.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jtbQuanLyNhomHangStateChanged(evt);
+            }
+        });
+
+        jtfSearch3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        jtNhomHang.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jtNhomHang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtNhomHangMouseClicked(evt);
+            }
+        });
+        jspNhomHang.setViewportView(jtNhomHang);
+
+        javax.swing.GroupLayout jpnView3Layout = new javax.swing.GroupLayout(jpnView3);
+        jpnView3.setLayout(jpnView3Layout);
+        jpnView3Layout.setHorizontalGroup(
+            jpnView3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jspNhomHang, javax.swing.GroupLayout.DEFAULT_SIZE, 1219, Short.MAX_VALUE)
+        );
+        jpnView3Layout.setVerticalGroup(
+            jpnView3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jspNhomHang, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
+        );
+
+        btnTimKiem.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        btnTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon-search.png"))); // NOI18N
+        btnTimKiem.setText("Tìm kiếm");
+
+        javax.swing.GroupLayout jpnQuanLyNhomHangLayout = new javax.swing.GroupLayout(jpnQuanLyNhomHang);
+        jpnQuanLyNhomHang.setLayout(jpnQuanLyNhomHangLayout);
+        jpnQuanLyNhomHangLayout.setHorizontalGroup(
+            jpnQuanLyNhomHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnQuanLyNhomHangLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jtfSearch3, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addComponent(btnTimKiem)
+                .addContainerGap(668, Short.MAX_VALUE))
+            .addGroup(jpnQuanLyNhomHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jpnQuanLyNhomHangLayout.createSequentialGroup()
+                    .addGap(24, 24, 24)
+                    .addComponent(jpnView3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(28, 28, 28)))
+        );
+        jpnQuanLyNhomHangLayout.setVerticalGroup(
+            jpnQuanLyNhomHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnQuanLyNhomHangLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpnQuanLyNhomHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jtfSearch3, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                    .addComponent(btnTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(602, Short.MAX_VALUE))
+            .addGroup(jpnQuanLyNhomHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jpnQuanLyNhomHangLayout.createSequentialGroup()
+                    .addGap(81, 81, 81)
+                    .addComponent(jpnView3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(14, 14, 14)))
+        );
+
+        jtbQuanLyNhomHang.addTab("Quản lý nhóm hàng", jpnQuanLyNhomHang);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(171, 171, 171)
-                .addComponent(jLabel1)
-                .addContainerGap(137, Short.MAX_VALUE))
+            .addComponent(jtbQuanLyNhomHang)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(100, 100, 100)
-                .addComponent(jLabel1)
-                .addContainerGap(184, Short.MAX_VALUE))
+            .addComponent(jtbQuanLyNhomHang)
         );
     }// </editor-fold>//GEN-END:initComponents
+    ArrayList<NhomHang> listNH;
+    void LoadNHVaoTable(JTable jt, JPanel jpn, JScrollPane jsp, int trangthai) {
+        String[] header = {"Mã nhóm hàng", "Tên nhóm hàng"};
+        if (jt == null && jpn == null && jsp == null) {
+            jt = jtNhomHang;
+            jpn = jpnView3;
+            jsp = jspNhomHang;
+        }
+        listNH = NhomHangDAO.getInstance().getListNhomHang();
+        DefaultTableModel modelTableDb = new DefaultTableModel(header, 0) {
+            @Override
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false;
+            }
+
+        };
+
+        for (NhomHang nh : listNH) {
+            Object[] row = {nh.getMaNhomHang(), nh.getTenNhomHang()};
+            modelTableDb.addRow(row);
+        }
+
+        TableRowSorter<TableModel> rowSorter = null;
+
+        jt.setModel(modelTableDb);
+        jt.setRowSorter(rowSorter);
+
+        jt.getTableHeader().setFont(new Font("Arial", Font.BOLD, 14));
+        jt.setFont(new Font("Arial", Font.PLAIN, 14));
+        jt.getTableHeader().setPreferredSize(new Dimension(100, 50));
+        jt.setRowHeight(50);
+        jt.validate();
+        jt.repaint();
+
+        jsp.setPreferredSize(new Dimension(1350, 400));
+
+        jpn.removeAll();
+        jpn.setLayout(new CardLayout());
+        jpn.add(jsp);
+        jpn.validate();
+        jpn.repaint();
+    }
+    private void jtNhomHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtNhomHangMouseClicked
+        // TODO add your handling code here:
+        //        if (evt.getClickCount() == 2 && jtNhomHang.getSelectedRow() != -1) {
+        //            int index = jtNhomHang.getSelectedRow();
+        //
+        //            NhomHang nh = listNH.get(index);
+        //
+        //            NhomHangJFrame frame = new NhomHangJFrame(nh, this, 0);
+        //            frame.setResizable(false);
+        //
+        //            JDialog dialog = new JDialog();
+        //            dialog.setModal(true);
+        //            dialog.getContentPane().add(frame.getContentPane());
+        //            dialog.pack();
+        //            dialog.setLocationRelativeTo(null);
+        //            dialog.setTitle("Sửa khách hàng");
+        //            dialog.setVisible(true);
+        //        }
+    }//GEN-LAST:event_jtNhomHangMouseClicked
+
+    private void jtbQuanLyNhomHangStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jtbQuanLyNhomHangStateChanged
+        // TODO add your handling code here:
+        int index = jtbQuanLyNhomHang.getSelectedIndex();
+        if (index == 0) {
+            LoadNHVaoTable(jtNhomHang, jpnView3, jspNhomHang, 1);
+        }
+    }//GEN-LAST:event_jtbQuanLyNhomHangStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton btnTimKiem;
+    private javax.swing.JPanel jpnQuanLyNhomHang;
+    private javax.swing.JPanel jpnView3;
+    private javax.swing.JScrollPane jspNhomHang;
+    private javax.swing.JTable jtNhomHang;
+    private javax.swing.JTabbedPane jtbQuanLyNhomHang;
+    private javax.swing.JTextField jtfSearch3;
     // End of variables declaration//GEN-END:variables
 }
