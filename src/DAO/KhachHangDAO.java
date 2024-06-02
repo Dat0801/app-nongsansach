@@ -15,6 +15,7 @@ import java.util.ArrayList;
  * @author Admin
  */
 public class KhachHangDAO {
+
     private static KhachHangDAO instance;
 
     public static KhachHangDAO getInstance() {
@@ -42,7 +43,22 @@ public class KhachHangDAO {
         }
         return listKH;
     }
-    
+
+    public ArrayList<KhachHang> search(String searchStr) {
+        ArrayList<KhachHang> listKH = new ArrayList<>();
+        try {
+            ResultSet rs = DataProvider.getInstance().executeQuery("call sp_SearchInKhachHang", searchStr);
+            while (rs.next()) {
+                KhachHang khachhang = new KhachHang(rs);
+                listKH.add(khachhang);
+            }
+        } catch (SQLException ex) {
+            // Handle the SQLException appropriately
+            // For example, printing the stack trace
+        }
+        return listKH;
+    }
+
     public KhachHang getKhachHang(String maKH) {
         ResultSet rs = DataProvider.getInstance().executeQuery("call sp_getKhachHang", maKH);
         KhachHang khachhang = null;
@@ -56,7 +72,7 @@ public class KhachHangDAO {
         }
         return khachhang;
     }
-    
+
     public KhachHang getKhachHangTheoSDT(String sdt) {
         ResultSet rs = DataProvider.getInstance().executeQuery("call sp_getKhachHangTheoSDT", sdt);
         KhachHang khachhang = null;
@@ -70,7 +86,7 @@ public class KhachHangDAO {
         }
         return khachhang;
     }
-    
+
     public KhachHang getLastKhachHang() {
 
         ResultSet rs = DataProvider.getInstance().executeQuery("call sp_getLastKhachHang");
@@ -85,24 +101,24 @@ public class KhachHangDAO {
         }
         return khachhang;
     }
-    
+
     public int updateKhachHang(KhachHang ncc) {
-        int rs = DataProvider.getInstance().executeNonQuery("call sp_updateKH", ncc.getMaKH(), ncc.getTenKH(), 
-        ncc.getSDT(), ncc.getDiaChi());
+        int rs = DataProvider.getInstance().executeNonQuery("call sp_updateKH", ncc.getMaKH(), ncc.getTenKH(),
+                ncc.getSDT(), ncc.getDiaChi());
         return rs;
     }
-    
+
     public int insertKhachHang(KhachHang ncc) {
         int rs = DataProvider.getInstance().executeNonQuery("call sp_insertKH", ncc.getMaKH(), ncc.getTenKH(),
-        ncc.getSDT(), ncc.getDiaChi());
+                ncc.getSDT(), ncc.getDiaChi());
         return rs;
     }
-    
+
     public int deleteKhachHang(String maKhachHang) {
         int rs = DataProvider.getInstance().executeNonQuery("call sp_deleteKhachHang", maKhachHang);
         return rs;
     }
-    
+
     public int recoveryKhachHang(String maKH) {
         int rs = DataProvider.getInstance().executeNonQuery("call sp_recoverKhachHang", maKH);
         return rs;

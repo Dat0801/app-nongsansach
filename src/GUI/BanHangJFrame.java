@@ -62,27 +62,27 @@ public class BanHangJFrame extends javax.swing.JFrame {
         jlbMaHH.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jlbMaHH.setText("Mã hàng hóa");
 
+        jtfMaHH.setEditable(false);
         jtfMaHH.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jtfMaHH.setDisabledTextColor(new java.awt.Color(153, 153, 153));
-        jtfMaHH.setEnabled(false);
 
         jlbTenHH.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jlbTenHH.setText("Tên hàng hóa");
 
+        jtfTenHH.setEditable(false);
         jtfTenHH.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jtfTenHH.setEnabled(false);
 
         jlbDVT.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jlbDVT.setText("Thành tiền");
 
+        jtfThanhTien.setEditable(false);
         jtfThanhTien.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jtfThanhTien.setEnabled(false);
 
         jlbGiaBan.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jlbGiaBan.setText("Giá bán");
 
+        jtfDVT.setEditable(false);
         jtfDVT.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jtfDVT.setEnabled(false);
 
         jlbGiaNhap.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jlbGiaNhap.setText("Đơn vị tính");
@@ -93,9 +93,9 @@ public class BanHangJFrame extends javax.swing.JFrame {
         jtfSoLuong.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jtfSoLuong.setDisabledTextColor(new java.awt.Color(153, 153, 153));
 
+        jtfGiaBan.setEditable(false);
         jtfGiaBan.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jtfGiaBan.setDisabledTextColor(new java.awt.Color(153, 153, 153));
-        jtfGiaBan.setEnabled(false);
 
         javax.swing.GroupLayout jpnThongTinHangHoaLayout = new javax.swing.GroupLayout(jpnThongTinHangHoa);
         jpnThongTinHangHoa.setLayout(jpnThongTinHangHoaLayout);

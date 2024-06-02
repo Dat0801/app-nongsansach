@@ -11,6 +11,15 @@ package DTO;
  */
 public class SessionData {
     private static NhanVien nv;
+    private static KhachHang kh;
+
+    public static void setKh(KhachHang kh) {
+        SessionData.kh = kh;
+    }
+
+    public static KhachHang getKh() {
+        return kh;
+    }
 
     public static NhanVien getNv() {
         return nv;
@@ -23,5 +32,7 @@ public class SessionData {
     public SessionData(NhanVien nv) {
         this.nv = nv;
     }
+    
+    
 
 }

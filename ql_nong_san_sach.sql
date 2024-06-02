@@ -1,7 +1,6 @@
 ﻿CREATE DATABASE CHNONGSAN
 GO
 
-
 USE CHNONGSAN
 
 CREATE TABLE hanghoa (
@@ -99,7 +98,7 @@ INSERT INTO hanghoa (MaHang, MaNhomHang, MaNCC, TenHang, DVT, HeSo, GiaNhap, Hin
 CREATE TABLE hoadon (
   MaHD varchar(10) NOT NULL,
   MaNV varchar(10) NOT NULL,
-  MaKH varchar(10) DEFAULT NULL,
+  MaKH varchar(10) DEFAULT 'KH000',
   NgayTao datetime DEFAULT GETDATE(),
   TongTien float DEFAULT 0,
   TrangThai nvarchar(50) DEFAULT N'Đã hoàn thành'
@@ -108,8 +107,7 @@ CREATE TABLE hoadon (
 INSERT INTO hoadon (MaHD, MaNV, MaKH, TongTien) VALUES
 ('HD001', 'NV001', 'KH001', 0),
 ('HD002', 'NV002', 'KH002', 0),
-('HD003', 'NV003', 'KH003', 0),
-('HD004', 'NV003', null, 0);
+('HD003', 'NV003', 'KH003', 0);
 
 CREATE TABLE chitiethoadon (
   MaHang varchar(10) NOT NULL,
@@ -165,8 +163,6 @@ INSERT INTO chitiethoadon (MaHang, MaHD, SoLuong, ThanhTien) VALUES
 ('HH012', 'HD002', 3, 0),
 ('HH013', 'HD003', 2, 0),
 ('HH014', 'HD003', 5, 0),
-('HH015', 'HD004', 2, 0),
-('HH016', 'HD004', 4, 0),
 ('HH023', 'HD001', 2, 0),
 ('HH036', 'HD002', 3, 0);
 
@@ -252,11 +248,12 @@ CREATE TABLE khachhang (
 
 
 INSERT INTO khachhang (MaKH, TenKH, SDT, DiaChi) VALUES
-('KH001', N'Nguyễn Văn Phú', '0987654321', N'Lê Trọng Tấn'),
-('KH002', N'Trần Thị Dung', '0123456789', N'Bình Chánh'),
-('KH003', N'Lê Văn Sỹ', '0912345678', N'Lạc Long Quân'),
-('KH004', N'Phạm Thị Kim', '0876543210', N'Thành Thái'),
-('KH005', N'Hoàng Văn Cường', '0965432187', N'Điện Biên Phủ');
+('KH000', N'Khách Lẻ', N'Chưa xác định', N'Chưa xác định'),
+('KH001', N'Nguyễn Văn Phú', '0946711010', N'Lê Trọng Tấn'),
+('KH002', N'Trần Thị Dung', '0399839888', N'Bình Chánh'),
+('KH003', N'Lê Văn Sỹ', '0798032455', N'Lạc Long Quân'),
+('KH004', N'Phạm Thị Kim', '0977148512', N'Thành Thái'),
+('KH005', N'Hoàng Văn Cường', '0397845124', N'Điện Biên Phủ');
 
 CREATE TABLE nhacungcap (
   MaNCC varchar(10) NOT NULL,
@@ -473,7 +470,16 @@ GO
 CREATE PROCEDURE sp_getListCTHD
 AS
 BEGIN
-    SELECT chitiethoadon.MaHang, MaHD, TenHang, SoLuong, SoLuongTon DVT, GiaBan, ThanhTien FROM chitiethoadon JOIN hanghoa ON chitiethoadon.MaHang = hanghoa.MaHang;
+    SELECT chitiethoadon.MaHang, MaHD, TenHang, SoLuong, SoLuongTon, DVT, GiaBan, ThanhTien FROM chitiethoadon JOIN hanghoa ON chitiethoadon.MaHang = hanghoa.MaHang;
+END
+GO
+
+--Get List ChiTietHoaDon Theo Ma
+CREATE PROCEDURE sp_getListCTHDTheoMa
+	@MaHD varchar(10)
+AS
+BEGIN
+    SELECT chitiethoadon.MaHang, MaHD, TenHang, SoLuong, SoLuongTon, DVT, GiaBan, ThanhTien FROM chitiethoadon JOIN hanghoa ON chitiethoadon.MaHang = hanghoa.MaHang where MaHD = @MaHD;
 END
 GO
 
@@ -558,6 +564,15 @@ CREATE PROCEDURE sp_recoverKhachHang
 AS
 BEGIN
 	Update khachhang set TrangThai=1 where MaKH= @MaKH
+END
+GO
+
+-- Search KhachHang
+CREATE PROCEDURE sp_SearchInKhachHang
+	@seachStr nvarchar(50)
+AS
+BEGIN
+    SELECT * FROM khachhang WHERE MaKH = @seachStr or TenKH like N'%' + @seachStr +  '%' or SDT like '%' + @seachStr +  '%' or DiaChi like '%' + @seachStr +  '%'
 END
 GO
 
@@ -712,9 +727,62 @@ GO
 CREATE PROCEDURE sp_DoanhThuTheoNgay  
 AS
 BEGIN
-    select CONVERT(DATE, NgayTao) as Ngay, SUM(TongTien) as DoanhThu
-	from hoadon
-	group by NgayTao
+    SELECT TOP 7
+        CONVERT(DATE, NgayTao) AS Ngay,
+        SUM(TongTien) AS DoanhThu
+    FROM hoadon
+    GROUP BY CONVERT(DATE, NgayTao)
+    ORDER BY Ngay
+END
+GO
+
+-- Doanh thu va so hoa don ngay hien tai 
+CREATE PROCEDURE sp_DoanhThuVaSoHoaDonHomNay
+AS
+BEGIN
+    SELECT 
+        CONVERT(DATE, GETDATE()) AS Ngay,
+		COUNT(*) AS SoLuongHoaDon,
+        SUM(TongTien) AS DoanhThu
+    FROM hoadon
+    WHERE CONVERT(DATE, NgayTao) = CONVERT(DATE, GETDATE());
+END
+GO
+
+CREATE PROCEDURE sp_TangGiamPhanTramDoanhThu
+AS
+BEGIN
+    DECLARE @DoanhThuHomNay DECIMAL(18, 2);
+    SELECT 
+        @DoanhThuHomNay = ISNULL(SUM(TongTien), 0)
+    FROM hoadon
+    WHERE CONVERT(DATE, NgayTao) = CONVERT(DATE, GETDATE());
+
+    DECLARE @DoanhThuHomQua DECIMAL(18, 2);
+    SELECT 
+        @DoanhThuHomQua = ISNULL(SUM(TongTien), 0)
+    FROM hoadon
+    WHERE CONVERT(DATE, NgayTao) = CONVERT(DATE, DATEADD(DAY, -1, GETDATE()));
+
+    DECLARE @PhanTramThayDoi DECIMAL(18, 2);
+
+    IF @DoanhThuHomQua != 0
+    BEGIN
+        SET @PhanTramThayDoi = ((@DoanhThuHomNay - @DoanhThuHomQua) / @DoanhThuHomQua) * 100;
+    END
+    ELSE
+    BEGIN
+        IF @DoanhThuHomNay = 0
+        BEGIN
+            SET @PhanTramThayDoi = 0; 
+        END
+        ELSE
+        BEGIN
+            SET @PhanTramThayDoi = 100;
+        END
+    END
+    SELECT 
+        @PhanTramThayDoi AS PhanTramThayDoi;
 END
 GO
 
@@ -722,12 +790,16 @@ GO
 CREATE PROCEDURE sp_HangHoaBanChayTheoSoLuong  
 AS
 BEGIN
-    select TenHang, sum(chitiethoadon.SoLuong) as SoLuong
-	from hanghoa, chitiethoadon
-	where chitiethoadon.MaHang = hanghoa.MaHang
-	group by TenHang
+    SELECT TOP 10
+    hanghoa.TenHang,
+    SUM(chitiethoadon.SoLuong) AS SoLuong
+	FROM 
+    hanghoa JOIN chitiethoadon ON chitiethoadon.MaHang = hanghoa.MaHang
+	GROUP BY hanghoa.TenHang
+	ORDER BY SoLuong DESC
 END
 GO
+
 --Procedure for phieunhap
 CREATE PROCEDURE sp_getLastPhieuNhap
 AS
@@ -735,6 +807,7 @@ BEGIN
 	SELECT TOP 1 * FROM phieunhap ORDER BY MaPN DESC
 END
 GO
+
 exec sp_getLastPhieuNhap
 select * from phieunhap
 select * from chitietphieunhap
@@ -754,4 +827,3 @@ BEGIN
     INSERT INTO phieunhap(MaPN, MaNV, MaNCC, TongTien)
     VALUES (@MaPN, @MaNV, @MaNCC, @TongTien);
 END
-
