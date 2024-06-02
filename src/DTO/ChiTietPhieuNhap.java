@@ -14,6 +14,10 @@ public class ChiTietPhieuNhap {
     String MaPN, MaHang, TenHang, DVT;
     double GiaNhap, SoLuong, ThanhTien, SoLuongTon, DonGia;
 
+    public double getThanhTien() {
+        return ThanhTien;
+    }
+
     public ChiTietPhieuNhap() {
     }
 
@@ -23,19 +27,18 @@ public class ChiTietPhieuNhap {
         this.DVT = hangHoa.getdVT();
         this.SoLuong = 1;
         this.SoLuongTon = hangHoa.getSoLuongTon();
-        this.DonGia = hangHoa.getGiaBan();
-        this.ThanhTien = 1 * hangHoa.getGiaBan();
+        this.GiaNhap = hangHoa.getGiaNhap();
+        this.ThanhTien = 1 * hangHoa.getGiaNhap();
     }
     
-    public ChiTietPhieuNhap(ResultSet rs) throws SQLException {
+    public ChiTietPhieuNhap(ResultSet rs) throws SQLException {        
         this.MaHang = rs.getString("MaHang");
         this.MaPN = rs.getString("MaPN");
         this.TenHang = rs.getString("TenHang");
         this.SoLuong = rs.getDouble("SoLuong");        
         this.SoLuongTon = rs.getDouble("SoLuongTon");
         this.DVT = rs.getString("DVT");
-        this.GiaNhap = rs.getDouble("GiaNhap"); 
-        this.DonGia = rs.getDouble("GiaBan");               
+        this.GiaNhap = rs.getDouble("GiaNhap");                    
         this.ThanhTien = rs.getDouble("ThanhTien");
     }
     public void setMaPN(String MaPN) {
@@ -98,9 +101,9 @@ public class ChiTietPhieuNhap {
         return SoLuong;
     }
 
-    public double getThanhTien() {
-        return ThanhTien;
-    }
+    
+
+    
 
     public double getSoLuongTon() {
         return SoLuongTon;

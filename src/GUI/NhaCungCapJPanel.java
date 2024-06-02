@@ -9,7 +9,6 @@ import DAO.NhaCungCapDAO;
 import DTO.NhaCungCap;
 import Main.FontOptionPane;
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.util.ArrayList;
@@ -97,6 +96,7 @@ public class NhaCungCapJPanel extends javax.swing.JPanel {
         jspNhaCungCap = new javax.swing.JScrollPane();
         jtNhaCungCap = new javax.swing.JTable();
         btnThem = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jpnKhoiPhucNCC = new javax.swing.JPanel();
         jpnViewKhoiPhuc = new javax.swing.JPanel();
         jspNhaCungCapKhoiPhuc = new javax.swing.JScrollPane();
@@ -160,11 +160,23 @@ public class NhaCungCapJPanel extends javax.swing.JPanel {
             }
         });
 
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon-search.png"))); // NOI18N
+        jButton1.setText("Tìm");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jpnQuanLyNCCLayout = new javax.swing.GroupLayout(jpnQuanLyNCC);
         jpnQuanLyNCC.setLayout(jpnQuanLyNCCLayout);
         jpnQuanLyNCCLayout.setHorizontalGroup(
             jpnQuanLyNCCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 799, Short.MAX_VALUE)
+            .addGroup(jpnQuanLyNCCLayout.createSequentialGroup()
+                .addGap(314, 314, 314)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(387, Short.MAX_VALUE))
             .addGroup(jpnQuanLyNCCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jpnQuanLyNCCLayout.createSequentialGroup()
                     .addGap(24, 24, 24)
@@ -173,8 +185,9 @@ public class NhaCungCapJPanel extends javax.swing.JPanel {
                             .addComponent(jpnView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGap(4, 4, 4))
                         .addGroup(jpnQuanLyNCCLayout.createSequentialGroup()
-                            .addComponent(jtfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(70, 70, 70)
+                            .addGap(0, 0, Short.MAX_VALUE)
+                            .addComponent(jtfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(245, 245, 245)
                             .addComponent(btnXoa)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -182,7 +195,10 @@ public class NhaCungCapJPanel extends javax.swing.JPanel {
         );
         jpnQuanLyNCCLayout.setVerticalGroup(
             jpnQuanLyNCCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 385, Short.MAX_VALUE)
+            .addGroup(jpnQuanLyNCCLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(328, Short.MAX_VALUE))
             .addGroup(jpnQuanLyNCCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jpnQuanLyNCCLayout.createSequentialGroup()
                     .addContainerGap()
@@ -386,6 +402,11 @@ public class NhaCungCapJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnKhoiPhucActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     
         
     
@@ -394,6 +415,7 @@ public class NhaCungCapJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnXoa;
     private javax.swing.JButton btnXoaVinhVien;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jpnKhoiPhucNCC;
     private javax.swing.JPanel jpnQuanLyNCC;
     private javax.swing.JPanel jpnView;

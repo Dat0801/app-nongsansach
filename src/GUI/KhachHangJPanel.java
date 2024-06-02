@@ -120,6 +120,11 @@ public class KhachHangJPanel extends javax.swing.JPanel {
         btnTimKiem.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         btnTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon-search.png"))); // NOI18N
         btnTimKiem.setText("Tìm kiếm");
+        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimKiemActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jpnQuanLyKHLayout = new javax.swing.GroupLayout(jpnQuanLyKH);
         jpnQuanLyKH.setLayout(jpnQuanLyKHLayout);
@@ -365,6 +370,10 @@ public class KhachHangJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn khách hàng muốn khôi phục!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnKhoiPhucActionPerformed
+
+    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTimKiemActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

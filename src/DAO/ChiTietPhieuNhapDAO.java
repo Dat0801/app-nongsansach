@@ -43,8 +43,7 @@ public class ChiTietPhieuNhapDAO {
     }
     
      public int insertChiTietPhieuNhap(ChiTietPhieuNhap ctpn) {
-        int rs = DataProvider.getInstance().executeNonQuery("call sp_insertCTPN", ctpn.getMaHang(), ctpn.getMaPN(), ctpn.getGiaNhap(), ctpn.getSoLuong(),
-                ctpn.getThanhTien());
+        int rs = DataProvider.getInstance().executeNonQuery("call sp_insertCTPN", ctpn.getMaPN(), ctpn.getMaHang(), ctpn.getGiaNhap(), ctpn.getSoLuong(), ctpn.getThanhTien());
         return rs;
     }
      
