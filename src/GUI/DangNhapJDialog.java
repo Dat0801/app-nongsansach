@@ -151,10 +151,18 @@ public class DangNhapJDialog extends javax.swing.JDialog {
                     } else {
                         this.dispose();
                         SessionData.setNv(nv);
-                        MainJFrame mainJFrame = new MainJFrame(nv);
-                        mainJFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                        mainJFrame.setVisible(true);
-                        mainJFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                        if (nv.getChucVu().equals("Nhân viên")) {
+                            NhanVienJFrame nhanVienJFrame = new NhanVienJFrame(nv);
+                            nhanVienJFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                            nhanVienJFrame.setVisible(true);
+                            nhanVienJFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                        } else {
+                            MainJFrame mainJFrame = new MainJFrame(nv);
+                            mainJFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                            mainJFrame.setVisible(true);
+                            mainJFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                        }
+
                     }
                 }
             }

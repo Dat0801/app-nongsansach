@@ -5,8 +5,7 @@
  */
 package DAO;
 
-import DTO.HangHoa;
-import DTO.HoaDon;
+import DTO.ThongKe;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,7 +15,8 @@ import java.util.ArrayList;
  * @author Admin
  */
 public class ThongKeDAO {
-     private static ThongKeDAO instance;
+
+    private static ThongKeDAO instance;
 
     public static ThongKeDAO getInstance() {
         if (instance == null) {
@@ -28,16 +28,16 @@ public class ThongKeDAO {
     private ThongKeDAO() {
 
     }
-    
-    public ArrayList<HoaDon> thongKeDoanhThuTheoNgay() {
-        ArrayList<HoaDon> listHD = new ArrayList<>();
+
+    public ArrayList<ThongKe> thongKeDoanhThuTheoNgay() {
+        ArrayList<ThongKe> listHD = new ArrayList<>();
         try {
             ResultSet rs = DataProvider.getInstance().executeQuery("call sp_DoanhThuTheoNgay");
             while (rs.next()) {
-                HoaDon hoadon = new HoaDon();
-                hoadon.setNgayTao(rs.getDate("Ngay"));
-                hoadon.setTongTien(rs.getFloat("DoanhThu"));
-                listHD.add(hoadon);
+                ThongKe thongke = new ThongKe();
+                thongke.setNgay(rs.getDate("Ngay"));
+                thongke.setDoanhthu(rs.getFloat("DoanhThu"));
+                listHD.add(thongke);
             }
         } catch (SQLException ex) {
             // Handle the SQLException appropriately
@@ -45,21 +45,51 @@ public class ThongKeDAO {
         }
         return listHD;
     }
-    
-    public ArrayList<HangHoa> thongKeHangHoaBanChayTheoSoLuong() {
-        ArrayList<HangHoa> listHH = new ArrayList<>();
+
+    public ArrayList<ThongKe> thongKeThongKeBanChayTheoSoLuong() {
+        ArrayList<ThongKe> listHH = new ArrayList<>();
         try {
             ResultSet rs = DataProvider.getInstance().executeQuery("call sp_HangHoaBanChayTheoSoLuong");
             while (rs.next()) {
-                HangHoa hanghoa = new HangHoa();
-                hanghoa.setTenHang(rs.getString("TenHang"));
-                hanghoa.setSoLuongTon(rs.getFloat("SoLuong"));
-                listHH.add(hanghoa);
+                ThongKe thongke = new ThongKe();
+                thongke.setTenHang(rs.getString("TenHang"));
+                thongke.setSoluong(rs.getFloat("SoLuong"));
+                listHH.add(thongke);
             }
         } catch (SQLException ex) {
             // Handle the SQLException appropriately
             // For example, printing the stack trace
         }
         return listHH;
+    }
+
+    public ThongKe thongKeDoanhThuVaSoHoaDonTheoNgayHienTai() {
+        ThongKe thongke = new ThongKe();
+        try {
+            ResultSet rs = DataProvider.getInstance().executeQuery("call sp_DoanhThuVaSoHoaDonHomNay");
+            while (rs.next()) {
+                thongke.setNgay(rs.getDate("Ngay"));
+                thongke.setDoanhthu(rs.getFloat("DoanhThu"));
+                thongke.setSodonhang(rs.getInt("SoLuongHoaDon"));
+            }
+        } catch (SQLException ex) {
+            // Handle the SQLException appropriately
+            // For example, printing the stack trace
+        }
+        return thongke;
+    }
+    
+    public ThongKe tangGiamSoVoiHomQua() {
+        ThongKe thongke = new ThongKe();
+        try {
+            ResultSet rs = DataProvider.getInstance().executeQuery("call sp_TangGiamPhanTramDoanhThu");
+            while (rs.next()) {
+                thongke.setTanggiam(rs.getFloat("PhanTramThayDoi"));
+            }
+        } catch (SQLException ex) {
+            // Handle the SQLException appropriately
+            // For example, printing the stack trace
+        }
+        return thongke;
     }
 }

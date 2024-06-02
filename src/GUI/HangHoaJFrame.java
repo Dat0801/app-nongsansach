@@ -68,6 +68,7 @@ public class HangHoaJFrame extends javax.swing.JFrame {
             setComboBoxNCC(hangHoa);
             jtfTenHH.setText(hangHoa.getTenHang());
             jtfHinhAnh.setText(hangHoa.getHinhAnh());
+            setImageIcon(hangHoa.getHinhAnh());
             jtfDVT.setText(hangHoa.getdVT());
             jtfGiaBan.setText(hangHoa.getGiaBan() + "");
             jtfHeSo.setText(hangHoa.getHeSo() + "");
@@ -77,6 +78,7 @@ public class HangHoaJFrame extends javax.swing.JFrame {
         } else {
             String mahang = generateMaHang();
             jtfMaHH.setText(mahang);
+            jtfDVT.setText("Kg");
             setComboBoxNHH(null);
             setComboBoxNCC(null);
         }
@@ -174,9 +176,9 @@ public class HangHoaJFrame extends javax.swing.JFrame {
         jlbMaHH.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jlbMaHH.setText("Mã hàng hóa");
 
+        jtfMaHH.setEditable(false);
         jtfMaHH.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jtfMaHH.setDisabledTextColor(new java.awt.Color(153, 153, 153));
-        jtfMaHH.setEnabled(false);
 
         jlbNhomHH.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jlbNhomHH.setText("Nhóm hàng hóa");
@@ -196,6 +198,7 @@ public class HangHoaJFrame extends javax.swing.JFrame {
         jlbDVT.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jlbDVT.setText("Đơn vị tính");
 
+        jtfDVT.setEditable(false);
         jtfDVT.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
         jlbGiaBan.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
@@ -241,9 +244,9 @@ public class HangHoaJFrame extends javax.swing.JFrame {
             }
         });
 
+        jtfGiaBan.setEditable(false);
         jtfGiaBan.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jtfGiaBan.setDisabledTextColor(new java.awt.Color(153, 153, 153));
-        jtfGiaBan.setEnabled(false);
 
         jLabel1.setForeground(new java.awt.Color(255, 0, 0));
         jLabel1.setText("(*)");
@@ -480,8 +483,20 @@ public class HangHoaJFrame extends javax.swing.JFrame {
             jtfSoLuongTon.requestFocus();
             return false;
         } else {
-            if (jtfDVT.getText().isEmpty()) {
-                jtfDVT.setText("Kg");
+            if (Float.parseFloat(jtfHeSo.getText()) <= 0) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập hệ số lớn hơn 0", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                jtfHeSo.requestFocus();
+                return false;
+            }
+            if (Float.parseFloat(jtfGiaNhap.getText()) <= 0) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập giá nhập lớn hơn 0", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                jtfGiaNhap.requestFocus();
+                return false;
+            }
+            if (Float.parseFloat(jtfSoLuongTon.getText()) <= 0) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập số lượng tồn lớn hơn 0", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                jtfSoLuongTon.requestFocus();
+                return false;
             }
             if (jtfHinhAnh.getText().isEmpty()) {
                 jtfHinhAnh.setText("Chưa xác định");
@@ -508,8 +523,8 @@ public class HangHoaJFrame extends javax.swing.JFrame {
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
             String path = file.getAbsolutePath();
-            String []string = path.split("\\\\");
-            String fileName = string[string.length-2] + "\\" + string[string.length-1];
+            String[] string = path.split("\\\\");
+            String fileName = string[string.length - 2] + "\\" + string[string.length - 1];
             jtfHinhAnh.setText(fileName);
             setImageIcon(jtfHinhAnh.getText());
         }

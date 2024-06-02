@@ -7,6 +7,7 @@ package GUI;
 
 import DAO.KhachHangDAO;
 import DTO.KhachHang;
+import DTO.SessionData;
 import Main.FontOptionPane;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -198,6 +199,7 @@ public class KhachHangJFrame extends javax.swing.JFrame {
             kh.setDiaChi(jtfDiaChi.getText());
             if (flag == 1) {
                 KhachHangDAO.getInstance().insertKhachHang(kh);
+                SessionData.setKh(kh);
                 JOptionPane.showMessageDialog(this, "Thêm thành công!", "Thêm khách hàng", JOptionPane.INFORMATION_MESSAGE);
                 clearForm();
             } else {
@@ -206,7 +208,7 @@ public class KhachHangJFrame extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Sửa thành công!", "Sửa khách hàng", JOptionPane.INFORMATION_MESSAGE);
             }
             if (this.KhachHangPanel != null) {
-                KhachHangPanel.LoadKHVaoTable(null, null, null, 1);
+                KhachHangPanel.LoadKHVaoTable(null, null, null, 1, null);
             }
         }
     }//GEN-LAST:event_btnLuuActionPerformed
@@ -257,6 +259,13 @@ public class KhachHangJFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Vui lòng không để trống thông tin địa chỉ", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
             jtfDiaChi.requestFocus();
             return false;
+        } else {
+            String regex = "^(0[3|5|7|8|9])([0-9]{8})$";
+            if (!jtfSDT.getText().matches(regex)) {
+                JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                jtfSDT.requestFocus();
+                return false;
+            }
         }
         return true;
 

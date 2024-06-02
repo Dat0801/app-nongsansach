@@ -12,11 +12,11 @@ import DTO.ChiTietHoaDon;
 import DTO.HangHoa;
 import DTO.KhachHang;
 import DTO.NhomHang;
+import DTO.SessionData;
 import Main.FontOptionPane;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -26,10 +26,8 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -307,8 +305,8 @@ public class BanHangJPanel extends javax.swing.JPanel {
                         .addGap(14, 14, 14))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnHoaDonLayout.createSequentialGroup()
                         .addGroup(jpnHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jpnHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jtfMaHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jpnHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jtfMaHang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel4))
                             .addComponent(btnTimKiemHangHoa, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
@@ -404,18 +402,23 @@ public class BanHangJPanel extends javax.swing.JPanel {
                     listCTHD = new ArrayList<>();
                 }
                 boolean found = false;
-                for (ChiTietHoaDon cthdCu : listCTHD) {
-                    if (cthdCu.getMaHang().equals(cthd.getMaHang())) {
-                        double oldSoLuong = cthdCu.getSoLuong() + cthd.getSoLuong();
-                        if (oldSoLuong > cthdCu.getSoLuongTon()) {
-                            JOptionPane.showMessageDialog(null, "Số lượng mua không thể lớn hơn số lượng tồn!\nSố lượng tồn là: " + cthdCu.getSoLuongTon(), "Cảnh báo", JOptionPane.WARNING_MESSAGE);
-                            oldSoLuong = cthdCu.getSoLuongTon();
+                if (cthd.getSoLuongTon() == 0) {
+                    JOptionPane.showMessageDialog(null, "Hàng hóa để hết hàng vui lòng nhập hàng hoặc chọn hàng hòa khác!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                    found = true;
+                } else {
+                    for (ChiTietHoaDon cthdCu : listCTHD) {
+                        if (cthdCu.getMaHang().equals(cthd.getMaHang())) {
+                            double oldSoLuong = cthdCu.getSoLuong() + cthd.getSoLuong();
+                            if (oldSoLuong > cthdCu.getSoLuongTon()) {
+                                JOptionPane.showMessageDialog(null, "Số lượng mua không thể lớn hơn số lượng tồn!\nSố lượng tồn là: " + cthdCu.getSoLuongTon(), "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                                oldSoLuong = cthdCu.getSoLuongTon();
+                            }
+                            double thanhTien = oldSoLuong * cthdCu.getDonGia();
+                            cthdCu.setSoLuong(oldSoLuong);
+                            cthdCu.setThanhTien(thanhTien);
+                            found = true;
+                            break;
                         }
-                        double thanhTien = oldSoLuong * cthdCu.getDonGia();
-                        cthdCu.setSoLuong(oldSoLuong);
-                        cthdCu.setThanhTien(thanhTien);
-                        found = true;
-                        break;
                     }
                 }
                 if (!found) {
@@ -566,7 +569,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
             NhomHang nhomhang = (NhomHang) jcbNhomHang.getSelectedItem();
             loadHH(nhomhang.getMaNhomHang());
             LoadCTHDVaoTable(jtCTHD, jpnView, jspCTHD);
-        } 
+        }
     }//GEN-LAST:event_jtbQuanLyBanHangStateChanged
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
@@ -619,7 +622,12 @@ public class BanHangJPanel extends javax.swing.JPanel {
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
         KhachHangJFrame frame = new KhachHangJFrame(null, null, 1);
-        TaoDialog(frame, "Thêm hàng hóa");
+        TaoDialog(frame, "Thêm khách hàng");
+        if (SessionData.getKh() != null) {
+            jtfSDTKhachHang.setText(SessionData.getKh().getSDT());
+            jtfTenKhachHang.setText(SessionData.getKh().getTenKH());
+            SessionData.setKh(null);
+        }
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
