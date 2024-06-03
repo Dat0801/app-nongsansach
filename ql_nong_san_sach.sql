@@ -668,8 +668,16 @@ BEGIN
 END
 GO
 select * from chitietphieunhap
-
+select * from phieunhap
 select * from chitiethoadon
+GO
+
+CREATE PROCEDURE sp_getListCTPNTheoMa
+	@MaPN varchar(10)
+AS
+BEGIN
+    SELECT chitietphieunhap.MaHang, MaPN, TenHang, SoLuong, SoLuongTon, DVT, chitietphieunhap.GiaNhap, GiaBan, ThanhTien FROM chitietphieunhap JOIN hanghoa ON chitietphieunhap.MaHang = hanghoa.MaHang where MaPN = @MaPN;
+END
 GO
 
 --procedure phieunhap

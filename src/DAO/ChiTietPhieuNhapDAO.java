@@ -42,6 +42,22 @@ public class ChiTietPhieuNhapDAO {
         return listCTPN;
     }
     
+    public ArrayList<ChiTietPhieuNhap> getListCTPN(String MaPN) {
+        ArrayList<ChiTietPhieuNhap> listCTPN = new ArrayList<>();
+        try {
+            ResultSet rs = DataProvider.getInstance().executeQuery("call sp_getListCTPNTheoMa", MaPN);
+            while (rs.next()) {
+                ChiTietPhieuNhap ctpn = new ChiTietPhieuNhap(rs);
+                listCTPN.add(ctpn);
+            }
+        } catch (SQLException ex) {
+            // Handle the SQLException appropriately
+            // For example, printing the stack trace
+            
+        }
+        return listCTPN;
+    }
+    
      public int insertChiTietPhieuNhap(ChiTietPhieuNhap ctpn) {
         int rs = DataProvider.getInstance().executeNonQuery("call sp_insertCTPN", ctpn.getMaPN(), ctpn.getMaHang(), ctpn.getGiaNhap(), ctpn.getSoLuong(), ctpn.getThanhTien());
         return rs;

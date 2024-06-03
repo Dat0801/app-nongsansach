@@ -540,13 +540,12 @@ public class NhapHangJPanel extends javax.swing.JPanel {
         }
         jcbNCC.setModel(model);
     }
-    private void TaoDialog(BanHangJFrame frame, String title) {
+    private void TaoDialog(NhapHangJFrame frame, String title) {
         frame.setResizable(false);
 
         dialog = new JDialog();
         dialog.setModal(true);
-        dialog.getContentPane().add(frame.getContentPane());
-        dialog.getRootPane().setDefaultButton(frame.getBtnLuu());
+        dialog.getContentPane().add(frame.getContentPane());        
         dialog.pack();
         dialog.setLocationRelativeTo(null);
         dialog.setTitle(title);
@@ -729,9 +728,10 @@ public class NhapHangJPanel extends javax.swing.JPanel {
         if (evt.getClickCount() == 2 && jtPN.getSelectedRow() != -1) {
             int index = jtPN.getSelectedRow();
 
-            ChiTietPhieuNhap ctpn = listCTPN.get(index);            
+            PhieuNhap pn = listPN.get(index);            
 
-           
+           NhapHangJFrame frame = new NhapHangJFrame(pn,this);
+           TaoDialog(frame, "Chi tiết phiếu nhập");
         }
     }//GEN-LAST:event_jtPNMouseClicked
 
