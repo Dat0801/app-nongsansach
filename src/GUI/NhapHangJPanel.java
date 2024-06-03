@@ -55,7 +55,7 @@ import java.awt.event.MouseEvent;
  * @author Admin
  */
 public class NhapHangJPanel extends javax.swing.JPanel {
-    private NhaCungCap ncc;
+    public NhaCungCap ncc;
     /**
      * Creates new form NhapHangJPanel
      */    
@@ -63,12 +63,13 @@ public class NhapHangJPanel extends javax.swing.JPanel {
         initComponents();        
     }
 
+    public ArrayList<ChiTietPhieuNhap> listCTPN2 = null;
     public ArrayList<ChiTietPhieuNhap> listCTPN = null;
+    public ArrayList<PhieuNhap> listPN = null;    
     ArrayList<HangHoa> listHH;
     public JDialog dialog;
-    
-    private JPanel panel;
-    private final Map<String, ImageIcon> loadedImages = new HashMap<>();
+    public float TongTien;
+    private JPanel panel;    
     
     
     void loadHHTheoMaNCC(String MaNCC) {
@@ -167,6 +168,10 @@ public class NhapHangJPanel extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jcbNCC = new javax.swing.JComboBox<>();
         jlbEmpName = new javax.swing.JLabel();
+        jpnLichSuNhapHang = new javax.swing.JPanel();
+        jpnView1 = new javax.swing.JPanel();
+        jspPN = new javax.swing.JScrollPane();
+        jtPN = new javax.swing.JTable();
 
         jtbQuanLyNhapHang.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jtbQuanLyNhapHang.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -265,6 +270,11 @@ public class NhapHangJPanel extends javax.swing.JPanel {
 
         jcbNCC.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jcbNCC.setPreferredSize(new java.awt.Dimension(250, 50));
+        jcbNCC.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbNCCItemStateChanged(evt);
+            }
+        });
         jcbNCC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbNCCActionPerformed(evt);
@@ -337,7 +347,55 @@ public class NhapHangJPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jtbQuanLyNhapHang.addTab("Phiếu nhập 1", jpnPhieuNhap);
+        jtbQuanLyNhapHang.addTab("Phiếu nhập", jpnPhieuNhap);
+
+        jtPN.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jtPN.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtPNMouseClicked(evt);
+            }
+        });
+        jspPN.setViewportView(jtPN);
+
+        javax.swing.GroupLayout jpnView1Layout = new javax.swing.GroupLayout(jpnView1);
+        jpnView1.setLayout(jpnView1Layout);
+        jpnView1Layout.setHorizontalGroup(
+            jpnView1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jspPN, javax.swing.GroupLayout.DEFAULT_SIZE, 963, Short.MAX_VALUE)
+        );
+        jpnView1Layout.setVerticalGroup(
+            jpnView1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jspPN, javax.swing.GroupLayout.DEFAULT_SIZE, 596, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jpnLichSuNhapHangLayout = new javax.swing.GroupLayout(jpnLichSuNhapHang);
+        jpnLichSuNhapHang.setLayout(jpnLichSuNhapHangLayout);
+        jpnLichSuNhapHangLayout.setHorizontalGroup(
+            jpnLichSuNhapHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnLichSuNhapHangLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jpnView1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(444, Short.MAX_VALUE))
+        );
+        jpnLichSuNhapHangLayout.setVerticalGroup(
+            jpnLichSuNhapHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnLichSuNhapHangLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jpnView1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
+
+        jtbQuanLyNhapHang.addTab("Lịch sử nhập hàng", jpnLichSuNhapHang);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -398,7 +456,7 @@ public class NhapHangJPanel extends javax.swing.JPanel {
         return icon;
     }
     void LoadCTPNVaoTable(JTable jt, JPanel jpn, JScrollPane jsp) {
-        String[] header = {"Mã hàng hóa", "Tên hàng hóa", "Số lượng", "DVT", "Đơn giá", "Thành Tiền"};
+        String[] header = {"Mã hàng hóa", "Tên hàng hóa", "Số lượng", "DVT", "Giá nhập", "Thành Tiền"};
         if (jt == null && jpn == null && jsp == null) {
             jt = jtCTPN;
             jpn = jpnView;
@@ -408,13 +466,13 @@ public class NhapHangJPanel extends javax.swing.JPanel {
         DefaultTableModel modelTableDb = new DefaultTableModel(header, 0) {
             @Override
             public boolean isCellEditable(int rowIndex, int colIndex) {
-                return colIndex == 2;
+                return colIndex == 2 || colIndex == 4;
             }
         };
 
         if (listCTPN != null) {
             for (ChiTietPhieuNhap ctpn : listCTPN) {
-                Object[] row = {ctpn.getMaHang(), ctpn.getTenHang(), ctpn.getSoLuong(), ctpn.getDVT(), ctpn.getDonGia(), ctpn.getThanhTien()};
+                Object[] row = {ctpn.getMaHang(), ctpn.getTenHang(), ctpn.getSoLuong(), ctpn.getDVT(), ctpn.getGiaNhap(), ctpn.getThanhTien()};
                 modelTableDb.addRow(row);
             }
             tinhTongTien(listCTPN);
@@ -428,22 +486,19 @@ public class NhapHangJPanel extends javax.swing.JPanel {
                 if (e.getType() == TableModelEvent.UPDATE) {
                     int row = e.getFirstRow();
                     int column = e.getColumn();
-                    if (column == 2) { // If the second column is edited
+                    if (column == 2 || column == 4) { // If the second column is edited
                         TableModel model = (TableModel) e.getSource();
-                        double soLuong = Double.parseDouble(model.getValueAt(row, column).toString());
-                        double donGia = Double.parseDouble(model.getValueAt(row, 4).toString());
-                        double thanhTien = soLuong * donGia;
+                        double soLuong = Double.parseDouble(model.getValueAt(row, 2).toString());
+                        double giaNhap = Double.parseDouble(model.getValueAt(row, 4).toString());
+                        double thanhTien = soLuong * giaNhap;
                         ChiTietPhieuNhap ctpn = listCTPN.get(row);
-                        if (soLuong > ctpn.getSoLuongTon()) {
-                            JOptionPane.showMessageDialog(null, "Số lượng mua không thể lớn hơn số lượng tồn!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
-                            ctpn.setSoLuong(ctpn.getSoLuongTon());
-                            model.setValueAt(ctpn.getSoLuongTon(), row, column);
-                        } else {
-                            ctpn.setSoLuong(soLuong);
-                            ctpn.setThanhTien(thanhTien);
-                            tinhTongTien(listCTPN);
-                            model.setValueAt(thanhTien, row, 5);
-                        }
+                        
+                        ctpn.setSoLuong(soLuong);
+                        ctpn.setGiaNhap(giaNhap);
+                        ctpn.setThanhTien(thanhTien);
+                        tinhTongTien(listCTPN);
+                        model.setValueAt(thanhTien, row, 5);
+                        
                     }
                 }
             }
@@ -485,13 +540,12 @@ public class NhapHangJPanel extends javax.swing.JPanel {
         }
         jcbNCC.setModel(model);
     }
-    private void TaoDialog(BanHangJFrame frame, String title) {
+    private void TaoDialog(NhapHangJFrame frame, String title) {
         frame.setResizable(false);
 
         dialog = new JDialog();
         dialog.setModal(true);
-        dialog.getContentPane().add(frame.getContentPane());
-        dialog.getRootPane().setDefaultButton(frame.getBtnLuu());
+        dialog.getContentPane().add(frame.getContentPane());        
         dialog.pack();
         dialog.setLocationRelativeTo(null);
         dialog.setTitle(title);
@@ -519,7 +573,8 @@ public class NhapHangJPanel extends javax.swing.JPanel {
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
         // TODO add your handling code here:
         if (listCTPN != null) {
-            ThanhToanNhapHangJFrame frame = new ThanhToanNhapHangJFrame(tinhTongTien(listCTPN), this.ncc, listCTPN);
+            this.TongTien = tinhTongTien(listCTPN);
+            ThanhToanNhapHangJFrame frame = new ThanhToanNhapHangJFrame(this);
 
             frame.setResizable(false);
 
@@ -531,7 +586,7 @@ public class NhapHangJPanel extends javax.swing.JPanel {
             dialog.setTitle("Thông tin thanh toán");
             dialog.setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(null, "Giỏ hàng đang trống! Vui lòng chọn sản phẩm để đưa vào giỏ!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Giỏ hàng đang trống! Vui lòng chọn sản phẩm cần nhập để đưa vào giỏ!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
@@ -593,8 +648,54 @@ public class NhapHangJPanel extends javax.swing.JPanel {
         if (index == 0) {                                 
             LoadCTPNVaoTable(jtCTPN, jpnView, jspCTPN);
         }
+        if(index == 1)
+        {
+            LoadPhieuNhap(jtPN, jpnView1, jspPN);
+        }
     }//GEN-LAST:event_jtbQuanLyNhapHangStateChanged
+    
+    void LoadPhieuNhap(JTable jt, JPanel jpn, JScrollPane jsp) {
+        String[] header = {"Mã phiếu nhập", "Mã nhân viên", "Mã nhà cung cấp", "Ngày nhập", "Tổng tiền", "Trạng thái"};
+        if (jt == null && jpn == null && jsp == null) {
+            jt = jtPN;
+            jpn = jpnView;
+            jsp = jspPN;
+        }
+        listPN = PhieuNhapDAO.getInstance().getListPhieuNhap();
+        DefaultTableModel modelTableDb = new DefaultTableModel(header, 0) {
+            @Override
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false;
+            }
 
+        };
+
+        for (PhieuNhap pn : listPN) {
+            Object[] row = {pn.getMaPN(), pn.getMaNV(), pn.getMaNCC(), pn.getNgayNhap(), pn.getTongTien(), pn.getTrangThai()};
+            modelTableDb.addRow(row);
+        }
+
+        TableRowSorter<TableModel> rowSorter = null;
+
+        jt.setModel(modelTableDb);
+        jt.setRowSorter(rowSorter);
+
+        jt.getTableHeader().setFont(new Font("Arial", Font.BOLD, 14));
+        jt.setFont(new Font("Arial", Font.PLAIN, 14));
+        jt.getTableHeader().setPreferredSize(new Dimension(100, 50));
+        jt.setRowHeight(50);
+        jt.validate();
+        jt.repaint();
+
+        jsp.setPreferredSize(new Dimension(1350, 400));
+
+        jpn.removeAll();
+        jpn.setLayout(new CardLayout());
+        jpn.add(jsp);
+        jpn.validate();
+        jpn.repaint();
+    }
+    
     private void jcbNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbNCCActionPerformed
         // TODO add your handling code here:
         ncc = (NhaCungCap) jcbNCC.getSelectedItem(); 
@@ -615,6 +716,25 @@ public class NhapHangJPanel extends javax.swing.JPanel {
             
     }//GEN-LAST:event_jcbNCCActionPerformed
 
+    
+    private void jcbNCCItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbNCCItemStateChanged
+        // TODO add your handling code here:
+        listCTPN = null;
+        LoadCTPNVaoTable(jtCTPN, jpnView, jspCTPN);
+    }//GEN-LAST:event_jcbNCCItemStateChanged
+
+    private void jtPNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtPNMouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2 && jtPN.getSelectedRow() != -1) {
+            int index = jtPN.getSelectedRow();
+
+            PhieuNhap pn = listPN.get(index);            
+
+           NhapHangJFrame frame = new NhapHangJFrame(pn,this);
+           TaoDialog(frame, "Chi tiết phiếu nhập");
+        }
+    }//GEN-LAST:event_jtPNMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnThanhToan;
@@ -628,10 +748,14 @@ public class NhapHangJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jlbEmpName;
     private javax.swing.JLabel jlbTongTien;
     private javax.swing.JPanel jpnHangHoa;
+    private javax.swing.JPanel jpnLichSuNhapHang;
     private javax.swing.JPanel jpnPhieuNhap;
     private javax.swing.JPanel jpnView;
+    private javax.swing.JPanel jpnView1;
     private javax.swing.JScrollPane jspCTPN;
+    private javax.swing.JScrollPane jspPN;
     private javax.swing.JTable jtCTPN;
+    private javax.swing.JTable jtPN;
     private javax.swing.JTabbedPane jtbQuanLyNhapHang;
     // End of variables declaration//GEN-END:variables
 }

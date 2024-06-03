@@ -175,8 +175,7 @@ CREATE TABLE phieunhap (
   TrangThai nvarchar(50) DEFAULT N'Đã nhập hàng'
 ) 
 
-INSERT INTO phieunhap (MaPN, MaNV, MaNCC, TongTien) VALUES
-('PN001', 'NV001', 'NCC001', 2000000);
+
 
 CREATE TABLE chitietphieunhap (
   MaPN varchar(10) NOT NULL,
@@ -186,6 +185,8 @@ CREATE TABLE chitietphieunhap (
   ThanhTien float DEFAULT 0
 ) 
 GO
+
+
 
 CREATE TRIGGER tinh_thanh_tien_insert ON chitietphieunhap
 AFTER INSERT
@@ -235,12 +236,7 @@ END;
 GO
 
 
-INSERT INTO chitietphieunhap (MaPN, MaHang, GiaNhap, SoLuong, ThanhTien) VALUES
-('PN001', 'HH001', 12500, 4, 0),
-('PN001', 'HH003', 50000, 5, 0),
-('PN001', 'HH006', 12000, 5, 0),
-('PN001', 'HH012', 8000, 5, 0),
-('PN001', 'HH015', 8000, 5, 0);
+
 
 CREATE TABLE khachhang (
   MaKH varchar(10) NOT NULL,
@@ -347,6 +343,8 @@ ALTER TABLE chitiethoadon
   ADD CONSTRAINT FK_ChiTietHoaDon_HangHoa FOREIGN KEY (MaHang) REFERENCES hanghoa (MaHang);
 ALTER TABLE chitietphieunhap
   ADD CONSTRAINT PK_ChiTietPhieuNhap PRIMARY KEY (MaPN, MaHang);
+ALTER TABLE chitietphieunhap
+  ADD CONSTRAINT FK_ChiTietPhieuNhap_MaPN FOREIGN KEY (MaPN) REFERENCES phieunhap (MaPN);
 ALTER TABLE chitietphieunhap
   ADD CONSTRAINT FK_ChiTietPhieuNhap_MaHang FOREIGN KEY (MaHang) REFERENCES hanghoa (MaHang);
 
@@ -666,13 +664,30 @@ GO
 CREATE PROCEDURE sp_getListCTPN
 AS
 BEGIN
-    SELECT chitietphieunhap.MaHang, MaPN, TenHang, SoLuong, SoLuongTon DVT, chitietphieunhap.GiaNhap, GiaBan, ThanhTien FROM chitietphieunhap JOIN hanghoa ON chitietphieunhap.MaHang = hanghoa.MaHang;
+    SELECT chitietphieunhap.MaHang, MaPN, TenHang, SoLuong, SoLuongTon, DVT, chitietphieunhap.GiaNhap, GiaBan, ThanhTien FROM chitietphieunhap JOIN hanghoa ON chitietphieunhap.MaHang = hanghoa.MaHang;
 END
 GO
 select * from chitietphieunhap
-
+select * from phieunhap
 select * from chitiethoadon
 GO
+
+CREATE PROCEDURE sp_getListCTPNTheoMa
+	@MaPN varchar(10)
+AS
+BEGIN
+    SELECT chitietphieunhap.MaHang, MaPN, TenHang, SoLuong, SoLuongTon, DVT, chitietphieunhap.GiaNhap, GiaBan, ThanhTien FROM chitietphieunhap JOIN hanghoa ON chitietphieunhap.MaHang = hanghoa.MaHang where MaPN = @MaPN;
+END
+GO
+
+--procedure phieunhap
+CREATE PROCEDURE sp_getListPN
+AS
+BEGIN
+    SELECT * FROM phieunhap;
+END
+GO
+
 -- Insert ChiTietHoaDon
 CREATE PROCEDURE sp_insertCTPN
     @MaPN varchar(10),
@@ -682,8 +697,8 @@ CREATE PROCEDURE sp_insertCTPN
 	@ThanhTien float  
 AS
 BEGIN
-    INSERT INTO chitietphieunhap(MaHang, MaPN, GiaNhap, SoLuong, ThanhTien)
-    VALUES (@MaHang, @MaPN, @GiaNhap, @SoLuong, @ThanhTien);
+    INSERT INTO chitietphieunhap(MaPN, MaHang, GiaNhap, SoLuong, ThanhTien)
+    VALUES (@MaPN, @MaHang, @GiaNhap, @SoLuong, @ThanhTien);
 END
 GO
 -- Get List HangHoa Theo MaNhom va MaNCC
@@ -713,6 +728,7 @@ BEGIN
     SELECT * FROM nhanvien WHERE UserName = @username AND Password = @password
 END
 GO
+
 
 -- Procedure ThongKe
 -- Thong ke doanh thu theo ngay
@@ -800,5 +816,22 @@ BEGIN
 END
 GO
 
-
-
+exec sp_getLastPhieuNhap
+select * from phieunhap
+select * from chitietphieunhap
+select * from nhacungcap
+select * from hoadon
+select * from chitiethoadon
+select * from hanghoa
+go
+--procedure insert
+CREATE PROCEDURE sp_insertPN
+    @MaPN varchar(10),
+    @MaNV varchar(10),
+    @MaNCC varchar(10),    
+	@TongTien float
+AS
+BEGIN
+    INSERT INTO phieunhap(MaPN, MaNV, MaNCC, TongTien)
+    VALUES (@MaPN, @MaNV, @MaNCC, @TongTien);
+END

@@ -373,6 +373,7 @@ public class KhachHangJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnKhoiPhucActionPerformed
 
+
     private void jtfSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfSearchActionPerformed
         // TODO add your handling code here:
         btnTimKiemActionPerformed(evt);
