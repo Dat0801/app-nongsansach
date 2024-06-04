@@ -31,7 +31,7 @@ public class PhieuNhapDAO {
     public ArrayList<PhieuNhap> getListPhieuNhap() {
         ArrayList<PhieuNhap> listPN = new ArrayList<PhieuNhap>();
         try {
-            ResultSet rs = DataProvider.getInstance().executeQuery("Select * from PhieuNhap");
+            ResultSet rs = DataProvider.getInstance().executeQuery("call sp_getListPN");
             while (rs.next()) {
                 PhieuNhap phieunhap = new PhieuNhap(rs);
                 listPN.add(phieunhap);
@@ -71,7 +71,7 @@ public class PhieuNhapDAO {
         return pn;
     }
     public int insertPhieuNhap(PhieuNhap phieunhap) {
-        int rs = DataProvider.getInstance().executeNonQuery("call sp_insertHoaDon", phieunhap.getMaPN(), phieunhap.getMaNV(), phieunhap.getMaNCC(), phieunhap.getTongTien());
+        int rs = DataProvider.getInstance().executeNonQuery("call sp_insertPN", phieunhap.getMaPN(), phieunhap.getMaNV(), phieunhap.getMaNCC(), phieunhap.getTongTien());
         return rs;
     }
 }

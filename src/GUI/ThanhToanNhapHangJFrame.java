@@ -22,24 +22,20 @@ import javax.swing.JOptionPane;
 public class ThanhToanNhapHangJFrame extends javax.swing.JFrame {
 
     
-    private float TongTien;
-    private NhaCungCap ncc;
-    public ArrayList<ChiTietPhieuNhap> listCTPN = null;
+    public NhapHangJPanel formNhapHang = null;
     /**
      * Creates new form ThanhToanNhapHangJFrame
      */
-    public ThanhToanNhapHangJFrame(float tongTien, NhaCungCap ncc, ArrayList<ChiTietPhieuNhap> listCTPN) {
+    public ThanhToanNhapHangJFrame(NhapHangJPanel nhapHang) {
         initComponents();
-        this.TongTien = tongTien;
-        this.ncc = ncc;
-        this.listCTPN = listCTPN;
+        this.formNhapHang = nhapHang;
         setView();
     }
 
     public void setView() {
-        jtfTongTien.setText(this.TongTien + "");
+        jtfTongTien.setText(this.formNhapHang.TongTien + "");
         jtfGiamGia.setText("0");
-        jtfNVCanTra.setText(this.TongTien + "");
+        jtfNVCanTra.setText(this.formNhapHang.TongTien + "");
         jlbEmpName.setText(SessionData.getNv().getTenNV());
         String maPN = generateMaPN();
         jtfMaPN.setText(maPN);        
@@ -47,6 +43,8 @@ public class ThanhToanNhapHangJFrame extends javax.swing.JFrame {
     }
     public String generateMaPN() {
         PhieuNhap pn = PhieuNhapDAO.getInstance().getLastPhieuNhap();
+        if(pn == null)
+            return "PN001";        
         int sothutu = (Integer.parseInt(pn.getMaPN().substring(2)) + 1);
         String maPN = "PN";
         if (sothutu < 10) {
@@ -275,17 +273,17 @@ public class ThanhToanNhapHangJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfNVThanhToanFocusLost
 
     private void setTienSauGiamGia() {
-        double tongTienSauGiam = this.TongTien;
+        double tongTienSauGiam = this.formNhapHang.TongTien;
         if (!jtfGiamGia.getText().isEmpty()) {
             double giamGia = Double.parseDouble(jtfGiamGia.getText());
             if (giamGia < 0) {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập giảm giá lớn hơn hoặc bằng 0%", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
                 jtfGiamGia.setText("0");
             } else {
-                tongTienSauGiam = this.TongTien - (this.TongTien * (giamGia / 100));
+                tongTienSauGiam = this.formNhapHang.TongTien - (this.formNhapHang.TongTien * (giamGia / 100));
             }
         } else {
-            tongTienSauGiam = this.TongTien;
+            tongTienSauGiam = this.formNhapHang.TongTien;
         }
         jtfNVCanTra.setText(tongTienSauGiam + "");
     }
@@ -304,9 +302,13 @@ public class ThanhToanNhapHangJFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập số tiền cần thanh toán", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
             jtfNVThanhToan.requestFocus();
         } else {
-            PhieuNhap pn = new PhieuNhap(jtfMaPN.getText(), SessionData.getNv().getMaNV(), this.ncc.getMaNCC(), this.TongTien);
+            String MaNCC = null;
+            if (this.formNhapHang.ncc != null) {
+                MaNCC = this.formNhapHang.ncc.getMaNCC();
+            }
+            PhieuNhap pn = new PhieuNhap(jtfMaPN.getText(), SessionData.getNv().getMaNV(), MaNCC, this.formNhapHang.TongTien);
             PhieuNhapDAO.getInstance().insertPhieuNhap(pn);
-            for (ChiTietPhieuNhap ctpn : this.listCTPN) {
+            for (ChiTietPhieuNhap ctpn : this.formNhapHang.listCTPN) {
                 ctpn.setMaPN(pn.getMaPN());
                 ChiTietPhieuNhapDAO.getInstance().insertChiTietPhieuNhap(ctpn);
             }
