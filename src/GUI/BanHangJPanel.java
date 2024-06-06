@@ -626,6 +626,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
         if (SessionData.getKh() != null) {
             jtfSDTKhachHang.setText(SessionData.getKh().getSDT());
             jtfTenKhachHang.setText(SessionData.getKh().getTenKH());
+            this.khachhang = KhachHangDAO.getInstance().getKhachHangTheoSDT(SessionData.getKh().getSDT());
             SessionData.setKh(null);
         }
     }//GEN-LAST:event_btnThemActionPerformed
