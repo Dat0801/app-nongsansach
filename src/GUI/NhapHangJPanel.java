@@ -281,6 +281,7 @@ public class NhapHangJPanel extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel3.setText("Mã Hàng");
 
+        jtfMaHang.setEnabled(false);
         jtfMaHang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfMaHangActionPerformed(evt);
@@ -348,20 +349,17 @@ public class NhapHangJPanel extends javax.swing.JPanel {
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jtfMaHang, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(13, 13, 13))
-                    .addGroup(jpnPhieuNhapLayout.createSequentialGroup()
-                        .addGroup(jpnPhieuNhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jpnPhieuNhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(btnXoaTatCa, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnXoaHH, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jpnPhieuNhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
-                                .addComponent(jlbEmpName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jpnPhieuNhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnXoaTatCa, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnXoaHH, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpnPhieuNhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
+                        .addComponent(jlbEmpName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(24, 24, 24)
                 .addGroup(jpnPhieuNhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jpnView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jpnHangHoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 744, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 746, Short.MAX_VALUE)
                 .addGroup(jpnPhieuNhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlbTongTien))
@@ -721,6 +719,7 @@ public class NhapHangJPanel extends javax.swing.JPanel {
         NhaCungCap nccSelected = (NhaCungCap) jcbNCC.getSelectedItem();
         if(jcbNCC.getSelectedItem() != null)
         {
+            jtfMaHang.setEnabled(true);
             String MaNCC = nccSelected.getMaNCC();
             if(mancc != null && mancc.equals(MaNCC))
             {
@@ -729,6 +728,7 @@ public class NhapHangJPanel extends javax.swing.JPanel {
         }
         else
         {
+            jtfMaHang.setEnabled(false);
             listCTPN = null;
             LoadCTPNVaoTable(jtCTPN, jpnView, jspCTPN, listCTPN);
         }
@@ -825,11 +825,8 @@ public class NhapHangJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jpnPhieuNhap;
     private javax.swing.JPanel jpnView;
     private javax.swing.JPanel jpnView1;
-    private javax.swing.JPanel jpnView2;
-    private javax.swing.JScrollPane jspCTHD;
     private javax.swing.JScrollPane jspCTPN;
     private javax.swing.JScrollPane jspPN;
-    private javax.swing.JTable jtCTHD;
     private javax.swing.JTable jtCTPN;
     private javax.swing.JTable jtPN;
     private javax.swing.JTabbedPane jtbQuanLyNhapHang;
