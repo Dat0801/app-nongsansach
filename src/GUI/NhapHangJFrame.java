@@ -82,6 +82,21 @@ public class NhapHangJFrame extends javax.swing.JFrame {
 
         jsp.setPreferredSize(new Dimension(1350, 400));
     }
+    public ArrayList<ChiTietPhieuNhap> getDataFromJTable() {
+        ArrayList<ChiTietPhieuNhap> data = new ArrayList<>();
+        DefaultTableModel model = (DefaultTableModel) jtCTPN.getModel();
+        for (int i = 0; i < model.getRowCount(); i++) {
+            ChiTietPhieuNhap ctpn = new ChiTietPhieuNhap();
+            ctpn.setMaHang((String) model.getValueAt(i, 0));
+            ctpn.setTenHang((String) model.getValueAt(i, 1));
+            ctpn.setSoLuong((double) model.getValueAt(i, 2));
+            ctpn.setDVT((String) model.getValueAt(i, 3));
+            ctpn.setGiaNhap((double) model.getValueAt(i, 4));
+            ctpn.setThanhTien((double) model.getValueAt(i, 5));
+            data.add(ctpn);
+        }
+        return data;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -104,10 +119,11 @@ public class NhapHangJFrame extends javax.swing.JFrame {
         jtfMaNV = new javax.swing.JTextField();
         jlbTongTien = new javax.swing.JLabel();
         jtfTongTien = new javax.swing.JTextField();
+        btn_NhapLai = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jpnThongTinCTPN.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin khách hàng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 14))); // NOI18N
+        jpnThongTinCTPN.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chi tiết phiếu nhập", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 14))); // NOI18N
         jpnThongTinCTPN.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         jtCTPN.setModel(new javax.swing.table.DefaultTableModel(
@@ -154,6 +170,15 @@ public class NhapHangJFrame extends javax.swing.JFrame {
         jtfTongTien.setEditable(false);
         jtfTongTien.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
+        btn_NhapLai.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        btn_NhapLai.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon-receipt.png"))); // NOI18N
+        btn_NhapLai.setText("Nhập Lại");
+        btn_NhapLai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_NhapLaiActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jpnThongTinCTPNLayout = new javax.swing.GroupLayout(jpnThongTinCTPN);
         jpnThongTinCTPN.setLayout(jpnThongTinCTPNLayout);
         jpnThongTinCTPNLayout.setHorizontalGroup(
@@ -180,7 +205,11 @@ public class NhapHangJFrame extends javax.swing.JFrame {
                             .addGroup(jpnThongTinCTPNLayout.createSequentialGroup()
                                 .addComponent(jlbTongTien)
                                 .addGap(77, 77, 77)
-                                .addComponent(jtfTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(jpnThongTinCTPNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jtfTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnThongTinCTPNLayout.createSequentialGroup()
+                                        .addComponent(btn_NhapLai, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(22, 22, 22))))))
                     .addComponent(jspCTPN, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(50, 50, 50))
         );
@@ -201,11 +230,12 @@ public class NhapHangJFrame extends javax.swing.JFrame {
                     .addGroup(jpnThongTinCTPNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jlbMaNCC)
                         .addComponent(jtfMaNCC, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(26, 26, 26)
+                .addGap(13, 13, 13)
                 .addGroup(jpnThongTinCTPNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlbMaNV)
-                    .addComponent(jtfMaNV, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jtfMaNV, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_NhapLai, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addComponent(jspCTPN, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -230,12 +260,20 @@ public class NhapHangJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btn_NhapLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_NhapLaiActionPerformed
+        // TODO add your handling code here:
+        ArrayList<ChiTietPhieuNhap> listCTPN = getDataFromJTable();
+        String MaNCC = jtfMaNCC.getText();
+        NhapHangJPanel.receiveDataFromNhapHangJFrame(listCTPN,MaNCC);
+    }//GEN-LAST:event_btn_NhapLaiActionPerformed
+
     /**
      * @param args the command line arguments
      */
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_NhapLai;
     private javax.swing.JLabel jlbMaNCC;
     private javax.swing.JLabel jlbMaNV;
     private javax.swing.JLabel jlbMaPN;

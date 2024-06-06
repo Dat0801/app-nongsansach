@@ -411,6 +411,15 @@ BEGIN
     SELECT * FROM hanghoa WHERE MaHang = @seachStr
 END
 GO
+-- Search HangHoa with MaHang and MaNCC
+CREATE PROCEDURE sp_SearchHangHoaWithMaHangAndMaNCC
+	@seachStr nvarchar(50),
+	@maNCC nvarchar(10)
+AS
+BEGIN
+    SELECT * FROM hanghoa WHERE MaHang = @seachStr and MaNCC = @maNCC
+END
+GO
 
 -- Get List HangHoa
 CREATE PROCEDURE sp_getListHangHoa
