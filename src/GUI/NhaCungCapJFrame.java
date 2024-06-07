@@ -182,7 +182,7 @@ public class NhaCungCapJFrame extends javax.swing.JFrame {
             NhaCungCapDAO.getInstance().updateNhaCungCap(ncc);
             JOptionPane.showMessageDialog(this, "Sửa thành công!", "Sửa nhà cung cấp", JOptionPane.INFORMATION_MESSAGE);
         }
-        nhaCungCapPanel.LoadNCCVaoTable(null, null, null, 1);
+        nhaCungCapPanel.LoadNCCVaoTable(null, null, null, 1,null);
     }//GEN-LAST:event_btnLuuActionPerformed
 
     /**

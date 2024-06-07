@@ -272,8 +272,10 @@ public class DanhSachNhapHangJFrame extends javax.swing.JFrame {
 
     private void btnNhapAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhapAllActionPerformed
         // TODO add your handling code here:
-        ArrayList<ChiTietPhieuNhap> listCTPN = getAllDataFromJTable();        
-        nhapHang.receiveDataFromDanhSachNHJFrame(listCTPN);
+        ArrayList<ChiTietPhieuNhap> listCTPN = getAllDataFromJTable();  
+        DefaultTableModel model = (DefaultTableModel) jtHangHoa.getModel();        
+        String MaNCC = (String) model.getValueAt(0, 2);        
+        nhapHang.receiveDataFromDanhSachNHJFrame(listCTPN, MaNCC);
     }//GEN-LAST:event_btnNhapAllActionPerformed
 
     private void jcbNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbNCCActionPerformed
@@ -291,8 +293,10 @@ public class DanhSachNhapHangJFrame extends javax.swing.JFrame {
 
     private void btnNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhapActionPerformed
         // TODO add your handling code here:
-        ArrayList<ChiTietPhieuNhap> listCTPN = getDataFromSelectedRows();        
-        nhapHang.receiveDataFromDanhSachNHJFrame(listCTPN);
+        ArrayList<ChiTietPhieuNhap> listCTPN = getDataFromSelectedRows();    
+        DefaultTableModel model = (DefaultTableModel) jtHangHoa.getModel();        
+        String MaNCC = (String) model.getValueAt(0, 2);
+        nhapHang.receiveDataFromDanhSachNHJFrame(listCTPN, MaNCC);
     }//GEN-LAST:event_btnNhapActionPerformed
 
     /**

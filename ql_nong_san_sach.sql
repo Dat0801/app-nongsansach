@@ -591,7 +591,14 @@ BEGIN
     SELECT * FROM khachhang WHERE MaKH = @seachStr or TenKH like N'%' + @seachStr +  '%' or SDT like '%' + @seachStr +  '%' or DiaChi like '%' + @seachStr +  '%'
 END
 GO
-
+-- Search NhaCungCap
+CREATE PROCEDURE sp_SearchNCC
+	@seachStr nvarchar(50)
+AS
+BEGIN	
+    SELECT * FROM nhacungcap WHERE MaNCC = @seachStr or TenNCC like N'%' + @seachStr +  '%' or SDT like '%' + @seachStr +  '%' or DiaChi like '%' + @seachStr +  '%'
+END
+GO
 --procedure hoadon
 -- Get List KhachHang
 CREATE PROCEDURE sp_getListHoaDon
@@ -674,6 +681,54 @@ BEGIN
     VALUES (@MANCC, @TenNCC, @SDT, @DiaChi);
 END
 GO
+--get list ncc
+CREATE PROCEDURE sp_getListNCC
+	@TrangThai int
+AS
+BEGIN
+	Select * from nhacungcap where TrangThai = @TrangThai;
+END
+GO
+--get list ncc by mancc
+CREATE PROCEDURE sp_getListNCCByMaNCC
+	@MaNCC nvarchar(10)
+AS
+BEGIN
+	Select * from NhaCungCap where MaNCC=@MaNCC;
+END
+GO
+--delete ncc
+CREATE PROCEDURE sp_deleteNCC
+	@MaNCC nvarchar(10)
+AS
+BEGIN
+	Update nhacungcap set TrangThai=0 where MaNCC=@MaNCC;
+END
+GO
+--delete permanent ncc
+CREATE PROCEDURE sp_deletePermanentNCC
+	@MaNCC nvarchar(10)
+AS
+BEGIN
+	Delete from nhacungcap where MaNCC=@MaNCC;
+END
+GO
+--delete permanent ncc
+CREATE PROCEDURE sp_deletePermanentNCC
+	@MaNCC nvarchar(10)
+AS
+BEGIN
+	Delete from nhacungcap where MaNCC=@MaNCC;
+END
+GO
+--recover ncc
+CREATE PROCEDURE sp_recoverNCC
+	@MaNCC nvarchar(10)
+AS
+BEGIN
+	Update nhacungcap set TrangThai=1 where MaNCC=@MaNCC;
+END
+GO
 
 --Procedure CTPN
 --Get List CTPN
@@ -732,6 +787,14 @@ CREATE PROCEDURE sp_getListHangHoaTheoMaNCC
 AS
 BEGIN
     SELECT * FROM hanghoa WHERE MaNCC = @MaNCC AND TrangThai = 1;
+END
+GO
+-- Get List HangHoa Theo MaNCC
+CREATE PROCEDURE sp_getListHangHoaTheoMaNCCCanNhap	
+	@MaNCC varchar(10)
+AS
+BEGIN
+    SELECT * FROM hanghoa WHERE MaNCC = @MaNCC AND SoLuongTon < 7 AND TrangThai = 1;
 END
 GO
 -- Procedure for account

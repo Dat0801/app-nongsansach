@@ -557,12 +557,13 @@ public class NhapHangJPanel extends javax.swing.JPanel {
             panel.removeAll();
         mancc = MaNCC;
     }
-    public void receiveDataFromDanhSachNHJFrame(ArrayList<ChiTietPhieuNhap> listCTPN) 
+    public void receiveDataFromDanhSachNHJFrame(ArrayList<ChiTietPhieuNhap> listCTPN, String MaNCC) 
     {    
         jtbQuanLyNhapHang.setSelectedIndex(0);
         LoadCTPNVaoTable(jtCTPN, jpnView, jspCTPN, listCTPN);
         if(panel != null)
-            panel.removeAll();        
+            panel.removeAll();  
+        mancc = MaNCC;
     }
     private void loadComboBoxNhomHang() {
         DefaultComboBoxModel<NhomHang> model = new DefaultComboBoxModel<>();
@@ -756,13 +757,14 @@ public class NhapHangJPanel extends javax.swing.JPanel {
             {
                 return;
             }
+            else
+            {
+                jtfMaHang.setEnabled(false);
+                listCTPN = null;
+                LoadCTPNVaoTable(jtCTPN, jpnView, jspCTPN, listCTPN);
+            }
         }
-        else
-        {
-            jtfMaHang.setEnabled(false);
-            listCTPN = null;
-            LoadCTPNVaoTable(jtCTPN, jpnView, jspCTPN, listCTPN);
-        }
+        
     }//GEN-LAST:event_jcbNCCItemStateChanged
 
     private void btnXoaTatCaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaTatCaActionPerformed
@@ -773,6 +775,7 @@ public class NhapHangJPanel extends javax.swing.JPanel {
                 if (kq == JOptionPane.YES_OPTION) {
                     listCTPN = null;
                     LoadCTPNVaoTable(jtCTPN, jpnView, jspCTPN, listCTPN);
+                    jlbTongTien.setText("Tổng tiền: 0 VNĐ");
                 }
             }
         } catch (Exception ex) {
