@@ -689,6 +689,7 @@ BEGIN
 	Select * from nhacungcap where TrangThai = @TrangThai;
 END
 GO
+
 --get list ncc by mancc
 CREATE PROCEDURE sp_getListNCCByMaNCC
 	@MaNCC nvarchar(10)
@@ -752,10 +753,27 @@ END
 GO
 
 --procedure phieunhap
+--get list PN
 CREATE PROCEDURE sp_getListPN
 AS
 BEGIN
     SELECT * FROM phieunhap;
+END
+GO
+--get list PN by MaPN
+CREATE PROCEDURE sp_getListPNByMaPN
+	@MaPN varchar(10)
+AS
+BEGIN
+    Select * from PhieuNhap where MaPN=@MaPN;
+END
+GO
+--get list PN by MaPN
+CREATE PROCEDURE sp_getListPNByMaPN
+	@MaPN varchar(10)
+AS
+BEGIN
+    Select * from PhieuNhap where MaPN=@MaPN;
 END
 GO
 
