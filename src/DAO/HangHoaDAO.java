@@ -60,7 +60,24 @@ public class HangHoaDAO {
         }
         return listHH;
     }
-     public ArrayList<HangHoa> getListHangHoaByMaNhomHangAndMaNCC(String MaNhomHang, String MaNCC) {
+     
+     public ArrayList<HangHoa> getListHangHoaCanNhap() {
+        ArrayList<HangHoa> listHH = new ArrayList<>();
+        try {
+            ResultSet rs = DataProvider.getInstance().executeQuery("call sp_getListHangHoaCanNhap");
+            while (rs.next()) {
+                HangHoa hanghoa = new HangHoa(rs);
+                listHH.add(hanghoa);
+            }
+        } catch (SQLException ex) {
+            // Handle the SQLException appropriately
+            // For example, printing the stack trace
+            
+        }
+        return listHH;
+    }
+     
+    public ArrayList<HangHoa> getListHangHoaByMaNhomHangAndMaNCC(String MaNhomHang, String MaNCC) {
         ArrayList<HangHoa> listHH = new ArrayList<>();
         try {
             ResultSet rs = DataProvider.getInstance().executeQuery("call sp_getListHangHoaTheoMaNhomVaMaNCC", MaNhomHang, MaNCC);
@@ -80,6 +97,22 @@ public class HangHoaDAO {
         ArrayList<HangHoa> listHH = new ArrayList<>();
         try {
             ResultSet rs = DataProvider.getInstance().executeQuery("call sp_getListHangHoaTheoMaNCC", MaNCC);
+            while (rs.next()) {
+                HangHoa hanghoa = new HangHoa(rs);
+                listHH.add(hanghoa);
+            }
+        } catch (SQLException ex) {
+            // Handle the SQLException appropriately
+            // For example, printing the stack trace
+            
+        }
+        return listHH;
+    }
+    
+    public ArrayList<HangHoa> getListHangHoaCanNhapByNCC(String MaNCC) {
+        ArrayList<HangHoa> listHH = new ArrayList<>();
+        try {
+            ResultSet rs = DataProvider.getInstance().executeQuery("call sp_getListHangHoaTheoMaNCCCanNhap", MaNCC);
             while (rs.next()) {
                 HangHoa hanghoa = new HangHoa(rs);
                 listHH.add(hanghoa);

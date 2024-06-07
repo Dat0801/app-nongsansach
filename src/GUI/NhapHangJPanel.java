@@ -166,6 +166,7 @@ public class NhapHangJPanel extends javax.swing.JPanel {
         jlbEmpName = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jtfMaHang = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         jpnLichSuNhapHang = new javax.swing.JPanel();
         jpnView1 = new javax.swing.JPanel();
         jspPN = new javax.swing.JScrollPane();
@@ -288,6 +289,15 @@ public class NhapHangJPanel extends javax.swing.JPanel {
             }
         });
 
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon-receipt.png"))); // NOI18N
+        jButton1.setText("Xem danh sách hàng hóa cần nhập");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jpnPhieuNhapLayout = new javax.swing.GroupLayout(jpnPhieuNhap);
         jpnPhieuNhap.setLayout(jpnPhieuNhapLayout);
         jpnPhieuNhapLayout.setHorizontalGroup(
@@ -320,6 +330,8 @@ public class NhapHangJPanel extends javax.swing.JPanel {
                 .addGroup(jpnPhieuNhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpnPhieuNhapLayout.createSequentialGroup()
                         .addComponent(btnThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(79, 79, 79)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnPhieuNhapLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -362,7 +374,8 @@ public class NhapHangJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 746, Short.MAX_VALUE)
                 .addGroup(jpnPhieuNhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlbTongTien))
+                    .addComponent(jlbTongTien)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24))
         );
 
@@ -390,7 +403,7 @@ public class NhapHangJPanel extends javax.swing.JPanel {
         jpnView1.setLayout(jpnView1Layout);
         jpnView1Layout.setHorizontalGroup(
             jpnView1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jspPN, javax.swing.GroupLayout.DEFAULT_SIZE, 963, Short.MAX_VALUE)
+            .addComponent(jspPN, javax.swing.GroupLayout.DEFAULT_SIZE, 1307, Short.MAX_VALUE)
         );
         jpnView1Layout.setVerticalGroup(
             jpnView1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -404,7 +417,7 @@ public class NhapHangJPanel extends javax.swing.JPanel {
             .addGroup(jpnLichSuNhapHangLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jpnView1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(486, Short.MAX_VALUE))
+                .addContainerGap(142, Short.MAX_VALUE))
         );
         jpnLichSuNhapHangLayout.setVerticalGroup(
             jpnLichSuNhapHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -544,6 +557,13 @@ public class NhapHangJPanel extends javax.swing.JPanel {
             panel.removeAll();
         mancc = MaNCC;
     }
+    public void receiveDataFromDanhSachNHJFrame(ArrayList<ChiTietPhieuNhap> listCTPN) 
+    {    
+        jtbQuanLyNhapHang.setSelectedIndex(0);
+        LoadCTPNVaoTable(jtCTPN, jpnView, jspCTPN, listCTPN);
+        if(panel != null)
+            panel.removeAll();        
+    }
     private void loadComboBoxNhomHang() {
         DefaultComboBoxModel<NhomHang> model = new DefaultComboBoxModel<>();
         model.addElement(null);
@@ -565,6 +585,17 @@ public class NhapHangJPanel extends javax.swing.JPanel {
         jcbNCC.setModel(model);
     }
     private void TaoDialog(NhapHangJFrame frame, String title) {
+        frame.setResizable(false);
+
+        dialog = new JDialog();
+        dialog.setModal(true);
+        dialog.getContentPane().add(frame.getContentPane());        
+        dialog.pack();
+        dialog.setLocationRelativeTo(null);
+        dialog.setTitle(title);
+        dialog.setVisible(true);
+    }
+    private void TaoDialog(DanhSachNhapHangJFrame frame, String title) {
         frame.setResizable(false);
 
         dialog = new JDialog();
@@ -807,11 +838,18 @@ public class NhapHangJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        DanhSachNhapHangJFrame frame = new DanhSachNhapHangJFrame(this);
+        TaoDialog(frame, "Danh sách hàng hóa cần nhập");
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnThanhToan;
     private javax.swing.JButton btnXoaHH;
     private javax.swing.JButton btnXoaTatCa;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

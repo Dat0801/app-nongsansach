@@ -473,6 +473,13 @@ BEGIN
     SELECT * FROM hanghoa WHERE MaNhomHang = @MaNhom AND TrangThai = 1;
 END
 GO
+-- Get List HangHoa Can Nhap
+CREATE PROCEDURE sp_getListHangHoaCanNhap	
+AS
+BEGIN
+    SELECT * FROM hanghoa WHERE SoLuongTon < 7 AND TrangThai = 1 order by MaNCC;
+END
+GO
 
 --Procedure ChiTietHoaDon
 --Get List ChiTietHoaDon
