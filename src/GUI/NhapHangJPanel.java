@@ -66,7 +66,7 @@ public class NhapHangJPanel extends javax.swing.JPanel {
     public JDialog dialog;
     public float TongTien;
     private JPanel panel;    
-    private String mancc;
+    
     
     void loadHHTheoMaNCC(String MaNCC) {
         listHH = HangHoaDAO.getInstance().getListHangHoaByNCC(MaNCC);
@@ -515,19 +515,31 @@ public class NhapHangJPanel extends javax.swing.JPanel {
                 if (e.getType() == TableModelEvent.UPDATE) {
                     int row = e.getFirstRow();
                     int column = e.getColumn();
-                    if (column == 2 || column == 4) { // If the second column is edited
+                    if (column == 2 || column == 4) { 
                         TableModel model = (TableModel) e.getSource();
-                        double soLuong = Double.parseDouble(model.getValueAt(row, 2).toString());
-                        double giaNhap = Double.parseDouble(model.getValueAt(row, 4).toString());
-                        double thanhTien = soLuong * giaNhap;
+                        String valueEntered = model.getValueAt(row, column).toString();
+
                         ChiTietPhieuNhap ctpn = listCTPN.get(row);
                         
-                        ctpn.setSoLuong(soLuong);
-                        ctpn.setGiaNhap(giaNhap);
-                        ctpn.setThanhTien(thanhTien);
-                        tinhTongTien(listCTPN);
-                        model.setValueAt(thanhTien, row, 5);
-                        
+                        if (isValidNumber(valueEntered)) {
+                            double value = Double.parseDouble(valueEntered);
+                            if (column == 2) { 
+                                ctpn.setSoLuong(value);
+                            } else { 
+                                ctpn.setGiaNhap(value);
+                            }
+                            double thanhTien = ctpn.getSoLuong() * ctpn.getGiaNhap();
+                            ctpn.setThanhTien(thanhTien);
+                            tinhTongTien(listCTPN);
+                            model.setValueAt(thanhTien, row, 5);
+                        } else {                            
+                            if (column == 2) {
+                                model.setValueAt(ctpn.getSoLuong(), row, column);
+                            } else {
+                                model.setValueAt(ctpn.getGiaNhap(), row, column);
+                            }
+                            JOptionPane.showMessageDialog(null, "Vui lòng nhập số hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                        }
                     }
                 }
             }
@@ -549,21 +561,31 @@ public class NhapHangJPanel extends javax.swing.JPanel {
         jpn.validate();
         jpn.repaint();
     }
+    private boolean isValidNumber(String value) {
+        try {
+            Double.parseDouble(value);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
     public void receiveDataFromNhapHangJFrame(ArrayList<ChiTietPhieuNhap> listCTPN, String MaNCC) 
     {    
         jtbQuanLyNhapHang.setSelectedIndex(0);
         LoadCTPNVaoTable(jtCTPN, jpnView, jspCTPN, listCTPN);
         if(panel != null)
             panel.removeAll();
-        mancc = MaNCC;
+        ncc = NhaCungCapDAO.getInstance().getNhaCungCap(MaNCC);
+        
     }
     public void receiveDataFromDanhSachNHJFrame(ArrayList<ChiTietPhieuNhap> listCTPN, String MaNCC) 
     {    
         jtbQuanLyNhapHang.setSelectedIndex(0);
         LoadCTPNVaoTable(jtCTPN, jpnView, jspCTPN, listCTPN);
         if(panel != null)
-            panel.removeAll();  
-        mancc = MaNCC;
+            panel.removeAll();          
+        ncc = NhaCungCapDAO.getInstance().getNhaCungCap(MaNCC);
+                
     }
     private void loadComboBoxNhomHang() {
         DefaultComboBoxModel<NhomHang> model = new DefaultComboBoxModel<>();
@@ -753,7 +775,8 @@ public class NhapHangJPanel extends javax.swing.JPanel {
         {
             jtfMaHang.setEnabled(true);
             String MaNCC = nccSelected.getMaNCC();
-            if(mancc != null && mancc.equals(MaNCC))
+            
+            if(ncc != null && ncc.getMaNCC().equals(MaNCC))
             {
                 return;
             }
