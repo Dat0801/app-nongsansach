@@ -286,6 +286,11 @@ public class ThanhToanNhapHangJFrame extends javax.swing.JFrame {
         if (jtfNVCanTra.getText().trim().isEmpty()) {
             setTienSauGiamGia();
         }
+        if(jtfGiamGia.getText().trim().isEmpty())
+        {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập giá trị giảm giá", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+            jtfNVThanhToan.requestFocus();
+        }
         if (jtfNVThanhToan.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập số tiền cần thanh toán", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
             jtfNVThanhToan.requestFocus();
@@ -314,22 +319,6 @@ public class ThanhToanNhapHangJFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbtnThanhToanActionPerformed
 
-    private void jtfGiamGiaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfGiamGiaKeyTyped
-        // TODO add your handling code here:
-        if(!Character.isDigit(evt.getKeyChar()))
-        {
-            evt.consume();
-        }
-    }//GEN-LAST:event_jtfGiamGiaKeyTyped
-
-    private void jtfNVThanhToanKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNVThanhToanKeyTyped
-        // TODO add your handling code here:
-        if(!Character.isDigit(evt.getKeyChar()))
-        {
-            evt.consume();
-        }
-    }//GEN-LAST:event_jtfNVThanhToanKeyTyped
-
     private void jtfGiamGiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfGiamGiaActionPerformed
         // TODO add your handling code here:
         setTienSauGiamGia();
@@ -339,6 +328,32 @@ public class ThanhToanNhapHangJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         setTienSauGiamGia();
     }//GEN-LAST:event_jtfNVThanhToanActionPerformed
+
+    private void jtfGiamGiaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfGiamGiaKeyTyped
+        // TODO add your handling code here:
+        if(!Character.isDigit(evt.getKeyChar()))
+        {
+            evt.consume();            
+        }
+        else
+        {
+            String str = jtfGiamGia.getText() + evt.getKeyChar();
+            int discount = Integer.parseInt(str);
+            if(discount<0 || discount>100)
+            {
+                evt.consume();
+                JOptionPane.showMessageDialog(this, "Giá trị không hợp lệ! Vui lòng nhập 0 - 100", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jtfGiamGiaKeyTyped
+
+    private void jtfNVThanhToanKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNVThanhToanKeyTyped
+        // TODO add your handling code here:
+        if(!Character.isDigit(evt.getKeyChar()))
+        {
+            evt.consume();            
+        }
+    }//GEN-LAST:event_jtfNVThanhToanKeyTyped
 
     /**
      * @param args the command line arguments

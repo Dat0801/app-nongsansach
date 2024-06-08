@@ -72,7 +72,7 @@ public class NhapHangJPanel extends javax.swing.JPanel {
         listHH = HangHoaDAO.getInstance().getListHangHoaByNCC(MaNCC);
         if (panel == null) {
             panel = new JPanel();
-            panel.setLayout(new GridLayout(0, 4, 10, 10));
+            panel.setLayout(new GridLayout(0, 3, 10, 10));
         } else {
             panel.removeAll();
         }
@@ -751,6 +751,7 @@ public class NhapHangJPanel extends javax.swing.JPanel {
         if(ncc!=null)
         {
             jcbNhomHang.setEnabled(true);
+            jtfMaHang.setEnabled(true);
         }
         if(ncc!=null && nhomhang!=null)
         {
