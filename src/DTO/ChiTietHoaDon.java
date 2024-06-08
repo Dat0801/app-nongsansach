@@ -14,11 +14,19 @@ import java.sql.SQLException;
  */
 public class ChiTietHoaDon {
 
-    String MaHang, MaHD, TenHang, DVT;
+    String MaHang, MaHD, TenHang, DVT, HinhAnh;
     double SoLuong, SoLuongTon, DonGia, ThanhTien;
 
     public void setSoLuongTon(double SoLuongTon) {
         this.SoLuongTon = SoLuongTon;
+    }
+
+    public void setHinhAnh(String HinhAnh) {
+        this.HinhAnh = HinhAnh;
+    }
+
+    public String getHinhAnh() {
+        return HinhAnh;
     }
 
     public double getSoLuongTon() {
@@ -49,11 +57,12 @@ public class ChiTietHoaDon {
         return ThanhTien;
     }
 
-    public ChiTietHoaDon(HangHoa hangHoa) {
+    public ChiTietHoaDon(HangHoa hangHoa, int soLuong) {
         this.MaHang = hangHoa.getMaHang();
         this.TenHang = hangHoa.getTenHang();
+        this.HinhAnh = hangHoa.getHinhAnh();
         this.DVT = hangHoa.getdVT();
-        this.SoLuong = 1;
+        this.SoLuong = soLuong;
         this.SoLuongTon = hangHoa.getSoLuongTon();
         this.DonGia = hangHoa.getGiaBan();
         this.ThanhTien = 1 * hangHoa.getGiaBan();
@@ -94,6 +103,7 @@ public class ChiTietHoaDon {
     public ChiTietHoaDon(ResultSet rs) throws SQLException {
         this.MaHang = rs.getString("MaHang");
         this.MaHD = rs.getString("MaHD");
+        this.HinhAnh = rs.getString("HinhAnh");
         this.TenHang = rs.getString("TenHang");
         this.SoLuong = rs.getDouble("SoLuong");        
         this.SoLuongTon = rs.getDouble("SoLuongTon");
