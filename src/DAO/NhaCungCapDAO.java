@@ -31,7 +31,7 @@ public class NhaCungCapDAO {
     public ArrayList<NhaCungCap> getListNhaCungCap(int trangthai) {
         ArrayList<NhaCungCap> listNCC = new ArrayList<NhaCungCap>();
         try {
-            ResultSet rs = DataProvider.getInstance().executeQuery("Select * from NhaCungCap where TrangThai=?", trangthai);
+            ResultSet rs = DataProvider.getInstance().executeQuery("call sp_getListNCC", trangthai);
             while (rs.next()) {
                 NhaCungCap nhacungcap = new NhaCungCap(rs);
                 listNCC.add(nhacungcap);
@@ -42,9 +42,22 @@ public class NhaCungCapDAO {
         }
         return listNCC;
     }
-    
+    public ArrayList<NhaCungCap> search(String searchStr) {
+        ArrayList<NhaCungCap> listNCC = new ArrayList<>();
+        try {
+            ResultSet rs = DataProvider.getInstance().executeQuery("call sp_SearchNCC", searchStr);
+            while (rs.next()) {
+                NhaCungCap ncc = new NhaCungCap(rs);
+                listNCC.add(ncc);
+            }
+        } catch (SQLException ex) {
+            // Handle the SQLException appropriately
+            // For example, printing the stack trace
+        }
+        return listNCC;
+    }
     public NhaCungCap getNhaCungCap(String maNCC) {
-        ResultSet rs = DataProvider.getInstance().executeQuery("Select * from NhaCungCap where MaNCC=?", maNCC);
+        ResultSet rs = DataProvider.getInstance().executeQuery("call sp_getListNCCByMaNCC", maNCC);
         NhaCungCap nhacungcap = null;
         try {
             while (rs.next()) {
@@ -69,16 +82,16 @@ public class NhaCungCapDAO {
     }
     
     public int deleteNhaCungCap(String maNhaCungCap) {
-        int rs = DataProvider.getInstance().executeNonQuery("Update nhacungcap set TrangThai=0 where MaNCC=?", maNhaCungCap);
+        int rs = DataProvider.getInstance().executeNonQuery("call sp_deleteNCC", maNhaCungCap);
         return rs;
     }
     public int deletePermanentNhaCungCap(String maNCC) {
-        int rs = DataProvider.getInstance().executeNonQuery("Delete from nhacungcap where MaNCC=?", maNCC);
+        int rs = DataProvider.getInstance().executeNonQuery("call sp_deletePermanentNCC", maNCC);
         return rs;
     }
     
     public int recoveryNhaCungCap(String maNCC) {
-        int rs = DataProvider.getInstance().executeNonQuery("Update nhacungcap set TrangThai=1 where MaNCC=?", maNCC);
+        int rs = DataProvider.getInstance().executeNonQuery("call sp_recoverNCC", maNCC);
         return rs;
     }
 }

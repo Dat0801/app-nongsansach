@@ -44,7 +44,7 @@ public class PhieuNhapDAO {
     }
     
     public PhieuNhap getPhieuNhap(String maPN) {
-        ResultSet rs = DataProvider.getInstance().executeQuery("Select * from PhieuNhap where MaPN=?", maPN);
+        ResultSet rs = DataProvider.getInstance().executeQuery("call sp_getListPNByMaPN", maPN);
         PhieuNhap phieunhap = null;
         try {
             while (rs.next()) {

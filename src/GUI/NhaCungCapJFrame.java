@@ -94,6 +94,16 @@ public class NhaCungCapJFrame extends javax.swing.JFrame {
         jtfDiaChi.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
 
         jtfSDT.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jtfSDT.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtfSDTFocusLost(evt);
+            }
+        });
+        jtfSDT.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfSDTKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jpnThongTinHangHoaLayout = new javax.swing.GroupLayout(jpnThongTinHangHoa);
         jpnThongTinHangHoa.setLayout(jpnThongTinHangHoaLayout);
@@ -173,17 +183,47 @@ public class NhaCungCapJFrame extends javax.swing.JFrame {
         ncc.setMaNCC(jtfMaNCC.getText());
         ncc.setTenNCC(jtfTenNCC.getText().trim());
         ncc.setSDT(jtfSDT.getText().trim());        
-        ncc.setDiaChi(jtfDiaChi.getText());        
+        ncc.setDiaChi(jtfDiaChi.getText());  
+        
         if (flag == 1) {
-            NhaCungCapDAO.getInstance().insertNhaCungCap(ncc);
-            JOptionPane.showMessageDialog(this, "Thêm thành công!", "Thêm nhà cung cấp", JOptionPane.INFORMATION_MESSAGE);
+            if(jtfTenNCC.getText().isEmpty() || jtfSDT.getText().isEmpty() || jtfDiaChi.getText().isEmpty())
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!", "Thêm nhà cung cấp", JOptionPane.INFORMATION_MESSAGE);
+            else
+            {
+                NhaCungCapDAO.getInstance().insertNhaCungCap(ncc);
+                JOptionPane.showMessageDialog(this, "Thêm thành công!", "Thêm nhà cung cấp", JOptionPane.INFORMATION_MESSAGE);
+            }
         } else {
-            ncc.setMaNCC(jtfMaNCC.getText());
-            NhaCungCapDAO.getInstance().updateNhaCungCap(ncc);
-            JOptionPane.showMessageDialog(this, "Sửa thành công!", "Sửa nhà cung cấp", JOptionPane.INFORMATION_MESSAGE);
+            if(jtfTenNCC.getText().isEmpty() || jtfSDT.getText().isEmpty() || jtfDiaChi.getText().isEmpty())
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!", "Sửa nhà cung cấp", JOptionPane.INFORMATION_MESSAGE);
+            else
+            {
+                ncc.setMaNCC(jtfMaNCC.getText());
+                NhaCungCapDAO.getInstance().updateNhaCungCap(ncc);
+                JOptionPane.showMessageDialog(this, "Sửa thành công!", "Sửa nhà cung cấp", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
-        nhaCungCapPanel.LoadNCCVaoTable(null, null, null, 1);
+        nhaCungCapPanel.LoadNCCVaoTable(null, null, null, 1,null);
     }//GEN-LAST:event_btnLuuActionPerformed
+
+    private void jtfSDTKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfSDTKeyTyped
+        // TODO add your handling code here:
+        if(!Character.isDigit(evt.getKeyChar()))
+        {
+            evt.consume();            
+        }
+    }//GEN-LAST:event_jtfSDTKeyTyped
+
+    private void jtfSDTFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfSDTFocusLost
+        // TODO add your handling code here:
+        String PHONE_REGEX = "^(03|05|07|08|09|\\+84[3579])[0-9]{8}$";
+        String phoneNumber = jtfSDT.getText().trim();        
+        if(!phoneNumber.matches(PHONE_REGEX))
+        {
+            JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ. Vui lòng kiểm tra lại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            jtfSDT.requestFocus();
+        }
+    }//GEN-LAST:event_jtfSDTFocusLost
 
     /**
      * @param args the command line arguments

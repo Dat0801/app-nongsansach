@@ -32,18 +32,22 @@ public class NhaCungCapJPanel extends javax.swing.JPanel {
      */
     public NhaCungCapJPanel() {
         initComponents();
-        FontOptionPane.setUIFont();
-        LoadNCCVaoTable(jtNhaCungCap, jpnView,jspNhaCungCap,1);
+        FontOptionPane.setUIFont();  
+        
     }
     ArrayList<NhaCungCap> listNCC;
-    void LoadNCCVaoTable(JTable jt, JPanel jpn, JScrollPane jsp, int trangthai) {
+    void LoadNCCVaoTable(JTable jt, JPanel jpn, JScrollPane jsp, int trangthai, String searchStr) {
         String[] header = {"Mã nhà cung cấp", "Tên nhà cung cấp", "SDT", "Địa chỉ"};
         if (jt == null && jpn == null && jsp == null) {
             jt = jtNhaCungCap;
-            jpn = jpnView;
+            jpn = jpnView1;
             jsp = jspNhaCungCap;
         }
-        listNCC = NhaCungCapDAO.getInstance().getListNhaCungCap(trangthai);
+        if (searchStr != null) {
+            listNCC = NhaCungCapDAO.getInstance().search(searchStr);
+        } else {
+            listNCC = NhaCungCapDAO.getInstance().getListNhaCungCap(trangthai);
+        }        
         DefaultTableModel modelTableDb = new DefaultTableModel(header, 0) {
             @Override
             public boolean isCellEditable(int rowIndex, int colIndex) {
@@ -92,11 +96,11 @@ public class NhaCungCapJPanel extends javax.swing.JPanel {
         jpnQuanLyNCC = new javax.swing.JPanel();
         jtfSearch = new javax.swing.JTextField();
         btnXoa = new javax.swing.JButton();
-        jpnView = new javax.swing.JPanel();
+        jpnView1 = new javax.swing.JPanel();
         jspNhaCungCap = new javax.swing.JScrollPane();
         jtNhaCungCap = new javax.swing.JTable();
         btnThem = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnTim = new javax.swing.JButton();
         jpnKhoiPhucNCC = new javax.swing.JPanel();
         jpnViewKhoiPhuc = new javax.swing.JPanel();
         jspNhaCungCapKhoiPhuc = new javax.swing.JScrollPane();
@@ -112,6 +116,11 @@ public class NhaCungCapJPanel extends javax.swing.JPanel {
         });
 
         jtfSearch.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jtfSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfSearchActionPerformed(evt);
+            }
+        });
 
         btnXoa.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon-delete.png"))); // NOI18N
@@ -140,15 +149,15 @@ public class NhaCungCapJPanel extends javax.swing.JPanel {
         });
         jspNhaCungCap.setViewportView(jtNhaCungCap);
 
-        javax.swing.GroupLayout jpnViewLayout = new javax.swing.GroupLayout(jpnView);
-        jpnView.setLayout(jpnViewLayout);
-        jpnViewLayout.setHorizontalGroup(
-            jpnViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jspNhaCungCap, javax.swing.GroupLayout.DEFAULT_SIZE, 747, Short.MAX_VALUE)
+        javax.swing.GroupLayout jpnView1Layout = new javax.swing.GroupLayout(jpnView1);
+        jpnView1.setLayout(jpnView1Layout);
+        jpnView1Layout.setHorizontalGroup(
+            jpnView1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jspNhaCungCap, javax.swing.GroupLayout.DEFAULT_SIZE, 976, Short.MAX_VALUE)
         );
-        jpnViewLayout.setVerticalGroup(
-            jpnViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jspNhaCungCap, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+        jpnView1Layout.setVerticalGroup(
+            jpnView1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jspNhaCungCap, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
         );
 
         btnThem.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
@@ -160,12 +169,12 @@ public class NhaCungCapJPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon-search.png"))); // NOI18N
-        jButton1.setText("Tìm");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnTim.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        btnTim.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon-search.png"))); // NOI18N
+        btnTim.setText("Tìm");
+        btnTim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnTimActionPerformed(evt);
             }
         });
 
@@ -177,14 +186,14 @@ public class NhaCungCapJPanel extends javax.swing.JPanel {
                 .addGap(23, 23, 23)
                 .addComponent(jtfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(368, Short.MAX_VALUE))
+                .addComponent(btnTim, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(597, Short.MAX_VALUE))
             .addGroup(jpnQuanLyNCCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jpnQuanLyNCCLayout.createSequentialGroup()
                     .addGap(24, 24, 24)
                     .addGroup(jpnQuanLyNCCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jpnQuanLyNCCLayout.createSequentialGroup()
-                            .addComponent(jpnView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jpnView1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGap(4, 4, 4))
                         .addGroup(jpnQuanLyNCCLayout.createSequentialGroup()
                             .addGap(0, 0, Short.MAX_VALUE)
@@ -199,8 +208,8 @@ public class NhaCungCapJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jpnQuanLyNCCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jtfSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(322, Short.MAX_VALUE))
+                    .addComponent(btnTim, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(419, Short.MAX_VALUE))
             .addGroup(jpnQuanLyNCCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jpnQuanLyNCCLayout.createSequentialGroup()
                     .addContainerGap()
@@ -208,7 +217,7 @@ public class NhaCungCapJPanel extends javax.swing.JPanel {
                         .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGap(18, 18, 18)
-                    .addComponent(jpnView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jpnView1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGap(14, 14, 14)))
         );
 
@@ -235,7 +244,7 @@ public class NhaCungCapJPanel extends javax.swing.JPanel {
         );
         jpnViewKhoiPhucLayout.setVerticalGroup(
             jpnViewKhoiPhucLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jspNhaCungCapKhoiPhuc, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+            .addComponent(jspNhaCungCapKhoiPhuc, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
         );
 
         btnXoaVinhVien.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
@@ -261,7 +270,7 @@ public class NhaCungCapJPanel extends javax.swing.JPanel {
         jpnKhoiPhucNCCLayout.setHorizontalGroup(
             jpnKhoiPhucNCCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnKhoiPhucNCCLayout.createSequentialGroup()
-                .addContainerGap(453, Short.MAX_VALUE)
+                .addContainerGap(682, Short.MAX_VALUE)
                 .addComponent(btnXoaVinhVien)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnKhoiPhuc)
@@ -279,7 +288,7 @@ public class NhaCungCapJPanel extends javax.swing.JPanel {
                 .addGroup(jpnKhoiPhucNCCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnXoaVinhVien)
                     .addComponent(btnKhoiPhuc))
-                .addContainerGap(311, Short.MAX_VALUE))
+                .addContainerGap(408, Short.MAX_VALUE))
             .addGroup(jpnKhoiPhucNCCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jpnKhoiPhucNCCLayout.createSequentialGroup()
                     .addGap(81, 81, 81)
@@ -293,11 +302,11 @@ public class NhaCungCapJPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jtbQuanLyNCC)
+            .addComponent(jtbQuanLyNCC, javax.swing.GroupLayout.DEFAULT_SIZE, 1033, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jtbQuanLyNCC)
+            .addComponent(jtbQuanLyNCC, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
         
@@ -319,31 +328,11 @@ public class NhaCungCapJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         int index = jtbQuanLyNCC.getSelectedIndex();
         if (index == 0) {
-            LoadNCCVaoTable(jtNhaCungCap, jpnView, jspNhaCungCap, 1);
+            LoadNCCVaoTable(jtNhaCungCap, jpnView1, jspNhaCungCap, 1,null);
         } else {
-            LoadNCCVaoTable(jtNhaCungCapKhoiPhuc, jpnViewKhoiPhuc, jspNhaCungCapKhoiPhuc, 0);
+            LoadNCCVaoTable(jtNhaCungCapKhoiPhuc, jpnViewKhoiPhuc, jspNhaCungCapKhoiPhuc, 0,null);
         }
     }//GEN-LAST:event_jtbQuanLyNCCStateChanged
-
-    private void jtNhaCungCapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtNhaCungCapMouseClicked
-        // TODO add your handling code here:
-        if (evt.getClickCount() == 2 && jtNhaCungCap.getSelectedRow() != -1) {
-            int index = jtNhaCungCap.getSelectedRow();
-
-            NhaCungCap ncc = listNCC.get(index);
-
-            NhaCungCapJFrame frame = new NhaCungCapJFrame(ncc, this, 0);
-            frame.setResizable(false);
-
-            JDialog dialog = new JDialog();
-            dialog.setModal(true);
-            dialog.getContentPane().add(frame.getContentPane());
-            dialog.pack();
-            dialog.setLocationRelativeTo(null);
-            dialog.setTitle("Sửa nhà cung cấp");
-            dialog.setVisible(true);
-        }
-    }//GEN-LAST:event_jtNhaCungCapMouseClicked
     
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
@@ -359,7 +348,7 @@ public class NhaCungCapJPanel extends javax.swing.JPanel {
                 NhaCungCapDAO.getInstance().deleteNhaCungCap(maNCC);
             }
             listNCC.remove(index);
-            LoadNCCVaoTable(jtNhaCungCap, jpnView, jspNhaCungCap, 1);
+            LoadNCCVaoTable(jtNhaCungCap, jpnView1, jspNhaCungCap, 1,null);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn nhà cung cấp muốn xóa!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
         }
@@ -380,7 +369,7 @@ public class NhaCungCapJPanel extends javax.swing.JPanel {
                 NhaCungCapDAO.getInstance().deletePermanentNhaCungCap(maNCC);
             }
             listNCC.remove(index);
-            LoadNCCVaoTable(jtNhaCungCapKhoiPhuc, jpnViewKhoiPhuc, jspNhaCungCapKhoiPhuc, 0);
+            LoadNCCVaoTable(jtNhaCungCapKhoiPhuc, jpnViewKhoiPhuc, jspNhaCungCapKhoiPhuc, 0,null);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn nhà cung cấp muốn xóa vĩnh viễn!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
         }
@@ -396,16 +385,41 @@ public class NhaCungCapJPanel extends javax.swing.JPanel {
             NhaCungCapDAO.getInstance().recoveryNhaCungCap(ncc.getMaNCC());
 
             listNCC.remove(index);
-            LoadNCCVaoTable(jtNhaCungCapKhoiPhuc, jpnViewKhoiPhuc, jspNhaCungCapKhoiPhuc, 0);
+            LoadNCCVaoTable(jtNhaCungCapKhoiPhuc, jpnViewKhoiPhuc, jspNhaCungCapKhoiPhuc, 0,null);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn nhà cung cấp muốn khôi phục!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnKhoiPhucActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
         // TODO add your handling code here:
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
+        LoadNCCVaoTable(jtNhaCungCapKhoiPhuc, jpnView1, jspNhaCungCapKhoiPhuc, 1,jtfSearch.getText());
+    }//GEN-LAST:event_btnTimActionPerformed
+
+    private void jtfSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfSearchActionPerformed
+        // TODO add your handling code here:
+        btnTimActionPerformed(evt);
+    }//GEN-LAST:event_jtfSearchActionPerformed
+
+    private void jtNhaCungCapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtNhaCungCapMouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2 && jtNhaCungCap.getSelectedRow() != -1) {
+            int index = jtNhaCungCap.getSelectedRow();
+
+            NhaCungCap ncc = listNCC.get(index);
+
+            NhaCungCapJFrame frame = new NhaCungCapJFrame(ncc, this, 0);
+            frame.setResizable(false);
+
+            JDialog dialog = new JDialog();
+            dialog.setModal(true);
+            dialog.getContentPane().add(frame.getContentPane());
+            dialog.pack();
+            dialog.setLocationRelativeTo(null);
+            dialog.setTitle("Sửa nhà cung cấp");
+            dialog.setVisible(true);
+        }
+    }//GEN-LAST:event_jtNhaCungCapMouseClicked
 
     
         
@@ -413,15 +427,18 @@ public class NhaCungCapJPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnKhoiPhuc;
     private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnTim;
     private javax.swing.JButton btnXoa;
     private javax.swing.JButton btnXoaVinhVien;
-    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jpnKhoiPhucNCC;
     private javax.swing.JPanel jpnQuanLyNCC;
     private javax.swing.JPanel jpnView;
+    private javax.swing.JPanel jpnView1;
     private javax.swing.JPanel jpnViewKhoiPhuc;
+    private javax.swing.JScrollPane jspKhachHang;
     private javax.swing.JScrollPane jspNhaCungCap;
     private javax.swing.JScrollPane jspNhaCungCapKhoiPhuc;
+    private javax.swing.JTable jtKhachHang;
     private javax.swing.JTable jtNhaCungCap;
     private javax.swing.JTable jtNhaCungCapKhoiPhuc;
     private javax.swing.JTabbedPane jtbQuanLyNCC;
