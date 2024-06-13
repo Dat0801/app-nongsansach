@@ -99,6 +99,11 @@ public class ThanhToanNhapHangJFrame extends javax.swing.JFrame {
         jlbKhachThanhToan4.setText("Nhân viên thanh toán");
 
         jtfNVThanhToan.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jtfNVThanhToan.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtfNVThanhToanFocusLost(evt);
+            }
+        });
         jtfNVThanhToan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfNVThanhToanActionPerformed(evt);
@@ -326,7 +331,8 @@ public class ThanhToanNhapHangJFrame extends javax.swing.JFrame {
 
     private void jtfNVThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfNVThanhToanActionPerformed
         // TODO add your handling code here:
-        setTienSauGiamGia();
+        setTienThua();
+        
     }//GEN-LAST:event_jtfNVThanhToanActionPerformed
 
     private void jtfGiamGiaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfGiamGiaKeyTyped
@@ -347,6 +353,21 @@ public class ThanhToanNhapHangJFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jtfGiamGiaKeyTyped
 
+    public void setTienThua() {
+        double TienThua = 0;
+        if (!jtfNVThanhToan.getText().isEmpty()) {
+            double khachThanhToan = Double.parseDouble(jtfNVThanhToan.getText());
+            double tongTienSauGiam = Double.parseDouble(jtfNVCanTra.getText());
+            double khachCanTra = Double.parseDouble(jtfNVCanTra.getText());
+            if (khachThanhToan < khachCanTra) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập số tiền thanh toán lớn hơn hoặc bằng số tiền khách cần trả!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                jtfNVThanhToan.requestFocus();
+            } else {
+                TienThua = khachThanhToan - tongTienSauGiam;
+            }
+        }
+        jtfTienThua.setText(TienThua + "");
+    }
     private void jtfNVThanhToanKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNVThanhToanKeyTyped
         // TODO add your handling code here:
         if(!Character.isDigit(evt.getKeyChar()))
@@ -354,6 +375,11 @@ public class ThanhToanNhapHangJFrame extends javax.swing.JFrame {
             evt.consume();            
         }
     }//GEN-LAST:event_jtfNVThanhToanKeyTyped
+
+    private void jtfNVThanhToanFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfNVThanhToanFocusLost
+        // TODO add your handling code here:
+        setTienThua();
+    }//GEN-LAST:event_jtfNVThanhToanFocusLost
 
     /**
      * @param args the command line arguments
