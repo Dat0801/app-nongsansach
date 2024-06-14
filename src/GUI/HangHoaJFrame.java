@@ -210,6 +210,11 @@ public class HangHoaJFrame extends javax.swing.JFrame {
                 jtfHeSoFocusLost(evt);
             }
         });
+        jtfHeSo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfHeSoKeyTyped(evt);
+            }
+        });
 
         jlbHeSo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jlbHeSo.setText("Hệ số");
@@ -218,6 +223,11 @@ public class HangHoaJFrame extends javax.swing.JFrame {
         jtfGiaNhap.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jtfGiaNhapFocusLost(evt);
+            }
+        });
+        jtfGiaNhap.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfGiaNhapKeyTyped(evt);
             }
         });
 
@@ -234,6 +244,11 @@ public class HangHoaJFrame extends javax.swing.JFrame {
 
         jtfSoLuongTon.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jtfSoLuongTon.setDisabledTextColor(new java.awt.Color(153, 153, 153));
+        jtfSoLuongTon.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfSoLuongTonKeyTyped(evt);
+            }
+        });
 
         btnChonAnh.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnChonAnh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon-openfolder.png"))); // NOI18N
@@ -467,34 +482,50 @@ public class HangHoaJFrame extends javax.swing.JFrame {
     private boolean validateInput() {
         if (jtfTenHH.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng không để trống thông tin tên hàng", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+            jtfTenHH.setText("");
             jtfTenHH.requestFocus();
             return false;
         } else if (jtfHeSo.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng không để trống thông tin hệ số", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+            jtfHeSo.setText("");
             jtfHeSo.requestFocus();
             return false;
         } else if (jtfGiaNhap.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng không để trống thông tin giá nhập", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+            jtfGiaNhap.setText("");
             jtfGiaNhap.requestFocus();
             return false;
 
         } else if (jtfSoLuongTon.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng không để trống thông tin số lượng tồn", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+            jtfSoLuongTon.setText("");
             jtfSoLuongTon.requestFocus();
             return false;
         } else {
-            if (Float.parseFloat(jtfHeSo.getText()) <= 0) {
-                JOptionPane.showMessageDialog(this, "Vui lòng nhập hệ số lớn hơn 0", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+            if (Float.parseFloat(jtfHeSo.getText()) < 1) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập hệ số lớn hơn hoặc bằng 1", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                jtfHeSo.setText("");
+                jtfGiaBan.setText("");
+                jtfHeSo.requestFocus();
+                return false;
+            }
+            if (Float.parseFloat(jtfHeSo.getText()) > 2) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập hệ số nhỏ hơn hoặc bàng 2", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                jtfHeSo.setText("");
+                jtfGiaBan.setText("");
                 jtfHeSo.requestFocus();
                 return false;
             }
             if (Float.parseFloat(jtfGiaNhap.getText()) <= 0) {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập giá nhập lớn hơn 0", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                jtfGiaNhap.setText("");
+                jtfGiaBan.setText("");
                 jtfGiaNhap.requestFocus();
                 return false;
             }
             if (Float.parseFloat(jtfSoLuongTon.getText()) <= 0) {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập số lượng tồn lớn hơn 0", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                jtfSoLuongTon.setText("");
                 jtfSoLuongTon.requestFocus();
                 return false;
             }
@@ -546,6 +577,27 @@ public class HangHoaJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         setGiaBan();
     }//GEN-LAST:event_jtfHeSoFocusLost
+
+    private void jtfHeSoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfHeSoKeyTyped
+        // TODO add your handling code here:
+        if (!Character.isDigit(evt.getKeyChar()) && evt.getKeyChar() != '.') {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtfHeSoKeyTyped
+
+    private void jtfGiaNhapKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfGiaNhapKeyTyped
+        // TODO add your handling code here:
+        if (!Character.isDigit(evt.getKeyChar()) && evt.getKeyChar() != '.') {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtfGiaNhapKeyTyped
+
+    private void jtfSoLuongTonKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfSoLuongTonKeyTyped
+        // TODO add your handling code here:
+        if (!Character.isDigit(evt.getKeyChar()) && evt.getKeyChar() != '.') {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtfSoLuongTonKeyTyped
 
     /**
      * @param args the command line arguments

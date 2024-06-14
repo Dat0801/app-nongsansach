@@ -334,6 +334,7 @@
           </Properties>
           <Events>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtfHeSoFocusLost"/>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfHeSoKeyTyped"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jlbHeSo">
@@ -352,6 +353,7 @@
           </Properties>
           <Events>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtfGiaNhapFocusLost"/>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfGiaNhapKeyTyped"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jlbGiaNhap">
@@ -394,6 +396,9 @@
               <Color blue="99" green="99" red="99" type="rgb"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfSoLuongTonKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnChonAnh">
           <Properties>

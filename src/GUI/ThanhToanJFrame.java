@@ -9,6 +9,7 @@ import DAO.ChiTietHoaDonDAO;
 import DAO.HoaDonDAO;
 import DTO.ChiTietHoaDon;
 import DTO.HoaDon;
+import DTO.NhomHang;
 import DTO.SessionData;
 import javax.swing.JOptionPane;
 
@@ -46,8 +47,8 @@ public class ThanhToanJFrame extends javax.swing.JFrame {
 
     public String generateMaHD() {
         HoaDon hoadon = HoaDonDAO.getInstance().getLastHoaDon();
-        if(hoadon == null) {
-            
+        if (hoadon == null) {
+
         }
         int sothutu = (Integer.parseInt(hoadon.getMaHD().substring(2)) + 1);
         String mahd = "HD";
@@ -107,14 +108,14 @@ public class ThanhToanJFrame extends javax.swing.JFrame {
         jlbKhachThanhToan.setText("Khách thanh toán");
 
         jtfKhachThanhToan.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jtfKhachThanhToan.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jtfKhachThanhToanFocusLost(evt);
-            }
-        });
         jtfKhachThanhToan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfKhachThanhToanActionPerformed(evt);
+            }
+        });
+        jtfKhachThanhToan.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfKhachThanhToanKeyTyped(evt);
             }
         });
 
@@ -136,14 +137,14 @@ public class ThanhToanJFrame extends javax.swing.JFrame {
 
         jtfGiamGia.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jtfGiamGia.setDisabledTextColor(new java.awt.Color(153, 153, 153));
-        jtfGiamGia.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jtfGiamGiaFocusLost(evt);
-            }
-        });
         jtfGiamGia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfGiamGiaActionPerformed(evt);
+            }
+        });
+        jtfGiamGia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfGiamGiaKeyTyped(evt);
             }
         });
 
@@ -309,33 +310,31 @@ public class ThanhToanJFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập số tiền khách thanh toán", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
             jtfKhachThanhToan.requestFocus();
         } else {
-            String MaKH = "KH000";
-            if (this.formbanhang.khachhang != null) {
-                MaKH = this.formbanhang.khachhang.getMaKH();
-            }
-            HoaDon hd = new HoaDon(jtfMaHD.getText(), SessionData.getNv().getMaNV(), MaKH, this.formbanhang.TongTien);
-            HoaDonDAO.getInstance().insertHoaDon(hd);
-            for (ChiTietHoaDon cthd : this.formbanhang.listCTHD) {
-                cthd.setMaHD(hd.getMaHD());
-                ChiTietHoaDonDAO.getInstance().insertChiTietHoaDon(cthd);
-            }
-            JOptionPane.showMessageDialog(this, "Thanh toán thành công!!", "Thanh toán", JOptionPane.INFORMATION_MESSAGE);
-            if (this.formbanhang.listCTHD != null) {
-                this.formbanhang.listCTHD = null;
-                this.formbanhang.LoadCTHDVaoTable(null, null, null);
-                this.formbanhang.tinhTongTien(this.formbanhang.listCTHD);
+            Double TienThanhToan = Double.parseDouble(jtfKhachThanhToan.getText());
+            if (TienThanhToan < this.formbanhang.TongTien) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập số tiền khách thanh toán lớn hơn hoặc bằng tiền hàng hóa", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+            } else {
+                String MaKH = "KH000";
+                if (this.formbanhang.khachhang != null) {
+                    MaKH = this.formbanhang.khachhang.getMaKH();
+                }
+                HoaDon hd = new HoaDon(jtfMaHD.getText(), SessionData.getNv().getMaNV(), MaKH, this.formbanhang.TongTien);
+                HoaDonDAO.getInstance().insertHoaDon(hd);
+                for (ChiTietHoaDon cthd : this.formbanhang.listCTHD) {
+                    cthd.setMaHD(hd.getMaHD());
+                    ChiTietHoaDonDAO.getInstance().insertChiTietHoaDon(cthd);
+                }
+                JOptionPane.showMessageDialog(this, "Thanh toán thành công!!", "Thanh toán", JOptionPane.INFORMATION_MESSAGE);
+                if (this.formbanhang.listCTHD != null) {
+                    this.formbanhang.listCTHD = null;
+                    this.formbanhang.LoadCTHDVaoTable(null, null, null);
+                    this.formbanhang.tinhTongTien(this.formbanhang.listCTHD);
+                    NhomHang nh = (NhomHang) this.formbanhang.getJCBNHH().getSelectedItem();
+                    this.formbanhang.loadHH(nh.getMaNhomHang());
+                }
             }
         }
     }//GEN-LAST:event_btnThanhToanActionPerformed
-    private void jtfGiamGiaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfGiamGiaFocusLost
-        // TODO add your handling code here:
-        setTienSauGiamGia();
-    }//GEN-LAST:event_jtfGiamGiaFocusLost
-
-    private void jtfKhachThanhToanFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfKhachThanhToanFocusLost
-        // TODO add your handling code here:
-        setTienThua();
-    }//GEN-LAST:event_jtfKhachThanhToanFocusLost
     public void setTienThua() {
         double TienThua = 0;
         if (!jtfKhachThanhToan.getText().isEmpty()) {
@@ -358,8 +357,31 @@ public class ThanhToanJFrame extends javax.swing.JFrame {
 
     private void jtfGiamGiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfGiamGiaActionPerformed
         // TODO add your handling code here:
+        if(jtfGiamGia.getText().isEmpty()) {
+            jtfGiamGia.setText("0");
+        }
         setTienSauGiamGia();
     }//GEN-LAST:event_jtfGiamGiaActionPerformed
+
+    private void jtfGiamGiaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfGiamGiaKeyTyped
+        // TODO add your handling code here:
+        if (!Character.isDigit(evt.getKeyChar())) {
+            evt.consume();
+        } else {
+            String str = jtfGiamGia.getText() + evt.getKeyChar();
+            int discount = Integer.parseInt(str);
+            if (discount < 0 || discount > 100) {
+                evt.consume();
+            }
+        }
+    }//GEN-LAST:event_jtfGiamGiaKeyTyped
+
+    private void jtfKhachThanhToanKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfKhachThanhToanKeyTyped
+        // TODO add your handling code here:
+        if (!Character.isDigit(evt.getKeyChar()) && evt.getKeyChar() != '.') {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtfKhachThanhToanKeyTyped
 
     /**
      * @param args the command line arguments
