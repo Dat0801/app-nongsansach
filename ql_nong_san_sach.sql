@@ -714,14 +714,7 @@ BEGIN
 	Delete from nhacungcap where MaNCC=@MaNCC;
 END
 GO
---delete permanent ncc
-CREATE PROCEDURE sp_deletePermanentNCC
-	@MaNCC nvarchar(10)
-AS
-BEGIN
-	Delete from nhacungcap where MaNCC=@MaNCC;
-END
-GO
+
 --recover ncc
 CREATE PROCEDURE sp_recoverNCC
 	@MaNCC nvarchar(10)
@@ -758,14 +751,6 @@ CREATE PROCEDURE sp_getListPN
 AS
 BEGIN
     SELECT * FROM phieunhap;
-END
-GO
---get list PN by MaPN
-CREATE PROCEDURE sp_getListPNByMaPN
-	@MaPN varchar(10)
-AS
-BEGIN
-    Select * from PhieuNhap where MaPN=@MaPN;
 END
 GO
 --get list PN by MaPN
